@@ -1,0 +1,31 @@
+#mainwindow{
+  visibility:hidden;
+}
+tr{
+  vertical-align: top;
+}
+td{
+  white-space: nowrap;
+}
+.ryo{
+  padding: 0px 4px;
+}
+.bt{
+  font-size:80%;
+}
+.ov{
+  color: #ff0000;
+}
+.view{
+  border:0px none #ffffff;
+  text-align:right;
+  font-size:100%;
+}
+.right{
+  text-align:right;
+}
+input[type="button"] {
+  margin-right: 5px;
+  height: 1.8em;
+  min-width: 2em;
+}
