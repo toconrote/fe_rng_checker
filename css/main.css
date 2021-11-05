@@ -29,3 +29,16 @@ input[type="button"] {
   height: 1.8em;
   min-width: 2em;
 }
+@media screen and (max-width:768px) {
+  input[type="button"] {
+    margin-right: 5px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 100%;
+  }
+  input[type="button"] {
+    height: 48px;
+    min-width: 48px;
+    font-size: 100%;
+  }
+}
