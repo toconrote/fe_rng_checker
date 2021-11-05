@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ja">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Script-Type" content="text/javascript">
   <meta http-equiv="Content-Style-Type" content="text/css">
   <script src="js/jquery-1.10.2.min.js"></script>
-  <title>FE—” GBA ••ˆó‚ÌŒ• —ó‰Î‚ÌŒ• ¹–‚‚ÌŒõÎ</title>
+  <title>FEä¹±æ•° GBA å°å°ã®å‰£ çƒˆç«ã®å‰£ è–é­”ã®å…‰çŸ³</title>
   <style type="text/css">
     #mainwindow{
       visibility:hidden;
@@ -40,179 +40,179 @@
     }
   </style>
   <script type="text/javascript">
-    var randarr=[];          //—”ŒvZ—p”z—ñ
-    var nextarr=[];          //Ÿ‚Ì—”•\¶¬—p
-    var mv=8;                //ƒtƒ@ƒ‹ƒRƒ“–@ˆÚ“®—Í
-    var prim=0;              //‰½ŒÂ–Ú‚Ì—”‚©‚çn‚ß‚é‚©
-    var maxlen=10000;        //‰½ŒÂ‚Ì—”‚ğ”­¶‚³‚¹‚é‚©
-    var vv=[];               //—”‚Ì’l
-    var kouho_vv=[];         //ƒŒƒxƒ‹ƒAƒbƒvŒó•â—”
-    var kouho_vv2=[];        //ƒŒƒxƒ‹ƒAƒbƒvŒó•â—”
-    var search_vv=[];        //Œ»İˆÊ’uŒŸõ‚Éƒqƒbƒg‚µ‚½—”
-    var para=["HP","—Í","‹Z","‘¬‚³","ç”õ","–‚–h","K‰^"];   //”\—Í–¼ •\¦—p
-    var prvn=["mhp","str","skl","spd","def","mdf","luc"];     //”\—Í–¼ ŒvZ—p
-    var prct=prvn.length;    //”\—Í‚Ì”
-    var srchmax=100;         //Œ»İˆÊ’uŒŸõ•\¦”
-    var lvupmax=200;         //–Ú•WˆÊ’uŒŸõ•\¦”
+    var randarr=[];          //ä¹±æ•°è¨ˆç®—ç”¨é…åˆ—
+    var nextarr=[];          //æ¬¡ã®ä¹±æ•°è¡¨ç”Ÿæˆç”¨
+    var mv=8;                //ãƒ•ã‚¡ãƒ«ã‚³ãƒ³æ³•ç§»å‹•åŠ›
+    var prim=0;              //ä½•å€‹ç›®ã®ä¹±æ•°ã‹ã‚‰å§‹ã‚ã‚‹ã‹
+    var maxlen=10000;        //ä½•å€‹ã®ä¹±æ•°ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‹
+    var vv=[];               //ä¹±æ•°ã®å€¤
+    var kouho_vv=[];         //ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—å€™è£œä¹±æ•°
+    var kouho_vv2=[];        //ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—å€™è£œä¹±æ•°
+    var search_vv=[];        //ç¾åœ¨ä½ç½®æ¤œç´¢ã«ãƒ’ãƒƒãƒˆã—ãŸä¹±æ•°
+    var para=["HP","åŠ›","æŠ€","é€Ÿã•","å®ˆå‚™","é­”é˜²","å¹¸é‹"];   //èƒ½åŠ›å è¡¨ç¤ºç”¨
+    var prvn=["mhp","str","skl","spd","def","mdf","luc"];     //èƒ½åŠ›å è¨ˆç®—ç”¨
+    var prct=prvn.length;    //èƒ½åŠ›ã®æ•°
+    var srchmax=100;         //ç¾åœ¨ä½ç½®æ¤œç´¢è¡¨ç¤ºæ•°
+    var lvupmax=200;         //ç›®æ¨™ä½ç½®æ¤œç´¢è¡¨ç¤ºæ•°
     
-    var battle_skill=[];     //í“¬”\—Í
-    var battle_one_flags=[]; //í“¬ƒtƒ‰ƒO
-    var battle_in_list=[];   //í“¬ŒŸõŠJnˆÊ’u
-    var battle_le_list=[];   //í“¬—”g—pŒÂ”
-    var battle_index;        //í“¬ŒŸõ—”ˆÊ’u
-    var battle_stop;         //í“¬ŒŸõ’â~ƒtƒ‰ƒO
-    var battle_chf=1;        //í“¬ƒf[ƒ^•ÏXƒtƒ‰ƒO
-    var battle_turn;         //í“¬I—¹‚Ü‚Å‚Ìƒ^[ƒ“
-    var battle_turn_rzl=[];  //í“¬ƒ^[ƒ“–ˆ‚ÌŒ‹‰Ê
+    var battle_skill=[];     //æˆ¦é—˜èƒ½åŠ›
+    var battle_one_flags=[]; //æˆ¦é—˜ãƒ•ãƒ©ã‚°
+    var battle_in_list=[];   //æˆ¦é—˜æ¤œç´¢é–‹å§‹ä½ç½®
+    var battle_le_list=[];   //æˆ¦é—˜ä¹±æ•°ä½¿ç”¨å€‹æ•°
+    var battle_index;        //æˆ¦é—˜æ¤œç´¢ä¹±æ•°ä½ç½®
+    var battle_stop;         //æˆ¦é—˜æ¤œç´¢åœæ­¢ãƒ•ãƒ©ã‚°
+    var battle_chf=1;        //æˆ¦é—˜ãƒ‡ãƒ¼ã‚¿å¤‰æ›´ãƒ•ãƒ©ã‚°
+    var battle_turn;         //æˆ¦é—˜çµ‚äº†ã¾ã§ã®ã‚¿ãƒ¼ãƒ³
+    var battle_turn_rzl=[];  //æˆ¦é—˜ã‚¿ãƒ¼ãƒ³æ¯ã®çµæœ
     
     var ud=[
 /*
-    ["@«¹–‚«","","","","","","",""],
-    ["ƒGƒCƒŠ[ƒN",70,40,60,60,30,30,60],
-    ["ƒ[ƒg",85,50,45,45,40,30,25],
-    ["ƒMƒŠƒAƒ€",90,40,30,30,55,20,30],
-    ["ƒtƒ‰ƒ“ƒc",80,40,40,50,25,20,40],
-    ["ƒ‚ƒ‹ƒ_",85,40,50,45,25,25,20],
-    ["ƒ”ƒ@ƒlƒbƒT",50,35,55,60,20,30,50],
-    ["ƒƒX",70,50,35,25,25,20,40],
-    ["ƒKƒ‹ƒVƒA",80,65,40,20,25,15,40],
-    ["ƒlƒCƒ~[",55,45,50,60,15,35,50],
-    ["ƒR[ƒ}",75,40,40,65,25,20,45],
-    ["ƒAƒXƒŒƒC",55,60,50,40,15,60,25],
-    ["ƒ‹[ƒe",45,70,30,45,15,45,45],
-    ["ƒiƒ^[ƒVƒƒ",50,60,25,40,15,55,60],
-    ["ƒˆƒVƒ…ƒA",80,30,55,55,20,20,30],
-    ["ƒGƒtƒ‰ƒ€",80,55,55,45,35,25,50],
-    ["ƒtƒHƒ‹ƒf",80,40,50,45,20,25,35],
-    ["ƒJƒCƒ‹",85,50,40,40,25,20,20],
-    ["ƒ^[ƒi",65,45,40,65,20,25,60],
-    ["ƒAƒƒŠƒA",70,40,40,40,30,15,50],
-    ["ƒq[ƒjƒAƒX",60,40,40,45,20,25,45],
-    ["ƒWƒXƒg",90,45,40,30,35,25,30],
-    ["ƒeƒeƒBƒX",85,5,10,70,30,75,80],
-    ["ƒ}ƒŠƒJ",75,25,50,55,15,20,50],
-    ["ƒ‰[ƒ`ƒFƒ‹",45,60,45,50,15,50,65],
-    ["ƒhƒYƒ‰",85,50,35,40,30,25,30],
-    ["ƒTƒŒƒt",50,30,25,40,30,35,40],
-    ["ƒ†ƒAƒ“",50,55,40,35,15,40,50],
-    ["ƒN[ƒK[",85,55,40,45,25,15,35],
-    ["ƒŒƒiƒbƒN",60,25,45,60,25,25,25],
-    ["ƒfƒ…ƒbƒZƒ‹",85,55,40,30,45,30,20],
-    ["ƒm[ƒ‹",70,50,40,35,10,45,20],
-    ["ƒ~ƒ‹ƒ‰",130,90,85,65,150,30,30],
-    ["ƒVƒŒ[ƒl",70,35,50,60,20,50,30],
-    ["ƒPƒZƒ‹ƒ_",85,50,45,45,30,20,20],
-    ["ƒIƒ‹ƒ\ƒ“",80,55,45,40,45,30,25],
-    ["ƒA[ƒ”",75,45,50,40,20,45,15],
-    ["ƒCƒVƒ…ƒƒA",75,30,60,55,20,25,30],
-    ["ƒZƒ‰ƒCƒi",85,40,55,40,20,25,25],
-    ["ƒOƒŒƒ“",85,40,50,45,25,40,20],
-    ["ƒwƒCƒfƒ“",70,40,40,45,25,25,40],
-    ["ƒ”ƒ@ƒ‹ƒ^[",80,40,55,50,20,20,15],
-    ["ƒtƒ@[ƒh",85,55,40,30,45,25,25],
-    ["ƒŠƒIƒ“",85,50,10,10,10,15,30],
-    ["@«—ó‰Î«","","","","","","",""],
+    ["ã€€â†“è–é­”â†“","","","","","","",""],
+    ["ã‚¨ã‚¤ãƒªãƒ¼ã‚¯",70,40,60,60,30,30,60],
+    ["ã‚¼ãƒˆ",85,50,45,45,40,30,25],
+    ["ã‚®ãƒªã‚¢ãƒ ",90,40,30,30,55,20,30],
+    ["ãƒ•ãƒ©ãƒ³ãƒ„",80,40,40,50,25,20,40],
+    ["ãƒ¢ãƒ«ãƒ€",85,40,50,45,25,25,20],
+    ["ãƒ´ã‚¡ãƒãƒƒã‚µ",50,35,55,60,20,30,50],
+    ["ãƒ­ã‚¹",70,50,35,25,25,20,40],
+    ["ã‚¬ãƒ«ã‚·ã‚¢",80,65,40,20,25,15,40],
+    ["ãƒã‚¤ãƒŸãƒ¼",55,45,50,60,15,35,50],
+    ["ã‚³ãƒ¼ãƒ",75,40,40,65,25,20,45],
+    ["ã‚¢ã‚¹ãƒ¬ã‚¤",55,60,50,40,15,60,25],
+    ["ãƒ«ãƒ¼ãƒ†",45,70,30,45,15,45,45],
+    ["ãƒŠã‚¿ãƒ¼ã‚·ãƒ£",50,60,25,40,15,55,60],
+    ["ãƒ¨ã‚·ãƒ¥ã‚¢",80,30,55,55,20,20,30],
+    ["ã‚¨ãƒ•ãƒ©ãƒ ",80,55,55,45,35,25,50],
+    ["ãƒ•ã‚©ãƒ«ãƒ‡",80,40,50,45,20,25,35],
+    ["ã‚«ã‚¤ãƒ«",85,50,40,40,25,20,20],
+    ["ã‚¿ãƒ¼ãƒŠ",65,45,40,65,20,25,60],
+    ["ã‚¢ãƒ¡ãƒªã‚¢",70,40,40,40,30,15,50],
+    ["ãƒ’ãƒ¼ãƒ‹ã‚¢ã‚¹",60,40,40,45,20,25,45],
+    ["ã‚¸ã‚¹ãƒˆ",90,45,40,30,35,25,30],
+    ["ãƒ†ãƒ†ã‚£ã‚¹",85,5,10,70,30,75,80],
+    ["ãƒãƒªã‚«",75,25,50,55,15,20,50],
+    ["ãƒ©ãƒ¼ãƒã‚§ãƒ«",45,60,45,50,15,50,65],
+    ["ãƒ‰ã‚ºãƒ©",85,50,35,40,30,25,30],
+    ["ã‚µãƒ¬ãƒ•",50,30,25,40,30,35,40],
+    ["ãƒ¦ã‚¢ãƒ³",50,55,40,35,15,40,50],
+    ["ã‚¯ãƒ¼ã‚¬ãƒ¼",85,55,40,45,25,15,35],
+    ["ãƒ¬ãƒŠãƒƒã‚¯",60,25,45,60,25,25,25],
+    ["ãƒ‡ãƒ¥ãƒƒã‚»ãƒ«",85,55,40,30,45,30,20],
+    ["ãƒãƒ¼ãƒ«",70,50,40,35,10,45,20],
+    ["ãƒŸãƒ«ãƒ©",130,90,85,65,150,30,30],
+    ["ã‚·ãƒ¬ãƒ¼ãƒ",70,35,50,60,20,50,30],
+    ["ã‚±ã‚»ãƒ«ãƒ€",85,50,45,45,30,20,20],
+    ["ã‚ªãƒ«ã‚½ãƒ³",80,55,45,40,45,30,25],
+    ["ã‚¢ãƒ¼ãƒ´",75,45,50,40,20,45,15],
+    ["ã‚¤ã‚·ãƒ¥ãƒ¡ã‚¢",75,30,60,55,20,25,30],
+    ["ã‚»ãƒ©ã‚¤ãƒŠ",85,40,55,40,20,25,25],
+    ["ã‚°ãƒ¬ãƒ³",85,40,50,45,25,40,20],
+    ["ãƒ˜ã‚¤ãƒ‡ãƒ³",70,40,40,45,25,25,40],
+    ["ãƒ´ã‚¡ãƒ«ã‚¿ãƒ¼",80,40,55,50,20,20,15],
+    ["ãƒ•ã‚¡ãƒ¼ãƒ‰",85,55,40,30,45,25,25],
+    ["ãƒªã‚ªãƒ³",85,50,10,10,10,15,30],
+    ["ã€€â†“çƒˆç«â†“","","","","","","",""],
     */
-    ["ƒGƒŠƒEƒbƒh",80,45,50,40,30,35,45],
-    ["ƒƒEƒGƒ“",90,30,30,30,40,30,50],
-    ["ƒ}[ƒJƒX",65,30,50,25,15,35,30],
-    ["ƒŒƒxƒbƒJ",60,40,50,60,15,30,50],
-    ["ƒhƒ‹ƒJƒX",80,60,40,20,25,15,45],
-    ["ƒoƒAƒgƒ‹",85,50,35,40,30,25,30],
-    ["ƒwƒNƒgƒ‹",90,60,45,35,50,25,30],
-    ["ƒIƒYƒCƒ“",90,40,30,30,55,30,35],
-    ["ƒZ[ƒ‰",50,50,30,40,15,55,60],
-    ["ƒ}ƒVƒ…[",75,30,40,70,25,20,50],
-    ["ƒMƒB",75,30,50,70,15,25,45],
-    ["ƒ}ƒŠƒiƒX",120,0,90,90,30,15,100],
-    ["ƒGƒ‹ƒN",65,40,40,50,20,40,30],
-    ["ƒvƒŠƒVƒ‰",45,40,50,40,15,50,65],
-    ["ƒŠƒ“",70,40,60,60,20,30,55],
-    ["ƒEƒBƒ‹",75,50,50,40,20,25,40],
-    ["ƒPƒ“ƒg",85,40,50,45,25,25,20],
-    ["ƒZƒCƒ“",80,60,35,40,20,20,35],
-    ["ƒtƒƒŠ[ƒi",60,40,50,55,15,35,50],
-    ["ƒŒƒCƒ”ƒ@ƒ“",85,55,40,45,25,15,35],
-    ["ƒ‹ƒZƒA",55,60,50,40,10,60,20],
-    ["ƒJƒiƒX",70,45,40,35,25,45,25],
-    ["ƒ_[ƒc",70,65,20,60,20,15,35],
-    ["ƒtƒBƒI[ƒ‰",70,35,60,50,20,50,30],
-    ["ƒ‰ƒKƒ‹ƒg",60,25,45,60,25,25,60],
-    ["ƒjƒjƒAƒ“",85,5,5,70,30,70,80],
-    ["ƒCƒTƒhƒ‰",75,30,35,50,20,25,45],
-    ["ƒq[ƒX",80,50,50,45,30,20,20],
-    ["ƒ‰ƒX",80,50,40,50,10,25,30],
-    ["ƒz[ƒNƒAƒC",50,40,30,25,20,35,40],
-    ["ƒKƒCƒc",85,50,30,40,20,20,40],
-    ["ƒƒŒƒX",70,45,40,20,35,35,30],
-    ["ƒtƒ@ƒŠƒi",75,50,40,45,25,30,45],
-    ["ƒpƒ“ƒg",50,30,20,40,30,35,40],
-    ["ƒ‹ƒC[ƒY",60,40,40,40,20,30,30],
-    ["ƒJƒŒƒ‹",70,30,50,50,10,15,30],
-    ["ƒn[ƒPƒ“",80,35,30,40,30,25,20],
-    ["ƒjƒm",55,50,55,60,15,50,45],
-    ["ƒWƒƒƒtƒ@ƒ‹",65,15,40,35,30,30,20],
-    ["ƒ”ƒ@ƒCƒ_",60,45,25,40,25,15,30],
-    ["ƒJƒAƒ‰",60,25,45,55,10,20,40],
-    ["ƒjƒ‹ƒX",85,5,5,70,30,70,80],
-    ["ƒŒƒi[ƒg",60,40,30,35,20,40,15],
-    ["ƒAƒgƒX",0,0,0,0,0,0,0]
+    ["ã‚¨ãƒªã‚¦ãƒƒãƒ‰",80,45,50,40,30,35,45],
+    ["ãƒ­ã‚¦ã‚¨ãƒ³",90,30,30,30,40,30,50],
+    ["ãƒãƒ¼ã‚«ã‚¹",65,30,50,25,15,35,30],
+    ["ãƒ¬ãƒ™ãƒƒã‚«",60,40,50,60,15,30,50],
+    ["ãƒ‰ãƒ«ã‚«ã‚¹",80,60,40,20,25,15,45],
+    ["ãƒã‚¢ãƒˆãƒ«",85,50,35,40,30,25,30],
+    ["ãƒ˜ã‚¯ãƒˆãƒ«",90,60,45,35,50,25,30],
+    ["ã‚ªã‚ºã‚¤ãƒ³",90,40,30,30,55,30,35],
+    ["ã‚»ãƒ¼ãƒ©",50,50,30,40,15,55,60],
+    ["ãƒã‚·ãƒ¥ãƒ¼",75,30,40,70,25,20,50],
+    ["ã‚®ã‚£",75,30,50,70,15,25,45],
+    ["ãƒãƒªãƒŠã‚¹",120,0,90,90,30,15,100],
+    ["ã‚¨ãƒ«ã‚¯",65,40,40,50,20,40,30],
+    ["ãƒ—ãƒªã‚·ãƒ©",45,40,50,40,15,50,65],
+    ["ãƒªãƒ³",70,40,60,60,20,30,55],
+    ["ã‚¦ã‚£ãƒ«",75,50,50,40,20,25,40],
+    ["ã‚±ãƒ³ãƒˆ",85,40,50,45,25,25,20],
+    ["ã‚»ã‚¤ãƒ³",80,60,35,40,20,20,35],
+    ["ãƒ•ãƒ­ãƒªãƒ¼ãƒŠ",60,40,50,55,15,35,50],
+    ["ãƒ¬ã‚¤ãƒ´ã‚¡ãƒ³",85,55,40,45,25,15,35],
+    ["ãƒ«ã‚»ã‚¢",55,60,50,40,10,60,20],
+    ["ã‚«ãƒŠã‚¹",70,45,40,35,25,45,25],
+    ["ãƒ€ãƒ¼ãƒ„",70,65,20,60,20,15,35],
+    ["ãƒ•ã‚£ã‚ªãƒ¼ãƒ©",70,35,60,50,20,50,30],
+    ["ãƒ©ã‚¬ãƒ«ãƒˆ",60,25,45,60,25,25,60],
+    ["ãƒ‹ãƒ‹ã‚¢ãƒ³",85,5,5,70,30,70,80],
+    ["ã‚¤ã‚µãƒ‰ãƒ©",75,30,35,50,20,25,45],
+    ["ãƒ’ãƒ¼ã‚¹",80,50,50,45,30,20,20],
+    ["ãƒ©ã‚¹",80,50,40,50,10,25,30],
+    ["ãƒ›ãƒ¼ã‚¯ã‚¢ã‚¤",50,40,30,25,20,35,40],
+    ["ã‚¬ã‚¤ãƒ„",85,50,30,40,20,20,40],
+    ["ãƒ¯ãƒ¬ã‚¹",70,45,40,20,35,35,30],
+    ["ãƒ•ã‚¡ãƒªãƒŠ",75,50,40,45,25,30,45],
+    ["ãƒ‘ãƒ³ãƒˆ",50,30,20,40,30,35,40],
+    ["ãƒ«ã‚¤ãƒ¼ã‚º",60,40,40,40,20,30,30],
+    ["ã‚«ãƒ¬ãƒ«",70,30,50,50,10,15,30],
+    ["ãƒãƒ¼ã‚±ãƒ³",80,35,30,40,30,25,20],
+    ["ãƒ‹ãƒ",55,50,55,60,15,50,45],
+    ["ã‚¸ãƒ£ãƒ•ã‚¡ãƒ«",65,15,40,35,30,30,20],
+    ["ãƒ´ã‚¡ã‚¤ãƒ€",60,45,25,40,25,15,30],
+    ["ã‚«ã‚¢ãƒ©",60,25,45,55,10,20,40],
+    ["ãƒ‹ãƒ«ã‚¹",85,5,5,70,30,70,80],
+    ["ãƒ¬ãƒŠãƒ¼ãƒˆ",60,40,30,35,20,40,15],
+    ["ã‚¢ãƒˆã‚¹",0,0,0,0,0,0,0]
     /*,
-    ["@«••ˆó«","","","","","","",""],
-    ["ƒƒC",80,40,50,40,25,30,60],
-    ["ƒ}[ƒJƒX",60,25,20,25,15,20,20],
-    ["ƒAƒŒƒ“",85,45,40,45,25,10,40],
-    ["ƒ‰ƒ“ƒX",80,40,45,50,20,15,35],
-    ["ƒEƒHƒ‹ƒg",80,40,50,40,20,10,40],
-    ["ƒ{[ƒ‹ƒX",90,30,30,40,35,10,50],
-    ["ƒ}ƒŠƒiƒX",100,0,50,50,20,5,100],
-    ["ƒGƒŒƒ“",45,50,30,20,5,60,70],
-    ["ƒfƒB[ƒN",90,40,40,30,20,15,35],
-    ["ƒ[ƒh",75,50,45,20,30,5,45],
-    ["ƒƒbƒg",80,30,30,35,40,15,30],
-    ["ƒVƒƒƒj[",45,30,55,60,10,25,60],
-    ["ƒ`ƒƒƒh",85,50,50,80,25,15,60],
-    ["ƒ‹ƒD",50,40,50,50,15,30,35],
-    ["ƒNƒ‰ƒŠ[ƒl",40,30,40,50,10,40,65],
-    ["ƒ‹ƒgƒK[",80,30,60,50,20,20,30],
-    ["ƒTƒEƒ‹",60,40,45,45,15,50,15],
-    ["ƒhƒƒV[",85,50,45,45,15,15,35],
-    ["ƒX[",55,30,55,65,10,15,50],
-    ["ƒ[ƒƒbƒg",75,25,20,20,30,15,15],
-    ["ƒgƒŒƒbƒN",85,40,30,35,30,5,50],
-    ["ƒmƒA",75,30,45,30,30,10,40],
-    ["ƒAƒXƒg[ƒ‹",90,35,40,50,20,20,15],
-    ["ƒŠƒŠ[ƒi",45,75,20,35,10,35,50],
-    ["ƒEƒFƒ“ƒfƒB",85,40,40,40,30,10,45],
-    ["ƒo[ƒX",100,60,25,20,40,2,20],
-    ["ƒI[ƒWƒF",85,40,30,45,20,15,55],
-    ["ƒtƒBƒ‹",75,25,50,55,15,20,50],
-    ["ƒVƒ“",75,45,50,50,10,15,25],
-    ["ƒSƒ“ƒUƒŒƒX",90,60,15,50,25,5,35],
-    ["ƒM[ƒX",85,50,30,40,20,10,40],
-    ["ƒNƒŒƒCƒ“",60,35,40,45,15,25,50],
-    ["ƒeƒBƒg",60,40,45,55,15,20,40],
-    ["ƒ‰ƒ‰ƒ€",70,10,5,70,20,30,80],
-    ["ƒGƒLƒhƒi",75,30,25,30,15,15,20],
-    ["ƒGƒ‹ƒtƒBƒ“",80,5,5,65,25,55,65],
-    ["ƒoƒAƒgƒ‹",70,40,20,30,20,5,20],
-    ["ƒŒƒC",55,45,55,40,15,35,15],
-    ["ƒLƒƒƒX",80,40,45,85,15,20,50],
-    ["ƒ~ƒŒƒfƒB",75,50,50,45,20,5,25],
-    ["ƒp[ƒVƒoƒ‹",75,30,25,35,20,10,20],
-    ["ƒZƒVƒŠƒA",60,35,45,25,20,25,25],
-    ["ƒ\ƒtƒB[ƒ„",60,55,40,30,20,55,20],
-    ["ƒCƒOƒŒ[ƒk",70,35,25,35,10,5,20],
-    ["ƒKƒŒƒbƒg",70,45,25,25,15,5,15],
-    ["ƒtƒ@",130,90,85,65,30,50,150],
-    ["ƒqƒ…ƒE",75,30,30,45,20,15,25],
-    ["ƒcƒ@ƒCƒX",80,60,50,35,25,5,20],
-    ["ƒ_ƒOƒ‰ƒX",60,30,30,30,30,5,20],
-    ["ƒjƒCƒ",25,15,15,15,15,20,5],
-    ["ƒ_ƒ„ƒ“",55,20,20,15,10,10,20],
-    ["ƒ†[ƒm",50,20,35,30,10,10,45],
-    ["ƒˆ[ƒfƒ‹",20,30,15,10,10,20,20],
-    ["ƒJƒŒƒ‹",210,130,140,140,110,100,120]
+    ["ã€€â†“å°å°â†“","","","","","","",""],
+    ["ãƒ­ã‚¤",80,40,50,40,25,30,60],
+    ["ãƒãƒ¼ã‚«ã‚¹",60,25,20,25,15,20,20],
+    ["ã‚¢ãƒ¬ãƒ³",85,45,40,45,25,10,40],
+    ["ãƒ©ãƒ³ã‚¹",80,40,45,50,20,15,35],
+    ["ã‚¦ã‚©ãƒ«ãƒˆ",80,40,50,40,20,10,40],
+    ["ãƒœãƒ¼ãƒ«ã‚¹",90,30,30,40,35,10,50],
+    ["ãƒãƒªãƒŠã‚¹",100,0,50,50,20,5,100],
+    ["ã‚¨ãƒ¬ãƒ³",45,50,30,20,5,60,70],
+    ["ãƒ‡ã‚£ãƒ¼ã‚¯",90,40,40,30,20,15,35],
+    ["ãƒ¯ãƒ¼ãƒ‰",75,50,45,20,30,5,45],
+    ["ãƒ­ãƒƒãƒˆ",80,30,30,35,40,15,30],
+    ["ã‚·ãƒ£ãƒ‹ãƒ¼",45,30,55,60,10,25,60],
+    ["ãƒãƒ£ãƒ‰",85,50,50,80,25,15,60],
+    ["ãƒ«ã‚¥",50,40,50,50,15,30,35],
+    ["ã‚¯ãƒ©ãƒªãƒ¼ãƒ",40,30,40,50,10,40,65],
+    ["ãƒ«ãƒˆã‚¬ãƒ¼",80,30,60,50,20,20,30],
+    ["ã‚µã‚¦ãƒ«",60,40,45,45,15,50,15],
+    ["ãƒ‰ãƒ­ã‚·ãƒ¼",85,50,45,45,15,15,35],
+    ["ã‚¹ãƒ¼",55,30,55,65,10,15,50],
+    ["ã‚¼ãƒ­ãƒƒãƒˆ",75,25,20,20,30,15,15],
+    ["ãƒˆãƒ¬ãƒƒã‚¯",85,40,30,35,30,5,50],
+    ["ãƒã‚¢",75,30,45,30,30,10,40],
+    ["ã‚¢ã‚¹ãƒˆãƒ¼ãƒ«",90,35,40,50,20,20,15],
+    ["ãƒªãƒªãƒ¼ãƒŠ",45,75,20,35,10,35,50],
+    ["ã‚¦ã‚§ãƒ³ãƒ‡ã‚£",85,40,40,40,30,10,45],
+    ["ãƒãƒ¼ã‚¹",100,60,25,20,40,2,20],
+    ["ã‚ªãƒ¼ã‚¸ã‚§",85,40,30,45,20,15,55],
+    ["ãƒ•ã‚£ãƒ«",75,25,50,55,15,20,50],
+    ["ã‚·ãƒ³",75,45,50,50,10,15,25],
+    ["ã‚´ãƒ³ã‚¶ãƒ¬ã‚¹",90,60,15,50,25,5,35],
+    ["ã‚®ãƒ¼ã‚¹",85,50,30,40,20,10,40],
+    ["ã‚¯ãƒ¬ã‚¤ãƒ³",60,35,40,45,15,25,50],
+    ["ãƒ†ã‚£ãƒˆ",60,40,45,55,15,20,40],
+    ["ãƒ©ãƒ©ãƒ ",70,10,5,70,20,30,80],
+    ["ã‚¨ã‚­ãƒ‰ãƒŠ",75,30,25,30,15,15,20],
+    ["ã‚¨ãƒ«ãƒ•ã‚£ãƒ³",80,5,5,65,25,55,65],
+    ["ãƒã‚¢ãƒˆãƒ«",70,40,20,30,20,5,20],
+    ["ãƒ¬ã‚¤",55,45,55,40,15,35,15],
+    ["ã‚­ãƒ£ã‚¹",80,40,45,85,15,20,50],
+    ["ãƒŸãƒ¬ãƒ‡ã‚£",75,50,50,45,20,5,25],
+    ["ãƒ‘ãƒ¼ã‚·ãƒãƒ«",75,30,25,35,20,10,20],
+    ["ã‚»ã‚·ãƒªã‚¢",60,35,45,25,20,25,25],
+    ["ã‚½ãƒ•ã‚£ãƒ¼ãƒ¤",60,55,40,30,20,55,20],
+    ["ã‚¤ã‚°ãƒ¬ãƒ¼ãƒŒ",70,35,25,35,10,5,20],
+    ["ã‚¬ãƒ¬ãƒƒãƒˆ",70,45,25,25,15,5,15],
+    ["ãƒ•ã‚¡",130,90,85,65,30,50,150],
+    ["ãƒ’ãƒ¥ã‚¦",75,30,30,45,20,15,25],
+    ["ãƒ„ã‚¡ã‚¤ã‚¹",80,60,50,35,25,5,20],
+    ["ãƒ€ã‚°ãƒ©ã‚¹",60,30,30,30,30,5,20],
+    ["ãƒ‹ã‚¤ãƒ¡",25,15,15,15,15,20,5],
+    ["ãƒ€ãƒ¤ãƒ³",55,20,20,15,10,10,20],
+    ["ãƒ¦ãƒ¼ãƒ",50,20,35,30,10,10,45],
+    ["ãƒ¨ãƒ¼ãƒ‡ãƒ«",20,30,15,10,10,20,20],
+    ["ã‚«ãƒ¬ãƒ«",210,130,140,140,110,100,120]
     */
     ];
     if (!localStorage.ch) {
@@ -220,7 +220,7 @@
       var ud_len = ud.length;
       for (var i=0;i<ud_len;i++){
         ud_obj[ud[i][0]] = {/*
-          "¬’·—¦": {
+          "æˆé•·ç‡": {
             "mhp": ud[i][1],
             "str": ud[i][2],
             "skl": ud[i][3],
@@ -243,21 +243,21 @@
     } else {
       ud_obj = JSON.parse(localStorage.ch);
     }
-    var chlist = ["ã¸‚µ‚È‚¢‚Æƒ_ƒ", "", "‚Ç‚¿‚ç‚Å‚à‚æ‚¢", "ã¸‚µ‚¿‚áƒ_ƒ", "--MAX--"]
-    var unitindex=1; //‰Šú‘I‘ğƒ†ƒjƒbƒg
-    var killlist=[]; //uEƒ^ƒCƒv
-    killlist[0]=["ƒ{ƒXˆÈŠO",50,1];
-    killlist[1]=["ƒ{ƒX",25,1];
-    killlist[2]=["ƒ‰ƒXƒ{ƒX",25,0];
-    killlist[3]=["u••ˆóv",0,0];
-    var skilllist=["‚È‚µ","‘å‚","ŠÑ’Ê","uE","•K“I"]; //ƒXƒLƒ‹
-    var armlist=["’Êí","‚Q‰ñUŒ‚","‚g‚o‹zû","ô‚¢","“Å","Î‰»"]; //•Ší
-    function rand_calc(){ //—”ŒvZ
+    var chlist = ["ä¸Šæ˜‡ã—ãªã„ã¨ãƒ€ãƒ¡", "", "ã©ã¡ã‚‰ã§ã‚‚ã‚ˆã„", "ä¸Šæ˜‡ã—ã¡ã‚ƒãƒ€ãƒ¡", "--MAX--"]
+    var unitindex=1; //åˆæœŸé¸æŠãƒ¦ãƒ‹ãƒƒãƒˆ
+    var killlist=[]; //ç¬æ®ºã‚¿ã‚¤ãƒ—
+    killlist[0]=["ãƒœã‚¹ä»¥å¤–",50,1];
+    killlist[1]=["ãƒœã‚¹",25,1];
+    killlist[2]=["ãƒ©ã‚¹ãƒœã‚¹",25,0];
+    killlist[3]=["ã€Œå°å°ã€",0,0];
+    var skilllist=["ãªã—","å¤§ç›¾","è²«é€š","ç¬æ®º","å¿…çš„"]; //ã‚¹ã‚­ãƒ«
+    var armlist=["é€šå¸¸","ï¼’å›æ”»æ’ƒ","ï¼¨ï¼°å¸å","å‘ªã„","æ¯’","çŸ³åŒ–"]; //æ­¦å™¨
+    function rand_calc(){ //ä¹±æ•°è¨ˆç®—
       randarr[0]=(((randarr[1]>>>5)+(randarr[2]<<11))^((randarr[3]<<1)+(randarr[2]>>>15)))&0xffff;
       randarr.unshift((randarr[0]*100)>>>16);randarr.pop();
       return randarr[0];
     }
-    function rand_ins(){ //—”‚ğ”z—ñ‚É“ü‚ê‚é
+    function rand_ins(){ //ä¹±æ•°ã‚’é…åˆ—ã«å…¥ã‚Œã‚‹
       vv=[];
       for(var i=0;i<maxlen;i++){
         vv.push(rand_calc());
@@ -274,12 +274,12 @@
       reset();
       document.getElementById("mainwindow").style.visibility="visible";
     }
-    function next(){ //Ÿ‚Ì—”
+    function next(){ //æ¬¡ã®ä¹±æ•°
       var maxlenbak=maxlen;
       maxlen=parseInt(document.getElementById("rand_max").value);
       if(isNaN(maxlen)){ maxlen=maxlenbak; }
       if(maxlen<0){ maxlen=0; }
-      if(window.confirm("—”‚ğ"+(prim+maxlenbak)+"ŒÂ‚©‚ç‚Ì"+(maxlen)+"ŒÂ‚É•ÏX‚µ‚Ü‚·B\n‚æ‚ë‚µ‚¢‚Å‚·‚©H")){
+      if(window.confirm("ä¹±æ•°ã‚’"+(prim+maxlenbak)+"å€‹ã‹ã‚‰ã®"+(maxlen)+"å€‹ã«å¤‰æ›´ã—ã¾ã™ã€‚\nã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ")){
         battle_in_list=[];
         battle_le_list=[];
         battle_chf=1;
@@ -290,7 +290,7 @@
         document.getElementById("rand_start").value=prim;
       }
     }
-    function next_vv(){ //Ÿ‚Ì—”
+    function next_vv(){ //æ¬¡ã®ä¹±æ•°
       document.getElementById("rand_start").value=prim;
       document.getElementById("rand_max").value=maxlen;
       randarr[1]=nextarr[0];randarr[2]=nextarr[1];randarr[3]=nextarr[2];
@@ -301,7 +301,7 @@
       change_mv();
       createTable(0);
     }
-    function reset(){ //Äİ’è
+    function reset(){ //å†è¨­å®š
       document.getElementById("rand_start").value=prim;
       document.getElementById("rand_max").value=maxlen;
       document.getElementById("view_val").value=prim;
@@ -316,7 +316,7 @@
       change_mv();
       createTable(0);
     }
-    function change_max(){ //—”‚ÌŒÂ”•ÏX
+    function change_max(){ //ä¹±æ•°ã®å€‹æ•°å¤‰æ›´
       var primbak=prim;
       var maxlenbak=maxlen;
       prim=parseInt(document.getElementById("rand_start").value);
@@ -325,7 +325,7 @@
       if(isNaN(maxlen)){ maxlen=maxlenbak; }
       if(prim<0){ prim=0; }
       if(maxlen<0){ maxlen=0; }
-      if(window.confirm("—”‚ğ"+prim+"ŒÂ‚©‚ç‚Ì"+(maxlen)+"ŒÂ‚É•ÏX‚µ‚Ü‚·B\n‚æ‚ë‚µ‚¢‚Å‚·‚©H")){
+      if(window.confirm("ä¹±æ•°ã‚’"+prim+"å€‹ã‹ã‚‰ã®"+(maxlen)+"å€‹ã«å¤‰æ›´ã—ã¾ã™ã€‚\nã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ")){
         battle_in_list=[];
         battle_le_list=[];
         battle_chf=1;
@@ -335,20 +335,20 @@
         document.getElementById("rand_start").value=prim=primbak;
       }
     }
-    function view_val_f(){ //Œ»İˆÊ’u
+    function view_val_f(){ //ç¾åœ¨ä½ç½®
       var i;
       var str;
       var index=parseInt(document.getElementById("view_val").value)-prim;
       if(isNaN(index)||index<0){ index=0; }
       ret=[];
-      str="—”’lF";
+      str="ä¹±æ•°å€¤ï¼š";
       if(index>maxlen){ index=maxlen;}
       document.getElementById("view_val").value=index+prim;
       for(i=0;i<30;i++){
         ret.push("<span title='("+vv[index+i]+"+"+vv[index+i+1]+")/2="
           +(vv[index+i]+vv[index+i+1]>>1)+"'>"+String(vv[index+i]+100).slice(1)+"</span>");
       }
-      str+=ret.join(" ")+"<br>‚e–@F";
+      str+=ret.join(" ")+"<br>ï¼¦æ³•ï¼š";
       var fc=0;
       for(i=0;i<30||fc;i++){
         if(vv[index+i]<50&&fc<mv-2){ fc++;}
@@ -367,7 +367,7 @@
       document.getElementById("view_val").value-=-v;
       view_val_f();
     }
-    function lv_val_glance(){ //–Ú•WˆÊ’uæ“Ç‚İ
+    function lv_val_glance(){ //ç›®æ¨™ä½ç½®å…ˆèª­ã¿
       var index;
       index=parseInt(document.getElementById("lv_val").value)-prim;
       if(document.getElementById("glance_ck").checked){
@@ -375,7 +375,7 @@
       }
       return index;
     }
-    function glance_a(){ //æ“Ç‚İ”½‰f
+    function glance_a(){ //å…ˆèª­ã¿åæ˜ 
       var index;
       index=parseInt(document.getElementById("lv_val").value);
       index+=document.getElementById("glance").selectedIndex-999;
@@ -383,11 +383,11 @@
       document.getElementById("glance_ck").checked=0;
       lv_val_f();
     }
-    function lv_val_f(){ //–Ú•WˆÊ’u
+    function lv_val_f(){ //ç›®æ¨™ä½ç½®
       var i;
       var str;
       ret=[];
-      str="—”’lF";
+      str="ä¹±æ•°å€¤ï¼š";
       var index=parseInt(document.getElementById("lv_val").value)-prim;
       if(isNaN(index)||index<0){ index=0; }
       if(index<=0){ index=0; }
@@ -402,7 +402,7 @@
             +(vv[index+i]+vv[index+i+1]>>1)+"'>"+String(vv[index+i]+100).slice(1)+"</span>");
         }
       }
-      str+=ret.join(" ")+"<br>‚e–@F ‰¡F";
+      str+=ret.join(" ")+"<br>ï¼¦æ³•ï¼š æ¨ªï¼š";
       var fc=0;
       for(i=Math.max(-30,Math.min(0,-index));(i<0||fc)&&index+i<maxlen;i++){
         if(vv[index+i]<50&&fc<mv-2){ fc++;}
@@ -413,7 +413,7 @@
         }
       }
       if(index+i>=maxlen){ str+="<span class=ov>?</span>"; }
-      str+=" cF";
+      str+=" ç¸¦ï¼š";
       fc=0;
       for(i=Math.max(-30,Math.min(0,-index));(i<0||fc)&&index+i<maxlen;i++){
         if(vv[index+i]>=50&&fc<mv-2){ fc++; }
@@ -434,7 +434,7 @@
       document.getElementById("lv_val").value-=-v;
       lv_val_f();
     }
-    function sub_val_f(){ //·
+    function sub_val_f(){ //å·®
       var i;
       var val,hfal,vfal;
       var start=parseInt(document.getElementById("view_val").value)-prim;
@@ -442,8 +442,8 @@
       var len=last-start;
       document.getElementById("sub_val").innerHTML=len;
       if(len<0||last>maxlen+30){
-        document.getElementById("sub_hfal").innerHTML="@@@";
-        document.getElementById("sub_vfal").innerHTML="@@@";
+        document.getElementById("sub_hfal").innerHTML="ã€€ã€€ã€€";
+        document.getElementById("sub_vfal").innerHTML="ã€€ã€€ã€€";
         return false;
       }
       fc=0;
@@ -457,7 +457,7 @@
       }
       document.getElementById("sub_hfal").innerHTML=ft;
       if(i-lvv){ document.getElementById("sub_hfal").innerHTML+="(+"+(i-lvv)+")"; }
-        else{ document.getElementById("sub_hfal").innerHTML+="@ @"; }
+        else{ document.getElementById("sub_hfal").innerHTML+="ã€€ ã€€"; }
       fc=0;
       ft=0;
       lvv=0;
@@ -469,16 +469,16 @@
       }
       document.getElementById("sub_vfal").innerHTML=ft;
       if(i-lvv){ document.getElementById("sub_vfal").innerHTML+="(+"+(i-lvv)+")"; }
-        else{ document.getElementById("sub_vfal").innerHTML+="@ @"; }
+        else{ document.getElementById("sub_vfal").innerHTML+="ã€€ ã€€"; }
     }
     function addw(i,v){
       if(vv[i]<100){
-        return "["+v+"] ’lF"+String(vv[i]+100).slice(1)+" ˆÊ’uF"+(i+prim);
+        return "["+v+"] å€¤ï¼š"+String(vv[i]+100).slice(1)+" ä½ç½®ï¼š"+(i+prim);
       } else {
         return "---";
       }
     }
-    function lvup(flag,v){ //ã¸—Ê•\¦
+    function lvup(flag,v){ //ä¸Šæ˜‡é‡è¡¨ç¤º
       var index,i;
       var sumc=0;
       var sf=0;
@@ -528,7 +528,7 @@
         }
       }
     }
-    function ch_OnChange(f){ //ƒ†ƒjƒbƒg‘I‘ğ•ÏX
+    function ch_OnChange(f){ //ãƒ¦ãƒ‹ãƒƒãƒˆé¸æŠå¤‰æ›´
       var j=document.getElementById("unitname").selectedIndex;
       document.getElementById("afua").checked=0;
       for(var i=0;i<prct;i++){
@@ -540,7 +540,7 @@
       }
       if(f){ calc_lvlup(); }
     }
-    function createTable(f){ //—”•\•\¦
+    function createTable(f){ //ä¹±æ•°è¡¨è¡¨ç¤º
       if(f){
         var ranvalue=[];
         var i;
@@ -550,7 +550,7 @@
         document.getElementById("randnum").innerHTML=ranvalue.join(" ");
       }else{ document.getElementById("randnum").innerHTML=""; }
     }
-    function ch_all(){ //ˆêŠ‡•ÏX
+    function ch_all(){ //ä¸€æ‹¬å¤‰æ›´
       if(document.getElementById("chall").selectedIndex){
         for(var i=0;i<prct;i++){
           document.getElementById("ch"+prvn[i]).selectedIndex=document.getElementById("chall").selectedIndex-1;
@@ -575,7 +575,7 @@
       if(document.getElementById("search_type").selectedIndex==1||document.getElementById("search_type").selectedIndex==2){ v=battle_view(); }
       lvup(1,v);
     }
-    function calc_lvlup(){ //ƒŒƒxƒ‹ƒAƒbƒv
+    function calc_lvlup(){ //ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—
       var i;
       if(document.getElementById("search_type").selectedIndex==2){
         calc_lvlup_lv(0,battle_in_list,battle_le_list);
@@ -593,24 +593,24 @@
       }
       localStorage.setItem("ch", JSON.stringify(ud_obj))
     }
-    function kouho_show(ret){ //Œó•â•\¦
+    function kouho_show(ret){ //å€™è£œè¡¨ç¤º
       var cnt=ret.length;
       if(cnt>lvupmax){
         ret=ret.slice(0,lvupmax);
         ret.push("...");
       }
       document.getElementById("kouho").innerHTML=((battle_chf&&(document.getElementById("search_type").selectedIndex==1||
-      document.getElementById("search_type").selectedIndex==2))?"ŒŸõ‚ªŠ®—¹‚µ‚Ä‚¢‚Ü‚¹‚ñ ":"")+
-      (((cnt==0)?("Œ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½"):("Œó•â”F"+cnt+"<br>"+  ret.join(" "))));
+      document.getElementById("search_type").selectedIndex==2))?"æ¤œç´¢ãŒå®Œäº†ã—ã¦ã„ã¾ã›ã‚“ ":"")+
+      (((cnt==0)?("è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ"):("å€™è£œæ•°ï¼š"+cnt+"<br>"+  ret.join(" "))));
     }
-    function afua_change(){ //ƒAƒtƒA
+    function afua_change(){ //ã‚¢ãƒ•ã‚¢
       var i;
       for(var i=0;i<prct;i++){
         document.getElementById(prvn[i]).value=afua_plus(document.getElementById(prvn[i]).value);
       }
       calc_lvlup();
     }
-    function afua_plus(i){ //ƒAƒtƒA‰ÁZ
+    function afua_plus(i){ //ã‚¢ãƒ•ã‚¢åŠ ç®—
       i=parseInt(i);
       i++;
       if(isNaN(i)){ i=""; }
@@ -621,7 +621,7 @@
       }
       return i;
     }
-    function calc_lvlup_lv(all,btlcr_vv,cnt_vv){ //ƒŒƒxƒ‹ƒAƒbƒvŒó•â
+    function calc_lvlup_lv(all,btlcr_vv,cnt_vv){ //ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—å€™è£œ
       var i,j,k,l;
       var h=0;
       var sumc,sumt;
@@ -646,7 +646,7 @@
       }
       if(j>maxup){ maxup=document.getElementById("growmax").selectedIndex=j; }
       if(k>prct-minup){ minup=document.getElementById("growmin").selectedIndex=prct-k; }
-      if(minup>maxup){ document.getElementById("kouho").innerHTML="ğŒ‚ª–µ‚‚µ‚Ä‚¢‚Ü‚·";return false;}
+      if(minup>maxup){ document.getElementById("kouho").innerHTML="æ¡ä»¶ãŒçŸ›ç›¾ã—ã¦ã„ã¾ã™";return false;}
       var silent=document.getElementById("silent").checked?1:0;
       l=all?maxlen:btlcr_vv.length;
       for(k=0;k<l;k++){
@@ -704,7 +704,7 @@
       kouho_vv=ret;
       kouho_show(ret);
     }
-    function kouho_updown(v){ //‘OŒã‚ÌŒó•â
+    function kouho_updown(v){ //å‰å¾Œã®å€™è£œ
       v-=0;
       var i;
       var nowval=parseInt(document.getElementById("lv_val").value);
@@ -720,7 +720,7 @@
       else{ document.getElementById("lv_val").value=kouho_vv[i];}
       lv_val_f();
     }
-    function kouho_next(f){ //Œ»İ‚ÌŸ‚ÌŒó•â
+    function kouho_next(f){ //ç¾åœ¨ã®æ¬¡ã®å€™è£œ
       var i;
       var nowval=parseInt(document.getElementById("view_val").value);
       for(i=0;i<kouho_vv.length;i++){
@@ -733,22 +733,22 @@
       else{ document.getElementById("lv_val").value=kouho_vv[i]; }
       if(f)lv_val_f();
     }
-    function all_show(flag){ //‘S‚Ä•\¦
+    function all_show(flag){ //å…¨ã¦è¡¨ç¤º
       var ret=flag?kouho_vv:search_vv;
-      if(flag){ document.getElementById("kouho").innerHTML="Œó•â”F"+ret.length+"<br>"+ret.join(" "); }
-      else{ document.getElementById("search_m_ret").innerHTML="Œó•â”F"+ret.length+"<br>"+ret.join(" "); }
+      if(flag){ document.getElementById("kouho").innerHTML="å€™è£œæ•°ï¼š"+ret.length+"<br>"+ret.join(" "); }
+      else{ document.getElementById("search_m_ret").innerHTML="å€™è£œæ•°ï¼š"+ret.length+"<br>"+ret.join(" "); }
     }
-    function search_mx_OnChange(){ //Œ»İˆÊ’uŒŸõƒ{ƒ^ƒ“
+    function search_mx_OnChange(){ //ç¾åœ¨ä½ç½®æ¤œç´¢ãƒœã‚¿ãƒ³
       var lox=document.getElementById("search_ma").value;
       search_vv=[];
       if(lox.length<4){
-        document.getElementById("search_m_ret").innerHTML="‚S•¶šˆÈã“ü—Í‚µ‚Ä‚­‚¾‚³‚¢";
+        document.getElementById("search_m_ret").innerHTML="ï¼”æ–‡å­—ä»¥ä¸Šå…¥åŠ›ã—ã¦ãã ã•ã„";
         document.getElementById("search_len").innerHTML="-";
         return false;
       }
       search_m_OnChange();
     }
-    function search_m_OnChange(){ //Œ»İˆÊ’uŒŸõ
+    function search_m_OnChange(){ //ç¾åœ¨ä½ç½®æ¤œç´¢
       var i,j;
       var cnt;
       var len;
@@ -765,18 +765,18 @@
       for(i=0;i<len;i++){
         if(lox.charAt(i) == 'o'){ lox2.push(0);}
         else if(lox.charAt(i) == 'c'){ lox2.push(0);}
-        else if(lox.charAt(i) == '›'){ lox2.push(0);}
+        else if(lox.charAt(i) == 'â—‹'){ lox2.push(0);}
         else if(lox.charAt(i) == '4'){ lox2.push(0);}
         else if(lox.charAt(i) == '6'){ lox2.push(0);}
         else if(lox.charAt(i) == 'x'){ lox2.push(1);}
-        else if(lox.charAt(i) == '~'){ lox2.push(1);}
+        else if(lox.charAt(i) == 'Ã—'){ lox2.push(1);}
         else if(lox.charAt(i) == '8'){ lox2.push(1);}
         else if(lox.charAt(i) == '2'){ lox2.push(1);}
       }
       var ret=[];
       len=lox2.length;
       document.getElementById("search_len").innerHTML=len;
-      if(!len){ document.getElementById("search_m_ret").innerHTML="o‚©x‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢";return false; }
+      if(!len){ document.getElementById("search_m_ret").innerHTML="oã‹xã‚’å…¥åŠ›ã—ã¦ãã ã•ã„";return false; }
       var ret=[];
       for(i=0;i<maxlen;i++){
         for(j=0;j<len;j++){
@@ -791,9 +791,9 @@
         ret=ret.slice(0,srchmax);
         ret.push("...");
       }
-      document.getElementById("search_m_ret").innerHTML=(cnt==0)?("‚ ‚è‚Ü‚¹‚ñ"):("Œó•â”F"+cnt+"<br>"+ret.join(" "));
+      document.getElementById("search_m_ret").innerHTML=(cnt==0)?("ã‚ã‚Šã¾ã›ã‚“"):("å€™è£œæ•°ï¼š"+cnt+"<br>"+ret.join(" "));
     }
-    function search_updown(v){ //Ÿ‚ÌˆÊ’u
+    function search_updown(v){ //æ¬¡ã®ä½ç½®
       v-=0;
       var i;
       var nowval=parseInt(document.getElementById("view_val").value);
@@ -809,12 +809,12 @@
       else{ document.getElementById("view_val").value=search_vv[i];}
       view_val_f();
     }
-    function change_mv(){ //ˆÚ“®—Í•ÏX
+    function change_mv(){ //ç§»å‹•åŠ›å¤‰æ›´
       mv=document.getElementById("mv").selectedIndex+2;
       view_val_f();
       lv_val_f();
     }
-    function battle_view(){ //í“¬Œ‹‰Ê•\¦
+    function battle_view(){ //æˆ¦é—˜çµæœè¡¨ç¤º
       var i;
       battle_stop=2;
       var index=lv_val_glance();
@@ -889,13 +889,13 @@
         if(!hp[1]||!hp[0]||battle_one_flags[8]){ break; }
       }
       battle_show_turn(0);
-      document.getElementById("atexp").innerHTML=hp[0]?(battle_one_flags[9]?((hp[1]&0xff)?"–¢Œ‚”j":(battle_one_flags[5]?"uE":"Œ‚”j")):1):0;
-      document.getElementById("dfexp").innerHTML=hp[1]?(battle_one_flags[10]?((hp[0]&0xff)?"–¢Œ‚”j":(battle_one_flags[5]?"uE":"Œ‚”j")):1):0;
+      document.getElementById("atexp").innerHTML=hp[0]?(battle_one_flags[9]?((hp[1]&0xff)?"æœªæ’ƒç ´":(battle_one_flags[5]?"ç¬æ®º":"æ’ƒç ´")):1):0;
+      document.getElementById("dfexp").innerHTML=hp[1]?(battle_one_flags[10]?((hp[0]&0xff)?"æœªæ’ƒç ´":(battle_one_flags[5]?"ç¬æ®º":"æ’ƒç ´")):1):0;
       var v=index-lv_val_glance();
-      document.getElementById("search_info").innerHTML="g—p—”F"+v+"ŒÂ";
+      document.getElementById("search_info").innerHTML="ä½¿ç”¨ä¹±æ•°ï¼š"+v+"å€‹";
       return v;
     }
-    function battle_show_turn(t){ //í“¬Œ‹‰Ê•¶š—ñ
+    function battle_show_turn(t){ //æˆ¦é—˜çµæœæ–‡å­—åˆ—
       var i=0;
       if(battle_turn_rzl[t][i*12]==0){ document.getElementById("at1").innerHTML=battle_show(t,i*12+1);i++; }
       else{ document.getElementById("at1").innerHTML="-"; }
@@ -918,31 +918,31 @@
       document.getElementById("now_turn").innerHTML=t+1;
       document.getElementById("total_turn").innerHTML="/"+battle_turn;
     }
-    function battle_show(t,n){ //í“¬Œ‹‰Ê•¶š—ñ
+    function battle_show(t,n){ //æˆ¦é—˜çµæœæ–‡å­—åˆ—
       var str="";
-      if(!battle_turn_rzl[t][n+0]){ str="ƒ~ƒX"; }
-      else if(battle_turn_rzl[t][n+2]){ str=battle_turn_rzl[t][n+1]+battle_turn_rzl[t][n+6]?"“I":"•K“I"; }
-      else if(battle_turn_rzl[t][n+3]){ str=battle_turn_rzl[t][n+1]+battle_turn_rzl[t][n+6]?"‚":"‘å‚"; }
-      else if(battle_turn_rzl[t][n+4]){ str=battle_turn_rzl[t][n+1]+battle_turn_rzl[t][n+6]?"ŠÑ":"ŠÑ’Ê"; }
+      if(!battle_turn_rzl[t][n+0]){ str="ãƒŸã‚¹"; }
+      else if(battle_turn_rzl[t][n+2]){ str=battle_turn_rzl[t][n+1]+battle_turn_rzl[t][n+6]?"çš„":"å¿…çš„"; }
+      else if(battle_turn_rzl[t][n+3]){ str=battle_turn_rzl[t][n+1]+battle_turn_rzl[t][n+6]?"ç›¾":"å¤§ç›¾"; }
+      else if(battle_turn_rzl[t][n+4]){ str=battle_turn_rzl[t][n+1]+battle_turn_rzl[t][n+6]?"è²«":"è²«é€š"; }
       if(battle_turn_rzl[t][n+0]){
-        if(battle_turn_rzl[t][n+5]){ str+=str?"+u":(battle_turn_rzl[t][n+6]?"u":"uE"); }
-        else if(battle_turn_rzl[t][n+1]){ str+=str?"+•K":(battle_turn_rzl[t][n+6]?"•K":"•KE"); }
-        if(battle_turn_rzl[t][n+6]){ str+=str?"+ô":"ô‚¢"; }
+        if(battle_turn_rzl[t][n+5]){ str+=str?"+ç¬":(battle_turn_rzl[t][n+6]?"ç¬":"ç¬æ®º"); }
+        else if(battle_turn_rzl[t][n+1]){ str+=str?"+å¿…":(battle_turn_rzl[t][n+6]?"å¿…":"å¿…æ®º"); }
+        if(battle_turn_rzl[t][n+6]){ str+=str?"+å‘ª":"å‘ªã„"; }
       }
-      if(!str)str="–½’†";
+      if(!str)str="å‘½ä¸­";
       return str;
     }
-    function battle_turn_f(){ //í“¬ƒ^[ƒ“Œ‹‰Ê•\¦
+    function battle_turn_f(){ //æˆ¦é—˜ã‚¿ãƒ¼ãƒ³çµæœè¡¨ç¤º
       var t=parseInt(document.getElementById("now_turn").value)-1;
       if(isNaN(t)||t<0){ t=0; }else if(t>=battle_turn){ t=battle_turn-1; }
       battle_show_turn(t);
     }
-    function battle_turn_updown(v){ //í“¬ƒ^[ƒ“•ÏX
+    function battle_turn_updown(v){ //æˆ¦é—˜ã‚¿ãƒ¼ãƒ³å¤‰æ›´
       v*=-1;
       document.getElementById("now_turn").value-=v;
       battle_turn_f();
     }
-    function battle_attack(c,index,hp){ //UŒ‚
+    function battle_attack(c,index,hp){ //æ”»æ’ƒ
       var flag_meityuu=0;
       var flag_hissatsu=0;
       var flag_hitteki=0;
@@ -950,10 +950,10 @@
       var flag_kantsuu=0;
       var flag_shunsatsu=0;
       var flag_noroi=0;
-      var skill=[]; //ƒXƒLƒ‹F  0=‚È‚µA1=‘å‚A2=ŠÑ’ÊA3=uEA4=•K“I
+      var skill=[]; //ã‚¹ã‚­ãƒ«ï¼š  0=ãªã—ã€1=å¤§ç›¾ã€2=è²«é€šã€3=ç¬æ®ºã€4=å¿…çš„
       skill[0]=c?document.getElementById("atskill").selectedIndex:document.getElementById("dfskill").selectedIndex;
       skill[1]=c?document.getElementById("dfskill").selectedIndex:document.getElementById("atskill").selectedIndex;
-      //•ŠíF  0=’ÊíA1=—EÒŒnA2=ƒŠƒUƒCƒAA3=ƒfƒrƒ‹ƒAƒNƒXA4=“ÅŒnA5=ƒXƒg[ƒ“
+      //æ­¦å™¨ï¼š  0=é€šå¸¸ã€1=å‹‡è€…ç³»ã€2=ãƒªã‚¶ã‚¤ã‚¢ã€3=ãƒ‡ãƒ“ãƒ«ã‚¢ã‚¯ã‚¹ã€4=æ¯’ç³»ã€5=ã‚¹ãƒˆãƒ¼ãƒ³
       var weapon=c?document.getElementById("atarm").selectedIndex:document.getElementById("dfarm").selectedIndex;
       var killable=c?document.getElementById("dfboss").selectedIndex:document.getElementById("atboss").selectedIndex;
       var kill_level=skill[0]==3?killlist[killable][1]:0;
@@ -965,16 +965,16 @@
       var att_crt=c?document.getElementById("atcrt").selectedIndex:document.getElementById("dfcrt").selectedIndex;
       var att_luck=c?document.getElementById("atluck").selectedIndex:document.getElementById("dfluck").selectedIndex;
       var cnt=index;
-      if(skill[0]==4&&vv[cnt++]<att_level){ flag_hitteki=1;flag_meityuu=1; } //•K“I
-      else if(((vv[cnt++]+vv[cnt++])>>1)<att_hit||c==2){ flag_meityuu=1; } //–½’†
+      if(skill[0]==4&&vv[cnt++]<att_level){ flag_hitteki=1;flag_meityuu=1; } //å¿…çš„
+      else if(((vv[cnt++]+vv[cnt++])>>1)<att_hit||c==2){ flag_meityuu=1; } //å‘½ä¸­
       if(flag_meityuu){
-        if(!flag_hitteki&&skill[1]==1&&weapon!=4&&weapon!=5&&vv[cnt++]<att_level){ flag_ootate=1; } //‘å‚
-        else if(skill[0]==2&&vv[cnt++]<att_level){ flag_kantsuu=1; } //ŠÑ’Ê
-        if(vv[cnt++]<att_crt||c==2){ //•KE
+        if(!flag_hitteki&&skill[1]==1&&weapon!=4&&weapon!=5&&vv[cnt++]<att_level){ flag_ootate=1; } //å¤§ç›¾
+        else if(skill[0]==2&&vv[cnt++]<att_level){ flag_kantsuu=1; } //è²«é€š
+        if(vv[cnt++]<att_crt||c==2){ //å¿…æ®º
           flag_hissatsu=1;
-          if(killable&&vv[cnt++]<kill_level){ flag_shunsatsu=1; } //uE
+          if(killable&&vv[cnt++]<kill_level){ flag_shunsatsu=1; } //ç¬æ®º
         }
-        if(weapon==3&&vv[cnt++]<31-att_luck){ flag_noroi=1; } //ô‚¢
+        if(weapon==3&&vv[cnt++]<31-att_luck){ flag_noroi=1; } //å‘ªã„
         if(flag_kantsuu){ att_pow+=att_def; }
         if(flag_ootate){ att_pow=0; }
         if(flag_hissatsu){ att_pow*=3; }
@@ -1003,7 +1003,7 @@
       }
       battle_one_flags=[flag_meityuu,flag_hissatsu,flag_hitteki,flag_ootate,flag_kantsuu,flag_shunsatsu,flag_noroi,(cnt-index),((weapon==5&&flag_meityuu)?1:0),battle_one_flags[9],battle_one_flags[10]];
     }
-    function battle_search(){ //í“¬—”ŒŸõ
+    function battle_search(){ //æˆ¦é—˜ä¹±æ•°æ¤œç´¢
       battle_in_list=[];
       battle_le_list=[];
       battle_index=parseInt(document.getElementById("view_val").value)-prim;
@@ -1069,11 +1069,11 @@
       battle_stop=0;
       if(maxlen){ battle_search_one(); }else{
         battle_chf=0;
-        document.getElementById("search_info").innerHTML="Š®—¹";
+        document.getElementById("search_info").innerHTML="å®Œäº†";
         Change_type();
       }
     }
-    function battle_search_one(){ //í“¬—”ŒŸõ‚Pí“¬
+    function battle_search_one(){ //æˆ¦é—˜ä¹±æ•°æ¤œç´¢ï¼‘æˆ¦é—˜
       var i;
       var f;
       var hp=[];
@@ -1127,17 +1127,17 @@
       battle_index++;
       if(!battle_stop&&battle_index<maxlen){
         document.getElementById("search_info").innerHTML=battle_index+"/"+maxlen;
-        document.getElementById("kouho").innerHTML="Œó•â”F"+battle_in_list.length;
+        document.getElementById("kouho").innerHTML="å€™è£œæ•°ï¼š"+battle_in_list.length;
         window.setTimeout("battle_search_one()",0);
       }else{
         if(!battle_stop){ battle_chf=0; }
         i=battle_stop;
         if(document.getElementById("search_type").selectedIndex!=2){ document.getElementById("search_type").selectedIndex=1; }
         Change_type();
-        document.getElementById("search_info").innerHTML=i?"’â~":"Š®—¹";
+        document.getElementById("search_info").innerHTML=i?"åœæ­¢":"å®Œäº†";
       }
     }
-    function battle_attack_s(c,index,hp){ //UŒ‚(ŒŸõ)
+    function battle_attack_s(c,index,hp){ //æ”»æ’ƒ(æ¤œç´¢)
       var s=c?0:1;
       var t=c?1:0;
       var flag_meityuu=0;
@@ -1179,13 +1179,13 @@
       if(document.getElementById("search_type").selectedIndex==0||document.getElementById("search_type").selectedIndex==3){ v=0; }
       lvup(1,v);
     }
-    function battle_ss(f){ //í“¬UŒ‚‡
+    function battle_ss(f){ //æˆ¦é—˜æ”»æ’ƒé †
       if(f==0 && document.getElementById("attsuigeki").checked){ document.getElementById("dftsuigeki").checked=0; }
       else if(f==1 && !document.getElementById("hangeki").checked){ document.getElementById("dftsuigeki").checked=0; }
       else if(f==2 && document.getElementById("dftsuigeki").checked){ document.getElementById("attsuigeki").checked=0;document.getElementById("hangeki").checked=1 }
       battle();
     }
-    function at_df_change(){ //U–h”½“]
+    function at_df_change(){ //æ”»é˜²åè»¢
       var temp;
       temp=document.getElementById("athp").selectedIndex;
       document.getElementById("athp").selectedIndex=document.getElementById("dfhp").selectedIndex;
@@ -1250,10 +1250,10 @@
     function displaystyle(hlay,blay){
       if(document.getElementById(hlay).style.display){
         document.getElementById(hlay).style.display="";
-        if(blay){ document.getElementById(blay).value="”ñ•\¦"; }
+        if(blay){ document.getElementById(blay).value="éè¡¨ç¤º"; }
       }else{
         document.getElementById(hlay).style.display="none";
-        if(blay){ document.getElementById(blay).value="•\¦"; }
+        if(blay){ document.getElementById(blay).value="è¡¨ç¤º"; }
       }
     }
     function search_thread(){
@@ -1273,7 +1273,7 @@
         sv[i]=[];
         if(!rvv[i].length){ continue; }
         t_rec=rvv[i].replace(/\/\/.*/, '');
-        t_rec=t_rec.replace(/[ @\t]+/g, '');
+        t_rec=t_rec.replace(/[ ã€€\t]+/g, '');
         if(t_rec.match(/lvup/i)){
           sv[i].push(2,0,0);
         }else{
@@ -1293,9 +1293,9 @@
               min=parseInt(renstr);max=parseInt(renstr);
             }
             if(isNaN(min)||isNaN(max)){
-              if(confirm((i+1)+"s–Ú‚Ì®‚Ì•]‰¿‚É¸”s‚µ‚Ü‚µ‚½\n"+rvv[i]+"\nOK:–³‹ ƒLƒƒƒ“ƒZƒ‹:’†’f")){
+              if(confirm((i+1)+"è¡Œç›®ã®å¼ã®è©•ä¾¡ã«å¤±æ•—ã—ã¾ã—ãŸ\n"+rvv[i]+"\nOK:ç„¡è¦– ã‚­ãƒ£ãƒ³ã‚»ãƒ«:ä¸­æ–­")){
                 if(isNaN(min)){ min=0; }if(isNaN(max)){ max=99; }
-              }else{ document.getElementById("kouho").innerHTML=(i+1)+"s–Ú‚Ì®‚Ì•]‰¿‚É¸”s‚µ‚Ü‚µ‚½";return; }
+              }else{ document.getElementById("kouho").innerHTML=(i+1)+"è¡Œç›®ã®å¼ã®è©•ä¾¡ã«å¤±æ•—ã—ã¾ã—ãŸ";return; }
             }
             sv[i].push(l_type,min,max);
           }
@@ -1319,10 +1319,10 @@
             if(sv[j][k*3]==2){ //Lv
               if(kouho_vv2[i+j]&1){ matchflag=1; }
               p+=(kouho_vv2[i+j]>>1)-1;
-            }else if(sv[j][k*3]==1){ //•½‹Ï
+            }else if(sv[j][k*3]==1){ //å¹³å‡
               if(((vv[i+j+p]+vv[i+j+p+1])>>1)>=sv[j][k*3+1]&&
                 ((vv[i+j+p]+vv[i+j+p+1])>>1)<=sv[j][k*3+2]){ matchflag=1; }
-            }else{ //”ÍˆÍ
+            }else{ //ç¯„å›²
               if(vv[i+j+p]>=sv[j][k*3+1]&&vv[i+j+p]<=sv[j][k*3+2]){ matchflag=1; }
             }
             if(matchflag){ break; }
@@ -1366,10 +1366,10 @@
   </script>
 </head>
 <body onload="init();" id="mainwindow" style="visibility: visible;">
-  <form><input type="button" value="Ÿ‚Ì—”•\" onclick="next();"> <input type="text" size="10" id="rand_start" accesskey="s">ŒÂ–Ú‚©‚ç‚Ì<input type="text" size="10" id="rand_max">ŒÂ‚Ì—”‚É<input type="button" value="•ÏX" onclick="change_max();">
-    <hr> <label for="view_val">—”‚ÌŒ»İˆÊ’u</label><input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
-    <input type="button" value="-10" onclick="view_val_updown(-10);"><input type="button" value="-3" onclick="view_val_updown(-3);"><input type="button" value="-" onclick="view_val_updown(-1);" accesskey="&lt;"><input type="button" value="+" onclick="view_val_updown(1);" accesskey="&gt;"><input type="button" value="+3" onclick="view_val_updown(3);"><input type="button" value="+10" onclick="view_val_updown(10);"> <input type="button" value="Œ»İˆÊ’u©–Ú•WˆÊ’u" onclick="document.getElementById(&#39;view_val&#39;).value=document.getElementById(&#39;lv_val&#39;).value;view_val_f();"><br> <span id="view_val_v">—”’lF<span title="(54+13)/2=33">54</span> <span title="(13+11)/2=12">13</span> <span title="(11+60)/2=35">11</span> <span title="(60+80)/2=70">60</span> <span title="(80+26)/2=53">80</span> <span title="(26+25)/2=25">26</span> <span title="(25+12)/2=18">25</span> <span title="(12+74)/2=43">12</span> <span title="(74+2)/2=38">74</span> <span title="(2+55)/2=28">02</span> <span title="(55+72)/2=63">55</span> <span title="(72+71)/2=71">72</span> <span title="(71+12)/2=41">71</span> <span title="(12+54)/2=33">12</span> <span title="(54+7)/2=30">54</span> <span title="(7+55)/2=31">07</span> <span title="(55+22)/2=38">55</span> <span title="(22+91)/2=56">22</span> <span title="(91+14)/2=52">91</span> <span title="(14+54)/2=34">14</span> <span title="(54+21)/2=37">54</span> <span title="(21+35)/2=28">21</span> <span title="(35+88)/2=61">35</span> <span title="(88+44)/2=66">88</span> <span title="(44+14)/2=29">44</span> <span title="(14+57)/2=35">14</span> <span title="(57+71)/2=64">57</span> <span title="(71+91)/2=81">71</span> <span title="(91+56)/2=73">91</span> <span title="(56+23)/2=39">56</span><br>‚e–@F0203100111122000</span>
-    <hr>««À‰ñ”F<span id="sub_val">48</span>@‚e–@(‰¡)F<span id="sub_hfal">23(+2)</span>@‚e–@(c)F<span id="sub_vfal">25@ @</span>@ˆÚ“®—Í <select id="mv" onchange="change_mv();">
+  <form><input type="button" value="æ¬¡ã®ä¹±æ•°è¡¨" onclick="next();"> <input type="text" size="10" id="rand_start" accesskey="s">å€‹ç›®ã‹ã‚‰ã®<input type="text" size="10" id="rand_max">å€‹ã®ä¹±æ•°ã«<input type="button" value="å¤‰æ›´" onclick="change_max();">
+    <hr> <label for="view_val">ä¹±æ•°ã®ç¾åœ¨ä½ç½®</label><input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
+    <input type="button" value="-10" onclick="view_val_updown(-10);"><input type="button" value="-3" onclick="view_val_updown(-3);"><input type="button" value="-" onclick="view_val_updown(-1);" accesskey="&lt;"><input type="button" value="+" onclick="view_val_updown(1);" accesskey="&gt;"><input type="button" value="+3" onclick="view_val_updown(3);"><input type="button" value="+10" onclick="view_val_updown(10);"> <input type="button" value="ç¾åœ¨ä½ç½®â†ç›®æ¨™ä½ç½®" onclick="document.getElementById(&#39;view_val&#39;).value=document.getElementById(&#39;lv_val&#39;).value;view_val_f();"><br> <span id="view_val_v">ä¹±æ•°å€¤ï¼š<span title="(54+13)/2=33">54</span> <span title="(13+11)/2=12">13</span> <span title="(11+60)/2=35">11</span> <span title="(60+80)/2=70">60</span> <span title="(80+26)/2=53">80</span> <span title="(26+25)/2=25">26</span> <span title="(25+12)/2=18">25</span> <span title="(12+74)/2=43">12</span> <span title="(74+2)/2=38">74</span> <span title="(2+55)/2=28">02</span> <span title="(55+72)/2=63">55</span> <span title="(72+71)/2=71">72</span> <span title="(71+12)/2=41">71</span> <span title="(12+54)/2=33">12</span> <span title="(54+7)/2=30">54</span> <span title="(7+55)/2=31">07</span> <span title="(55+22)/2=38">55</span> <span title="(22+91)/2=56">22</span> <span title="(91+14)/2=52">91</span> <span title="(14+54)/2=34">14</span> <span title="(54+21)/2=37">54</span> <span title="(21+35)/2=28">21</span> <span title="(35+88)/2=61">35</span> <span title="(88+44)/2=66">88</span> <span title="(44+14)/2=29">44</span> <span title="(14+57)/2=35">14</span> <span title="(57+71)/2=64">57</span> <span title="(71+91)/2=81">71</span> <span title="(91+56)/2=73">91</span> <span title="(56+23)/2=39">56</span><br>ï¼¦æ³•ï¼š0203100111122000</span>
+    <hr>â†“â†“å®Ÿå›æ•°ï¼š<span id="sub_val">48</span>ã€€ï¼¦æ³•(æ¨ª)ï¼š<span id="sub_hfal">23(+2)</span>ã€€ï¼¦æ³•(ç¸¦)ï¼š<span id="sub_vfal">25ã€€ ã€€</span>ã€€ç§»å‹•åŠ› <select id="mv" onchange="change_mv();">
   <option>2</option>
   <option>3</option>
   <option>4</option>
@@ -1385,8 +1385,8 @@
   <option>14</option>
   <option>15</option>
   </select>
-    <hr> <label for="lv_val">—”‚Ì–Ú•WˆÊ’u</label><input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
-    <input type="button" value="-10" onclick="lv_val_updown(-10);"><input type="button" value="-3" onclick="lv_val_updown(-3);"><input type="button" value="-" onclick="lv_val_updown(-1);" accesskey=","><input type="button" value="+" onclick="lv_val_updown(1);" accesskey="."><input type="button" value="+3" onclick="lv_val_updown(3);"><input type="button" value="+10" onclick="lv_val_updown(10);"> <input type="button" value="–Ú•WˆÊ’u©Œ»İˆÊ’u" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();"> +<input type="checkbox" id="glance_ck" onclick="lv_val_f();"><select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="right">
+    <hr> <label for="lv_val">ä¹±æ•°ã®ç›®æ¨™ä½ç½®</label><input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
+    <input type="button" value="-10" onclick="lv_val_updown(-10);"><input type="button" value="-3" onclick="lv_val_updown(-3);"><input type="button" value="-" onclick="lv_val_updown(-1);" accesskey=","><input type="button" value="+" onclick="lv_val_updown(1);" accesskey="."><input type="button" value="+3" onclick="lv_val_updown(3);"><input type="button" value="+10" onclick="lv_val_updown(10);"> <input type="button" value="ç›®æ¨™ä½ç½®â†ç¾åœ¨ä½ç½®" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();"> +<input type="checkbox" id="glance_ck" onclick="lv_val_f();"><select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="right">
   <script type="text/javascript">
 var i;
 for(i=-999;i<1001;i++){
@@ -1394,19 +1394,19 @@ for(i=-999;i<1001;i++){
 }
 document.getElementById("glance").selectedIndex=999;
   </script><option>-999</option><option>-998</option><option>-997</option><option>-996</option><option>-995</option><option>-994</option><option>-993</option><option>-992</option><option>-991</option><option>-990</option><option>-989</option><option>-988</option><option>-987</option><option>-986</option><option>-985</option><option>-984</option><option>-983</option><option>-982</option><option>-981</option><option>-980</option><option>-979</option><option>-978</option><option>-977</option><option>-976</option><option>-975</option><option>-974</option><option>-973</option><option>-972</option><option>-971</option><option>-970</option><option>-969</option><option>-968</option><option>-967</option><option>-966</option><option>-965</option><option>-964</option><option>-963</option><option>-962</option><option>-961</option><option>-960</option><option>-959</option><option>-958</option><option>-957</option><option>-956</option><option>-955</option><option>-954</option><option>-953</option><option>-952</option><option>-951</option><option>-950</option><option>-949</option><option>-948</option><option>-947</option><option>-946</option><option>-945</option><option>-944</option><option>-943</option><option>-942</option><option>-941</option><option>-940</option><option>-939</option><option>-938</option><option>-937</option><option>-936</option><option>-935</option><option>-934</option><option>-933</option><option>-932</option><option>-931</option><option>-930</option><option>-929</option><option>-928</option><option>-927</option><option>-926</option><option>-925</option><option>-924</option><option>-923</option><option>-922</option><option>-921</option><option>-920</option><option>-919</option><option>-918</option><option>-917</option><option>-916</option><option>-915</option><option>-914</option><option>-913</option><option>-912</option><option>-911</option><option>-910</option><option>-909</option><option>-908</option><option>-907</option><option>-906</option><option>-905</option><option>-904</option><option>-903</option><option>-902</option><option>-901</option><option>-900</option><option>-899</option><option>-898</option><option>-897</option><option>-896</option><option>-895</option><option>-894</option><option>-893</option><option>-892</option><option>-891</option><option>-890</option><option>-889</option><option>-888</option><option>-887</option><option>-886</option><option>-885</option><option>-884</option><option>-883</option><option>-882</option><option>-881</option><option>-880</option><option>-879</option><option>-878</option><option>-877</option><option>-876</option><option>-875</option><option>-874</option><option>-873</option><option>-872</option><option>-871</option><option>-870</option><option>-869</option><option>-868</option><option>-867</option><option>-866</option><option>-865</option><option>-864</option><option>-863</option><option>-862</option><option>-861</option><option>-860</option><option>-859</option><option>-858</option><option>-857</option><option>-856</option><option>-855</option><option>-854</option><option>-853</option><option>-852</option><option>-851</option><option>-850</option><option>-849</option><option>-848</option><option>-847</option><option>-846</option><option>-845</option><option>-844</option><option>-843</option><option>-842</option><option>-841</option><option>-840</option><option>-839</option><option>-838</option><option>-837</option><option>-836</option><option>-835</option><option>-834</option><option>-833</option><option>-832</option><option>-831</option><option>-830</option><option>-829</option><option>-828</option><option>-827</option><option>-826</option><option>-825</option><option>-824</option><option>-823</option><option>-822</option><option>-821</option><option>-820</option><option>-819</option><option>-818</option><option>-817</option><option>-816</option><option>-815</option><option>-814</option><option>-813</option><option>-812</option><option>-811</option><option>-810</option><option>-809</option><option>-808</option><option>-807</option><option>-806</option><option>-805</option><option>-804</option><option>-803</option><option>-802</option><option>-801</option><option>-800</option><option>-799</option><option>-798</option><option>-797</option><option>-796</option><option>-795</option><option>-794</option><option>-793</option><option>-792</option><option>-791</option><option>-790</option><option>-789</option><option>-788</option><option>-787</option><option>-786</option><option>-785</option><option>-784</option><option>-783</option><option>-782</option><option>-781</option><option>-780</option><option>-779</option><option>-778</option><option>-777</option><option>-776</option><option>-775</option><option>-774</option><option>-773</option><option>-772</option><option>-771</option><option>-770</option><option>-769</option><option>-768</option><option>-767</option><option>-766</option><option>-765</option><option>-764</option><option>-763</option><option>-762</option><option>-761</option><option>-760</option><option>-759</option><option>-758</option><option>-757</option><option>-756</option><option>-755</option><option>-754</option><option>-753</option><option>-752</option><option>-751</option><option>-750</option><option>-749</option><option>-748</option><option>-747</option><option>-746</option><option>-745</option><option>-744</option><option>-743</option><option>-742</option><option>-741</option><option>-740</option><option>-739</option><option>-738</option><option>-737</option><option>-736</option><option>-735</option><option>-734</option><option>-733</option><option>-732</option><option>-731</option><option>-730</option><option>-729</option><option>-728</option><option>-727</option><option>-726</option><option>-725</option><option>-724</option><option>-723</option><option>-722</option><option>-721</option><option>-720</option><option>-719</option><option>-718</option><option>-717</option><option>-716</option><option>-715</option><option>-714</option><option>-713</option><option>-712</option><option>-711</option><option>-710</option><option>-709</option><option>-708</option><option>-707</option><option>-706</option><option>-705</option><option>-704</option><option>-703</option><option>-702</option><option>-701</option><option>-700</option><option>-699</option><option>-698</option><option>-697</option><option>-696</option><option>-695</option><option>-694</option><option>-693</option><option>-692</option><option>-691</option><option>-690</option><option>-689</option><option>-688</option><option>-687</option><option>-686</option><option>-685</option><option>-684</option><option>-683</option><option>-682</option><option>-681</option><option>-680</option><option>-679</option><option>-678</option><option>-677</option><option>-676</option><option>-675</option><option>-674</option><option>-673</option><option>-672</option><option>-671</option><option>-670</option><option>-669</option><option>-668</option><option>-667</option><option>-666</option><option>-665</option><option>-664</option><option>-663</option><option>-662</option><option>-661</option><option>-660</option><option>-659</option><option>-658</option><option>-657</option><option>-656</option><option>-655</option><option>-654</option><option>-653</option><option>-652</option><option>-651</option><option>-650</option><option>-649</option><option>-648</option><option>-647</option><option>-646</option><option>-645</option><option>-644</option><option>-643</option><option>-642</option><option>-641</option><option>-640</option><option>-639</option><option>-638</option><option>-637</option><option>-636</option><option>-635</option><option>-634</option><option>-633</option><option>-632</option><option>-631</option><option>-630</option><option>-629</option><option>-628</option><option>-627</option><option>-626</option><option>-625</option><option>-624</option><option>-623</option><option>-622</option><option>-621</option><option>-620</option><option>-619</option><option>-618</option><option>-617</option><option>-616</option><option>-615</option><option>-614</option><option>-613</option><option>-612</option><option>-611</option><option>-610</option><option>-609</option><option>-608</option><option>-607</option><option>-606</option><option>-605</option><option>-604</option><option>-603</option><option>-602</option><option>-601</option><option>-600</option><option>-599</option><option>-598</option><option>-597</option><option>-596</option><option>-595</option><option>-594</option><option>-593</option><option>-592</option><option>-591</option><option>-590</option><option>-589</option><option>-588</option><option>-587</option><option>-586</option><option>-585</option><option>-584</option><option>-583</option><option>-582</option><option>-581</option><option>-580</option><option>-579</option><option>-578</option><option>-577</option><option>-576</option><option>-575</option><option>-574</option><option>-573</option><option>-572</option><option>-571</option><option>-570</option><option>-569</option><option>-568</option><option>-567</option><option>-566</option><option>-565</option><option>-564</option><option>-563</option><option>-562</option><option>-561</option><option>-560</option><option>-559</option><option>-558</option><option>-557</option><option>-556</option><option>-555</option><option>-554</option><option>-553</option><option>-552</option><option>-551</option><option>-550</option><option>-549</option><option>-548</option><option>-547</option><option>-546</option><option>-545</option><option>-544</option><option>-543</option><option>-542</option><option>-541</option><option>-540</option><option>-539</option><option>-538</option><option>-537</option><option>-536</option><option>-535</option><option>-534</option><option>-533</option><option>-532</option><option>-531</option><option>-530</option><option>-529</option><option>-528</option><option>-527</option><option>-526</option><option>-525</option><option>-524</option><option>-523</option><option>-522</option><option>-521</option><option>-520</option><option>-519</option><option>-518</option><option>-517</option><option>-516</option><option>-515</option><option>-514</option><option>-513</option><option>-512</option><option>-511</option><option>-510</option><option>-509</option><option>-508</option><option>-507</option><option>-506</option><option>-505</option><option>-504</option><option>-503</option><option>-502</option><option>-501</option><option>-500</option><option>-499</option><option>-498</option><option>-497</option><option>-496</option><option>-495</option><option>-494</option><option>-493</option><option>-492</option><option>-491</option><option>-490</option><option>-489</option><option>-488</option><option>-487</option><option>-486</option><option>-485</option><option>-484</option><option>-483</option><option>-482</option><option>-481</option><option>-480</option><option>-479</option><option>-478</option><option>-477</option><option>-476</option><option>-475</option><option>-474</option><option>-473</option><option>-472</option><option>-471</option><option>-470</option><option>-469</option><option>-468</option><option>-467</option><option>-466</option><option>-465</option><option>-464</option><option>-463</option><option>-462</option><option>-461</option><option>-460</option><option>-459</option><option>-458</option><option>-457</option><option>-456</option><option>-455</option><option>-454</option><option>-453</option><option>-452</option><option>-451</option><option>-450</option><option>-449</option><option>-448</option><option>-447</option><option>-446</option><option>-445</option><option>-444</option><option>-443</option><option>-442</option><option>-441</option><option>-440</option><option>-439</option><option>-438</option><option>-437</option><option>-436</option><option>-435</option><option>-434</option><option>-433</option><option>-432</option><option>-431</option><option>-430</option><option>-429</option><option>-428</option><option>-427</option><option>-426</option><option>-425</option><option>-424</option><option>-423</option><option>-422</option><option>-421</option><option>-420</option><option>-419</option><option>-418</option><option>-417</option><option>-416</option><option>-415</option><option>-414</option><option>-413</option><option>-412</option><option>-411</option><option>-410</option><option>-409</option><option>-408</option><option>-407</option><option>-406</option><option>-405</option><option>-404</option><option>-403</option><option>-402</option><option>-401</option><option>-400</option><option>-399</option><option>-398</option><option>-397</option><option>-396</option><option>-395</option><option>-394</option><option>-393</option><option>-392</option><option>-391</option><option>-390</option><option>-389</option><option>-388</option><option>-387</option><option>-386</option><option>-385</option><option>-384</option><option>-383</option><option>-382</option><option>-381</option><option>-380</option><option>-379</option><option>-378</option><option>-377</option><option>-376</option><option>-375</option><option>-374</option><option>-373</option><option>-372</option><option>-371</option><option>-370</option><option>-369</option><option>-368</option><option>-367</option><option>-366</option><option>-365</option><option>-364</option><option>-363</option><option>-362</option><option>-361</option><option>-360</option><option>-359</option><option>-358</option><option>-357</option><option>-356</option><option>-355</option><option>-354</option><option>-353</option><option>-352</option><option>-351</option><option>-350</option><option>-349</option><option>-348</option><option>-347</option><option>-346</option><option>-345</option><option>-344</option><option>-343</option><option>-342</option><option>-341</option><option>-340</option><option>-339</option><option>-338</option><option>-337</option><option>-336</option><option>-335</option><option>-334</option><option>-333</option><option>-332</option><option>-331</option><option>-330</option><option>-329</option><option>-328</option><option>-327</option><option>-326</option><option>-325</option><option>-324</option><option>-323</option><option>-322</option><option>-321</option><option>-320</option><option>-319</option><option>-318</option><option>-317</option><option>-316</option><option>-315</option><option>-314</option><option>-313</option><option>-312</option><option>-311</option><option>-310</option><option>-309</option><option>-308</option><option>-307</option><option>-306</option><option>-305</option><option>-304</option><option>-303</option><option>-302</option><option>-301</option><option>-300</option><option>-299</option><option>-298</option><option>-297</option><option>-296</option><option>-295</option><option>-294</option><option>-293</option><option>-292</option><option>-291</option><option>-290</option><option>-289</option><option>-288</option><option>-287</option><option>-286</option><option>-285</option><option>-284</option><option>-283</option><option>-282</option><option>-281</option><option>-280</option><option>-279</option><option>-278</option><option>-277</option><option>-276</option><option>-275</option><option>-274</option><option>-273</option><option>-272</option><option>-271</option><option>-270</option><option>-269</option><option>-268</option><option>-267</option><option>-266</option><option>-265</option><option>-264</option><option>-263</option><option>-262</option><option>-261</option><option>-260</option><option>-259</option><option>-258</option><option>-257</option><option>-256</option><option>-255</option><option>-254</option><option>-253</option><option>-252</option><option>-251</option><option>-250</option><option>-249</option><option>-248</option><option>-247</option><option>-246</option><option>-245</option><option>-244</option><option>-243</option><option>-242</option><option>-241</option><option>-240</option><option>-239</option><option>-238</option><option>-237</option><option>-236</option><option>-235</option><option>-234</option><option>-233</option><option>-232</option><option>-231</option><option>-230</option><option>-229</option><option>-228</option><option>-227</option><option>-226</option><option>-225</option><option>-224</option><option>-223</option><option>-222</option><option>-221</option><option>-220</option><option>-219</option><option>-218</option><option>-217</option><option>-216</option><option>-215</option><option>-214</option><option>-213</option><option>-212</option><option>-211</option><option>-210</option><option>-209</option><option>-208</option><option>-207</option><option>-206</option><option>-205</option><option>-204</option><option>-203</option><option>-202</option><option>-201</option><option>-200</option><option>-199</option><option>-198</option><option>-197</option><option>-196</option><option>-195</option><option>-194</option><option>-193</option><option>-192</option><option>-191</option><option>-190</option><option>-189</option><option>-188</option><option>-187</option><option>-186</option><option>-185</option><option>-184</option><option>-183</option><option>-182</option><option>-181</option><option>-180</option><option>-179</option><option>-178</option><option>-177</option><option>-176</option><option>-175</option><option>-174</option><option>-173</option><option>-172</option><option>-171</option><option>-170</option><option>-169</option><option>-168</option><option>-167</option><option>-166</option><option>-165</option><option>-164</option><option>-163</option><option>-162</option><option>-161</option><option>-160</option><option>-159</option><option>-158</option><option>-157</option><option>-156</option><option>-155</option><option>-154</option><option>-153</option><option>-152</option><option>-151</option><option>-150</option><option>-149</option><option>-148</option><option>-147</option><option>-146</option><option>-145</option><option>-144</option><option>-143</option><option>-142</option><option>-141</option><option>-140</option><option>-139</option><option>-138</option><option>-137</option><option>-136</option><option>-135</option><option>-134</option><option>-133</option><option>-132</option><option>-131</option><option>-130</option><option>-129</option><option>-128</option><option>-127</option><option>-126</option><option>-125</option><option>-124</option><option>-123</option><option>-122</option><option>-121</option><option>-120</option><option>-119</option><option>-118</option><option>-117</option><option>-116</option><option>-115</option><option>-114</option><option>-113</option><option>-112</option><option>-111</option><option>-110</option><option>-109</option><option>-108</option><option>-107</option><option>-106</option><option>-105</option><option>-104</option><option>-103</option><option>-102</option><option>-101</option><option>-100</option><option>-99</option><option>-98</option><option>-97</option><option>-96</option><option>-95</option><option>-94</option><option>-93</option><option>-92</option><option>-91</option><option>-90</option><option>-89</option><option>-88</option><option>-87</option><option>-86</option><option>-85</option><option>-84</option><option>-83</option><option>-82</option><option>-81</option><option>-80</option><option>-79</option><option>-78</option><option>-77</option><option>-76</option><option>-75</option><option>-74</option><option>-73</option><option>-72</option><option>-71</option><option>-70</option><option>-69</option><option>-68</option><option>-67</option><option>-66</option><option>-65</option><option>-64</option><option>-63</option><option>-62</option><option>-61</option><option>-60</option><option>-59</option><option>-58</option><option>-57</option><option>-56</option><option>-55</option><option>-54</option><option>-53</option><option>-52</option><option>-51</option><option>-50</option><option>-49</option><option>-48</option><option>-47</option><option>-46</option><option>-45</option><option>-44</option><option>-43</option><option>-42</option><option>-41</option><option>-40</option><option>-39</option><option>-38</option><option>-37</option><option>-36</option><option>-35</option><option>-34</option><option>-33</option><option>-32</option><option>-31</option><option>-30</option><option>-29</option><option>-28</option><option>-27</option><option>-26</option><option>-25</option><option>-24</option><option>-23</option><option>-22</option><option>-21</option><option>-20</option><option>-19</option><option>-18</option><option>-17</option><option>-16</option><option>-15</option><option>-14</option><option>-13</option><option>-12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option><option>128</option><option>129</option><option>130</option><option>131</option><option>132</option><option>133</option><option>134</option><option>135</option><option>136</option><option>137</option><option>138</option><option>139</option><option>140</option><option>141</option><option>142</option><option>143</option><option>144</option><option>145</option><option>146</option><option>147</option><option>148</option><option>149</option><option>150</option><option>151</option><option>152</option><option>153</option><option>154</option><option>155</option><option>156</option><option>157</option><option>158</option><option>159</option><option>160</option><option>161</option><option>162</option><option>163</option><option>164</option><option>165</option><option>166</option><option>167</option><option>168</option><option>169</option><option>170</option><option>171</option><option>172</option><option>173</option><option>174</option><option>175</option><option>176</option><option>177</option><option>178</option><option>179</option><option>180</option><option>181</option><option>182</option><option>183</option><option>184</option><option>185</option><option>186</option><option>187</option><option>188</option><option>189</option><option>190</option><option>191</option><option>192</option><option>193</option><option>194</option><option>195</option><option>196</option><option>197</option><option>198</option><option>199</option><option>200</option><option>201</option><option>202</option><option>203</option><option>204</option><option>205</option><option>206</option><option>207</option><option>208</option><option>209</option><option>210</option><option>211</option><option>212</option><option>213</option><option>214</option><option>215</option><option>216</option><option>217</option><option>218</option><option>219</option><option>220</option><option>221</option><option>222</option><option>223</option><option>224</option><option>225</option><option>226</option><option>227</option><option>228</option><option>229</option><option>230</option><option>231</option><option>232</option><option>233</option><option>234</option><option>235</option><option>236</option><option>237</option><option>238</option><option>239</option><option>240</option><option>241</option><option>242</option><option>243</option><option>244</option><option>245</option><option>246</option><option>247</option><option>248</option><option>249</option><option>250</option><option>251</option><option>252</option><option>253</option><option>254</option><option>255</option><option>256</option><option>257</option><option>258</option><option>259</option><option>260</option><option>261</option><option>262</option><option>263</option><option>264</option><option>265</option><option>266</option><option>267</option><option>268</option><option>269</option><option>270</option><option>271</option><option>272</option><option>273</option><option>274</option><option>275</option><option>276</option><option>277</option><option>278</option><option>279</option><option>280</option><option>281</option><option>282</option><option>283</option><option>284</option><option>285</option><option>286</option><option>287</option><option>288</option><option>289</option><option>290</option><option>291</option><option>292</option><option>293</option><option>294</option><option>295</option><option>296</option><option>297</option><option>298</option><option>299</option><option>300</option><option>301</option><option>302</option><option>303</option><option>304</option><option>305</option><option>306</option><option>307</option><option>308</option><option>309</option><option>310</option><option>311</option><option>312</option><option>313</option><option>314</option><option>315</option><option>316</option><option>317</option><option>318</option><option>319</option><option>320</option><option>321</option><option>322</option><option>323</option><option>324</option><option>325</option><option>326</option><option>327</option><option>328</option><option>329</option><option>330</option><option>331</option><option>332</option><option>333</option><option>334</option><option>335</option><option>336</option><option>337</option><option>338</option><option>339</option><option>340</option><option>341</option><option>342</option><option>343</option><option>344</option><option>345</option><option>346</option><option>347</option><option>348</option><option>349</option><option>350</option><option>351</option><option>352</option><option>353</option><option>354</option><option>355</option><option>356</option><option>357</option><option>358</option><option>359</option><option>360</option><option>361</option><option>362</option><option>363</option><option>364</option><option>365</option><option>366</option><option>367</option><option>368</option><option>369</option><option>370</option><option>371</option><option>372</option><option>373</option><option>374</option><option>375</option><option>376</option><option>377</option><option>378</option><option>379</option><option>380</option><option>381</option><option>382</option><option>383</option><option>384</option><option>385</option><option>386</option><option>387</option><option>388</option><option>389</option><option>390</option><option>391</option><option>392</option><option>393</option><option>394</option><option>395</option><option>396</option><option>397</option><option>398</option><option>399</option><option>400</option><option>401</option><option>402</option><option>403</option><option>404</option><option>405</option><option>406</option><option>407</option><option>408</option><option>409</option><option>410</option><option>411</option><option>412</option><option>413</option><option>414</option><option>415</option><option>416</option><option>417</option><option>418</option><option>419</option><option>420</option><option>421</option><option>422</option><option>423</option><option>424</option><option>425</option><option>426</option><option>427</option><option>428</option><option>429</option><option>430</option><option>431</option><option>432</option><option>433</option><option>434</option><option>435</option><option>436</option><option>437</option><option>438</option><option>439</option><option>440</option><option>441</option><option>442</option><option>443</option><option>444</option><option>445</option><option>446</option><option>447</option><option>448</option><option>449</option><option>450</option><option>451</option><option>452</option><option>453</option><option>454</option><option>455</option><option>456</option><option>457</option><option>458</option><option>459</option><option>460</option><option>461</option><option>462</option><option>463</option><option>464</option><option>465</option><option>466</option><option>467</option><option>468</option><option>469</option><option>470</option><option>471</option><option>472</option><option>473</option><option>474</option><option>475</option><option>476</option><option>477</option><option>478</option><option>479</option><option>480</option><option>481</option><option>482</option><option>483</option><option>484</option><option>485</option><option>486</option><option>487</option><option>488</option><option>489</option><option>490</option><option>491</option><option>492</option><option>493</option><option>494</option><option>495</option><option>496</option><option>497</option><option>498</option><option>499</option><option>500</option><option>501</option><option>502</option><option>503</option><option>504</option><option>505</option><option>506</option><option>507</option><option>508</option><option>509</option><option>510</option><option>511</option><option>512</option><option>513</option><option>514</option><option>515</option><option>516</option><option>517</option><option>518</option><option>519</option><option>520</option><option>521</option><option>522</option><option>523</option><option>524</option><option>525</option><option>526</option><option>527</option><option>528</option><option>529</option><option>530</option><option>531</option><option>532</option><option>533</option><option>534</option><option>535</option><option>536</option><option>537</option><option>538</option><option>539</option><option>540</option><option>541</option><option>542</option><option>543</option><option>544</option><option>545</option><option>546</option><option>547</option><option>548</option><option>549</option><option>550</option><option>551</option><option>552</option><option>553</option><option>554</option><option>555</option><option>556</option><option>557</option><option>558</option><option>559</option><option>560</option><option>561</option><option>562</option><option>563</option><option>564</option><option>565</option><option>566</option><option>567</option><option>568</option><option>569</option><option>570</option><option>571</option><option>572</option><option>573</option><option>574</option><option>575</option><option>576</option><option>577</option><option>578</option><option>579</option><option>580</option><option>581</option><option>582</option><option>583</option><option>584</option><option>585</option><option>586</option><option>587</option><option>588</option><option>589</option><option>590</option><option>591</option><option>592</option><option>593</option><option>594</option><option>595</option><option>596</option><option>597</option><option>598</option><option>599</option><option>600</option><option>601</option><option>602</option><option>603</option><option>604</option><option>605</option><option>606</option><option>607</option><option>608</option><option>609</option><option>610</option><option>611</option><option>612</option><option>613</option><option>614</option><option>615</option><option>616</option><option>617</option><option>618</option><option>619</option><option>620</option><option>621</option><option>622</option><option>623</option><option>624</option><option>625</option><option>626</option><option>627</option><option>628</option><option>629</option><option>630</option><option>631</option><option>632</option><option>633</option><option>634</option><option>635</option><option>636</option><option>637</option><option>638</option><option>639</option><option>640</option><option>641</option><option>642</option><option>643</option><option>644</option><option>645</option><option>646</option><option>647</option><option>648</option><option>649</option><option>650</option><option>651</option><option>652</option><option>653</option><option>654</option><option>655</option><option>656</option><option>657</option><option>658</option><option>659</option><option>660</option><option>661</option><option>662</option><option>663</option><option>664</option><option>665</option><option>666</option><option>667</option><option>668</option><option>669</option><option>670</option><option>671</option><option>672</option><option>673</option><option>674</option><option>675</option><option>676</option><option>677</option><option>678</option><option>679</option><option>680</option><option>681</option><option>682</option><option>683</option><option>684</option><option>685</option><option>686</option><option>687</option><option>688</option><option>689</option><option>690</option><option>691</option><option>692</option><option>693</option><option>694</option><option>695</option><option>696</option><option>697</option><option>698</option><option>699</option><option>700</option><option>701</option><option>702</option><option>703</option><option>704</option><option>705</option><option>706</option><option>707</option><option>708</option><option>709</option><option>710</option><option>711</option><option>712</option><option>713</option><option>714</option><option>715</option><option>716</option><option>717</option><option>718</option><option>719</option><option>720</option><option>721</option><option>722</option><option>723</option><option>724</option><option>725</option><option>726</option><option>727</option><option>728</option><option>729</option><option>730</option><option>731</option><option>732</option><option>733</option><option>734</option><option>735</option><option>736</option><option>737</option><option>738</option><option>739</option><option>740</option><option>741</option><option>742</option><option>743</option><option>744</option><option>745</option><option>746</option><option>747</option><option>748</option><option>749</option><option>750</option><option>751</option><option>752</option><option>753</option><option>754</option><option>755</option><option>756</option><option>757</option><option>758</option><option>759</option><option>760</option><option>761</option><option>762</option><option>763</option><option>764</option><option>765</option><option>766</option><option>767</option><option>768</option><option>769</option><option>770</option><option>771</option><option>772</option><option>773</option><option>774</option><option>775</option><option>776</option><option>777</option><option>778</option><option>779</option><option>780</option><option>781</option><option>782</option><option>783</option><option>784</option><option>785</option><option>786</option><option>787</option><option>788</option><option>789</option><option>790</option><option>791</option><option>792</option><option>793</option><option>794</option><option>795</option><option>796</option><option>797</option><option>798</option><option>799</option><option>800</option><option>801</option><option>802</option><option>803</option><option>804</option><option>805</option><option>806</option><option>807</option><option>808</option><option>809</option><option>810</option><option>811</option><option>812</option><option>813</option><option>814</option><option>815</option><option>816</option><option>817</option><option>818</option><option>819</option><option>820</option><option>821</option><option>822</option><option>823</option><option>824</option><option>825</option><option>826</option><option>827</option><option>828</option><option>829</option><option>830</option><option>831</option><option>832</option><option>833</option><option>834</option><option>835</option><option>836</option><option>837</option><option>838</option><option>839</option><option>840</option><option>841</option><option>842</option><option>843</option><option>844</option><option>845</option><option>846</option><option>847</option><option>848</option><option>849</option><option>850</option><option>851</option><option>852</option><option>853</option><option>854</option><option>855</option><option>856</option><option>857</option><option>858</option><option>859</option><option>860</option><option>861</option><option>862</option><option>863</option><option>864</option><option>865</option><option>866</option><option>867</option><option>868</option><option>869</option><option>870</option><option>871</option><option>872</option><option>873</option><option>874</option><option>875</option><option>876</option><option>877</option><option>878</option><option>879</option><option>880</option><option>881</option><option>882</option><option>883</option><option>884</option><option>885</option><option>886</option><option>887</option><option>888</option><option>889</option><option>890</option><option>891</option><option>892</option><option>893</option><option>894</option><option>895</option><option>896</option><option>897</option><option>898</option><option>899</option><option>900</option><option>901</option><option>902</option><option>903</option><option>904</option><option>905</option><option>906</option><option>907</option><option>908</option><option>909</option><option>910</option><option>911</option><option>912</option><option>913</option><option>914</option><option>915</option><option>916</option><option>917</option><option>918</option><option>919</option><option>920</option><option>921</option><option>922</option><option>923</option><option>924</option><option>925</option><option>926</option><option>927</option><option>928</option><option>929</option><option>930</option><option>931</option><option>932</option><option>933</option><option>934</option><option>935</option><option>936</option><option>937</option><option>938</option><option>939</option><option>940</option><option>941</option><option>942</option><option>943</option><option>944</option><option>945</option><option>946</option><option>947</option><option>948</option><option>949</option><option>950</option><option>951</option><option>952</option><option>953</option><option>954</option><option>955</option><option>956</option><option>957</option><option>958</option><option>959</option><option>960</option><option>961</option><option>962</option><option>963</option><option>964</option><option>965</option><option>966</option><option>967</option><option>968</option><option>969</option><option>970</option><option>971</option><option>972</option><option>973</option><option>974</option><option>975</option><option>976</option><option>977</option><option>978</option><option>979</option><option>980</option><option>981</option><option>982</option><option>983</option><option>984</option><option>985</option><option>986</option><option>987</option><option>988</option><option>989</option><option>990</option><option>991</option><option>992</option><option>993</option><option>994</option><option>995</option><option>996</option><option>997</option><option>998</option><option>999</option><option>1000</option>
-  </select>ŒÂæ‚ğŒ©‚é<input type="button" value="”½‰f" onclick="glance_a()"><br> <span id="lv_val_v">—”’lF<span title="(58+96)/2=77">58</span> <span title="(96+8)/2=52">96</span> <span title="(8+96)/2=52">08</span> <span title="(96+69)/2=82">96</span> <span title="(69+78)/2=73">69</span> <span title="(78+14)/2=46">78</span> <span title="(14+72)/2=43">14</span> <span title="(72+42)/2=57">72</span> <span title="(42+71)/2=56">42</span> <span title="(71+25)/2=48">71</span> <span title="(25+22)/2=23">25</span> <span title="(22+57)/2=39">22</span> <span title="(57+59)/2=58">57</span> <span title="(59+0)/2=29">59</span> <span title="(0+60)/2=30">00</span> <span title="(60+85)/2=72">60</span> <span title="(85+64)/2=74">85</span> <span title="(64+69)/2=66">64</span> <span title="(69+82)/2=75">69</span> <span title="(82+18)/2=50">82</span> <span title="(18+79)/2=48">18</span> <span title="(79+8)/2=43">79</span> <span title="(8+40)/2=24">08</span> <span title="(40+82)/2=61">40</span> <span title="(82+14)/2=48">82</span> <span title="(14+49)/2=31">14</span> <span title="(49+79)/2=64">49</span> <span title="(79+20)/2=49">79</span> <span title="(20+34)/2=27">20</span> <span title="(34+29)/2=31">34</span><br>‚e–@F ‰¡F01220001040031<span class="ov">2</span> cF1101042000300110</span>
-    <hr>Œ»İˆÊ’uŒŸõ<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();"><input type="button" value="›" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c"><input type="button" value="~" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x"> <input type="button" value="Á‹" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();"><br> <input type="button" value="‘O" onclick="search_updown(-1);"><input type="button" value="Ÿ" onclick="search_updown(1);"> <input type="button" value="‘S‚Ä•\¦" onclick="all_show(0);">ª“ü—Í•¶š”F<span id="search_len">0</span> <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">“ü—Í•ª‚ğ‰ÁZ</label><br> <span id="search_m_ret"></span>
+  </select>å€‹å…ˆã‚’è¦‹ã‚‹<input type="button" value="åæ˜ " onclick="glance_a()"><br> <span id="lv_val_v">ä¹±æ•°å€¤ï¼š<span title="(58+96)/2=77">58</span> <span title="(96+8)/2=52">96</span> <span title="(8+96)/2=52">08</span> <span title="(96+69)/2=82">96</span> <span title="(69+78)/2=73">69</span> <span title="(78+14)/2=46">78</span> <span title="(14+72)/2=43">14</span> <span title="(72+42)/2=57">72</span> <span title="(42+71)/2=56">42</span> <span title="(71+25)/2=48">71</span> <span title="(25+22)/2=23">25</span> <span title="(22+57)/2=39">22</span> <span title="(57+59)/2=58">57</span> <span title="(59+0)/2=29">59</span> <span title="(0+60)/2=30">00</span> <span title="(60+85)/2=72">60</span> <span title="(85+64)/2=74">85</span> <span title="(64+69)/2=66">64</span> <span title="(69+82)/2=75">69</span> <span title="(82+18)/2=50">82</span> <span title="(18+79)/2=48">18</span> <span title="(79+8)/2=43">79</span> <span title="(8+40)/2=24">08</span> <span title="(40+82)/2=61">40</span> <span title="(82+14)/2=48">82</span> <span title="(14+49)/2=31">14</span> <span title="(49+79)/2=64">49</span> <span title="(79+20)/2=49">79</span> <span title="(20+34)/2=27">20</span> <span title="(34+29)/2=31">34</span><br>ï¼¦æ³•ï¼š æ¨ªï¼š01220001040031<span class="ov">2</span> ç¸¦ï¼š1101042000300110</span>
+    <hr>ç¾åœ¨ä½ç½®æ¤œç´¢<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();"><input type="button" value="â—‹" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c"><input type="button" value="Ã—" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x"> <input type="button" value="æ¶ˆå»" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();"><br> <input type="button" value="å‰" onclick="search_updown(-1);"><input type="button" value="æ¬¡" onclick="search_updown(1);"> <input type="button" value="å…¨ã¦è¡¨ç¤º" onclick="all_show(0);">â†‘å…¥åŠ›æ–‡å­—æ•°ï¼š<span id="search_len">0</span> <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">å…¥åŠ›åˆ†ã‚’åŠ ç®—</label><br> <span id="search_m_ret"></span>
     <hr>
     <table border="0" cellpadding="2" cellspacing="0">
       <tbody>
         <tr>
-          <td>ŒŸõƒ^ƒCƒv <select id="search_type" onchange="Change_type();">
-        <option>ƒŒƒxƒ‹ƒAƒbƒv</option>
-        <option>í“¬</option>
-        <option>í“¬{ƒŒƒxƒ‹ƒAƒbƒv</option>
-        <option>Šg’£</option>
+          <td>æ¤œç´¢ã‚¿ã‚¤ãƒ— <select id="search_type" onchange="Change_type();">
+        <option>ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—</option>
+        <option>æˆ¦é—˜</option>
+        <option>æˆ¦é—˜ï¼‹ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—</option>
+        <option>æ‹¡å¼µ</option>
         </select> </td>
-          <td>í“¬ƒEƒCƒ“ƒhƒE<input type="button" onclick="displaystyle(&#39;bttbl&#39;,&#39;btw&#39;);" value="•\¦" id="btw"></td>
+          <td>æˆ¦é—˜ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦<input type="button" onclick="displaystyle(&#39;bttbl&#39;,&#39;btw&#39;);" value="è¡¨ç¤º" id="btw"></td>
         </tr>
         <tr>
           <td> <select id="unitname" onchange="ch_OnChange(1);" onkeyup="ch_OnChange(1);">
@@ -1417,39 +1417,39 @@ for(i=0;i<ud.length;i++){
 }
 document.getElementById("unitname").selectedIndex=unitindex;
   </script>
-  </select> <input type="button" value="ƒZƒbƒg" onclick="ch_OnChange(1);"> <input type="checkbox" id="afua" onclick="afua_change();" value="1"><label for="afua">ƒAƒtƒA/ƒƒeƒBƒX</label>
+  </select> <input type="button" value="ã‚»ãƒƒãƒˆ" onclick="ch_OnChange(1);"> <input type="checkbox" id="afua" onclick="afua_change();" value="1"><label for="afua">ã‚¢ãƒ•ã‚¢/ãƒ¡ãƒ†ã‚£ã‚¹</label>
             <table border="0" cellpadding="0" cellspacing="0">
               <tbody>
                 <tr>
                   <td><br> </td>
                   <td><br> </td>
                   <td> <select id="chall" onchange="ch_all();">
-              <option>--ˆêŠ‡•ÏX--</option>
-              <option>ã¸‚µ‚È‚¢‚Æƒ_ƒ</option>
+              <option>--ä¸€æ‹¬å¤‰æ›´--</option>
+              <option>ä¸Šæ˜‡ã—ãªã„ã¨ãƒ€ãƒ¡</option>
               <option></option>
-              <option>‚Ç‚¿‚ç‚Å‚à‚æ‚¢</option>
-              <option>ã¸‚µ‚¿‚áƒ_ƒ</option>
+              <option>ã©ã¡ã‚‰ã§ã‚‚ã‚ˆã„</option>
+              <option>ä¸Šæ˜‡ã—ã¡ã‚ƒãƒ€ãƒ¡</option>
               <option>--MAX--</option>
               </select> </td>
-                  <td class="ryo">Œ»İ</td>
-                  <td class="ryo">–Ú•W</td>
+                  <td class="ryo">ç¾åœ¨</td>
+                  <td class="ryo">ç›®æ¨™</td>
                 </tr>
                 <script type="text/javascript">
                   var i;
                   for(i=0;i<prct;i++){
                     document.write('<tr>');
-                    document.write('<td class="view">'+para[i]+'F</td>');
+                    document.write('<td class="view">'+para[i]+'ï¼š</td>');
                     document.write('<td><input type="text" id="'+prvn[i]+'" size="4" onchange="calc_lvlup();" class="view"></td>');
                     document.write('<td><select id="ch'+prvn[i]+'" onchange="calc_lvlup();">');
-                    document.write('<option selected>ã¸‚µ‚È‚¢‚Æƒ_ƒ</option><option></option>');
-                    document.write('<option>‚Ç‚¿‚ç‚Å‚à‚æ‚¢</option><option>ã¸‚µ‚¿‚áƒ_ƒ</option>');
+                    document.write('<option selected>ä¸Šæ˜‡ã—ãªã„ã¨ãƒ€ãƒ¡</option><option></option>');
+                    document.write('<option>ã©ã¡ã‚‰ã§ã‚‚ã‚ˆã„</option><option>ä¸Šæ˜‡ã—ã¡ã‚ƒãƒ€ãƒ¡</option>');
                     document.write('<option>--MAX--</option></select></td>');
                     document.write('<td id="'+prvn[i]+'pl" class="view"></td>');
                     document.write('<td id="'+prvn[i]+'pm" class="view"></td></tr>');
                   }
                 </script>
               </tbody>
-            </table> ‚©‚Â <select id="growmin" onchange="calc_lvlup();">
+            </table> ã‹ã¤ <select id="growmin" onchange="calc_lvlup();">
         <script type="text/javascript">
 var i;
 for(i=0;i<prct+1;i++){
@@ -1457,7 +1457,7 @@ for(i=0;i<prct+1;i++){
 }
 document.getElementById("growmin").selectedIndex=0;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
-        </select>ŒÂˆÈã <select id="growmax" onchange="calc_lvlup();">
+        </select>å€‹ä»¥ä¸Š <select id="growmax" onchange="calc_lvlup();">
         <script type="text/javascript">
 var i;
 for(i=0;i<prct+1;i++){
@@ -1465,13 +1465,13 @@ for(i=0;i<prct+1;i++){
 }
 document.getElementById("growmax").selectedIndex=prct;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
-        </select>ŒÂˆÈ‰º‚Ì”\—Í‚ªã¸<br> <input type="checkbox" id="silent" onclick="calc_lvlup();" value="1" checked=""><label for="silent">’¾–Ù‹~Ïˆ’u”»’è‚ğs‚¤(’Êí‚ÍƒIƒ“‚Ì‚Ü‚Ü)</label> </td>
+        </select>å€‹ä»¥ä¸‹ã®èƒ½åŠ›ãŒä¸Šæ˜‡<br> <input type="checkbox" id="silent" onclick="calc_lvlup();" value="1" checked=""><label for="silent">æ²ˆé»™æ•‘æ¸ˆå‡¦ç½®åˆ¤å®šã‚’è¡Œã†(é€šå¸¸ã¯ã‚ªãƒ³ã®ã¾ã¾)</label> </td>
           <td class="bt" id="bttbl" style="display: none;">
             <table border="1" cellpadding="2" cellspacing="0">
               <tbody>
                 <tr>
-                  <td class="bt">UŒ‚‘¤ <input type="button" value="UŒ‚‘¤Ì–hŒä‘¤ “ü‚ê‘Ö‚¦" onclick="at_df_change();"></td>
-                  <td class="bt">–hŒä‘¤</td>
+                  <td class="bt">æ”»æ’ƒå´ <input type="button" value="æ”»æ’ƒå´â‡”é˜²å¾¡å´ å…¥ã‚Œæ›¿ãˆ" onclick="at_df_change();"></td>
+                  <td class="bt">é˜²å¾¡å´</td>
                 </tr>
                 <tr>
                   <td class="bt">HP<select id="athp" onchange="battle();">
@@ -1482,7 +1482,7 @@ for(i=0;i<127;i++){
 }
 document.getElementById("athp").selectedIndex=39;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select> Å‘åHP<select id="atmhp" onchange="battle();">
+              </select> æœ€å¤§HP<select id="atmhp" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<127;i++){
@@ -1490,7 +1490,7 @@ for(i=0;i<127;i++){
 }
 document.getElementById("atmhp").selectedIndex=59;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select> ˆĞ—Í<select id="atdmg" onchange="battle();">
+              </select> å¨åŠ›<select id="atdmg" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<100;i++){
@@ -1498,7 +1498,7 @@ for(i=0;i<100;i++){
 }
 document.getElementById("atdmg").selectedIndex=20;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option>
-              </select> –hŒä<select id="atdef" onchange="battle();">
+              </select> é˜²å¾¡<select id="atdef" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<51;i++){
@@ -1506,7 +1506,7 @@ for(i=0;i<51;i++){
 }
 document.getElementById("atdef").selectedIndex=20;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option>
-              </select> <br>–½’†<select id="athit" onchange="battle();">
+              </select> <br>å‘½ä¸­<select id="athit" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<101;i++){
@@ -1514,7 +1514,7 @@ for(i=0;i<101;i++){
 }
 document.getElementById("athit").selectedIndex=90;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option>
-              </select> •KE<select id="atcrt" onchange="battle();">
+              </select> å¿…æ®º<select id="atcrt" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<101;i++){
@@ -1522,7 +1522,7 @@ for(i=0;i<101;i++){
 }
 document.getElementById("atcrt").selectedIndex=5;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option>
-              </select> ƒŒƒxƒ‹<select id="atlvl" onchange="battle();">
+              </select> ãƒ¬ãƒ™ãƒ«<select id="atlvl" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<20;i++){
@@ -1530,7 +1530,7 @@ for(i=0;i<20;i++){
 }
 document.getElementById("atlvl").selectedIndex=19;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
-              </select> ‰^<select id="atluck" onchange="battle();">
+              </select> é‹<select id="atluck" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<31;i++){
@@ -1538,28 +1538,28 @@ for(i=0;i<31;i++){
 }
 document.getElementById("atluck").selectedIndex=0;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
-              </select> <br>ƒXƒLƒ‹<select id="atskill" onchange="battle();">
+              </select> <br>ã‚¹ã‚­ãƒ«<select id="atskill" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<skilllist.length;i++){
   document.write("<option>"+skilllist[i]+"</option>");
 }
-  </script><option>‚È‚µ</option><option>‘å‚</option><option>ŠÑ’Ê</option><option>uE</option><option>•K“I</option>
-              </select> •Ší<select id="atarm" onchange="battle();">
+  </script><option>ãªã—</option><option>å¤§ç›¾</option><option>è²«é€š</option><option>ç¬æ®º</option><option>å¿…çš„</option>
+              </select> æ­¦å™¨<select id="atarm" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<armlist.length;i++){
   document.write("<option>"+armlist[i]+"</option>");
 }
-  </script><option>’Êí</option><option>‚Q‰ñUŒ‚</option><option>‚g‚o‹zû</option><option>ô‚¢</option><option>“Å</option><option>Î‰»</option>
-              </select> í—Ş<select id="atboss" onchange="battle();">
+  </script><option>é€šå¸¸</option><option>ï¼’å›æ”»æ’ƒ</option><option>ï¼¨ï¼°å¸å</option><option>å‘ªã„</option><option>æ¯’</option><option>çŸ³åŒ–</option>
+              </select> ç¨®é¡<select id="atboss" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<killlist.length;i++){
   document.write("<option>"+killlist[i][0]+"</option>");
 }
-  </script><option>ƒ{ƒXˆÈŠO</option><option>ƒ{ƒX</option><option>ƒ‰ƒXƒ{ƒX</option><option>u••ˆóv</option>
-              </select> <br> <input type="checkbox" id="triangle" value="1" onclick="battle();"><label for="triangle">ƒgƒ‰ƒCƒAƒ“ƒOƒ‹ƒAƒ^ƒbƒN</label> <input type="checkbox" id="attsuigeki" value="1" checked="" onclick="battle_ss(0);"><label for="attsuigeki">’ÇŒ‚</label></td>
+  </script><option>ãƒœã‚¹ä»¥å¤–</option><option>ãƒœã‚¹</option><option>ãƒ©ã‚¹ãƒœã‚¹</option><option>ã€Œå°å°ã€</option>
+              </select> <br> <input type="checkbox" id="triangle" value="1" onclick="battle();"><label for="triangle">ãƒˆãƒ©ã‚¤ã‚¢ãƒ³ã‚°ãƒ«ã‚¢ã‚¿ãƒƒã‚¯</label> <input type="checkbox" id="attsuigeki" value="1" checked="" onclick="battle_ss(0);"><label for="attsuigeki">è¿½æ’ƒ</label></td>
                   <td class="bt">HP<select id="dfhp" onchange="battle();">
               <script type="text/javascript">
 var i;
@@ -1568,7 +1568,7 @@ for(i=0;i<127;i++){
 }
 document.getElementById("dfhp").selectedIndex=39;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select> Å‘åHP<select id="dfmhp" onchange="battle();">
+              </select> æœ€å¤§HP<select id="dfmhp" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<127;i++){
@@ -1576,7 +1576,7 @@ for(i=0;i<127;i++){
 }
 document.getElementById("dfmhp").selectedIndex=59;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select> ˆĞ—Í<select id="dfdmg" onchange="battle();">
+              </select> å¨åŠ›<select id="dfdmg" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<100;i++){
@@ -1584,7 +1584,7 @@ for(i=0;i<100;i++){
 }
 document.getElementById("dfdmg").selectedIndex=20;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option>
-              </select> –hŒä<select id="dfdef" onchange="battle();">
+              </select> é˜²å¾¡<select id="dfdef" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<51;i++){
@@ -1592,7 +1592,7 @@ for(i=0;i<51;i++){
 }
 document.getElementById("dfdef").selectedIndex=20;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option>
-              </select> <br>–½’†<select id="dfhit" onchange="battle();">
+              </select> <br>å‘½ä¸­<select id="dfhit" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<101;i++){
@@ -1600,7 +1600,7 @@ for(i=0;i<101;i++){
 }
 document.getElementById("dfhit").selectedIndex=20;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option>
-              </select> •KE<select id="dfcrt" onchange="battle();">
+              </select> å¿…æ®º<select id="dfcrt" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<101;i++){
@@ -1608,7 +1608,7 @@ for(i=0;i<101;i++){
 }
 document.getElementById("dfcrt").selectedIndex=0;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option>
-              </select> ƒŒƒxƒ‹<select id="dflvl" onchange="battle();">
+              </select> ãƒ¬ãƒ™ãƒ«<select id="dflvl" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<20;i++){
@@ -1616,7 +1616,7 @@ for(i=0;i<20;i++){
 }
 document.getElementById("dflvl").selectedIndex=19;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
-              </select> ‰^<select id="dfluck" onchange="battle();">
+              </select> é‹<select id="dfluck" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<31;i++){
@@ -1624,32 +1624,32 @@ for(i=0;i<31;i++){
 }
 document.getElementById("dfluck").selectedIndex=0;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
-              </select> <br>ƒXƒLƒ‹<select id="dfskill" onchange="battle();">
+              </select> <br>ã‚¹ã‚­ãƒ«<select id="dfskill" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<skilllist.length;i++){
   document.write("<option>"+skilllist[i]+"</option>");
 }
-  </script><option>‚È‚µ</option><option>‘å‚</option><option>ŠÑ’Ê</option><option>uE</option><option>•K“I</option>
-              </select> •Ší<select id="dfarm" onchange="battle();">
+  </script><option>ãªã—</option><option>å¤§ç›¾</option><option>è²«é€š</option><option>ç¬æ®º</option><option>å¿…çš„</option>
+              </select> æ­¦å™¨<select id="dfarm" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<armlist.length;i++){
   document.write("<option>"+armlist[i]+"</option>");
 }
-  </script><option>’Êí</option><option>‚Q‰ñUŒ‚</option><option>‚g‚o‹zû</option><option>ô‚¢</option><option>“Å</option><option>Î‰»</option>
-              </select> í—Ş<select id="dfboss" onchange="battle();">
+  </script><option>é€šå¸¸</option><option>ï¼’å›æ”»æ’ƒ</option><option>ï¼¨ï¼°å¸å</option><option>å‘ªã„</option><option>æ¯’</option><option>çŸ³åŒ–</option>
+              </select> ç¨®é¡<select id="dfboss" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<killlist.length;i++){
   document.write("<option>"+killlist[i][0]+"</option>");
 }
-  </script><option>ƒ{ƒXˆÈŠO</option><option>ƒ{ƒX</option><option>ƒ‰ƒXƒ{ƒX</option><option>u••ˆóv</option>
-              </select> <br> <input type="checkbox" id="hangeki" value="1" checked="" onclick="battle_ss(1);"><label for="hangeki">”½Œ‚</label> <input type="checkbox" id="dftsuigeki" value="1" onclick="battle_ss(2);"><label for="dftsuigeki">’ÇŒ‚</label></td>
+  </script><option>ãƒœã‚¹ä»¥å¤–</option><option>ãƒœã‚¹</option><option>ãƒ©ã‚¹ãƒœã‚¹</option><option>ã€Œå°å°ã€</option>
+              </select> <br> <input type="checkbox" id="hangeki" value="1" checked="" onclick="battle_ss(1);"><label for="hangeki">åæ’ƒ</label> <input type="checkbox" id="dftsuigeki" value="1" onclick="battle_ss(2);"><label for="dftsuigeki">è¿½æ’ƒ</label></td>
                 </tr>
                 <tr>
-                  <td class="bt">ŒoŒ±’l<input type="checkbox" id="atexp0" value="1" checked="" onclick="battle();"><label for="atexp0">”s–k</label><input type="checkbox" id="atexp1" value="1" checked="" onclick="battle();"><label for="atexp1">ƒ~ƒX</label><input type="checkbox" id="atexp2" value="1" checked="" onclick="battle();"><label for="atexp2">–¢Œ‚”j</label><input type="checkbox" id="atexp3" value="1" checked="" onclick="battle();"><label for="atexp3">Œ‚”j</label><input type="checkbox" id="atexp4" value="1" checked="" onclick="battle();"><label for="atexp4">uE</label></td>
-                  <td class="bt">ŒoŒ±’l<input type="checkbox" id="dfexp0" value="1" checked="" onclick="battle();"><label for="dfexp0">”s–k</label><input type="checkbox" id="dfexp1" value="1" checked="" onclick="battle();"><label for="dfexp1">ƒ~ƒX</label><input type="checkbox" id="dfexp2" value="1" checked="" onclick="battle();"><label for="dfexp2">–¢Œ‚”j</label><input type="checkbox" id="dfexp3" value="1" checked="" onclick="battle();"><label for="dfexp3">Œ‚”j</label><input type="checkbox" id="dfexp4" value="1" checked="" onclick="battle();"><label for="dfexp4">uE</label></td>
+                  <td class="bt">çµŒé¨“å€¤<input type="checkbox" id="atexp0" value="1" checked="" onclick="battle();"><label for="atexp0">æ•—åŒ—</label><input type="checkbox" id="atexp1" value="1" checked="" onclick="battle();"><label for="atexp1">ãƒŸã‚¹</label><input type="checkbox" id="atexp2" value="1" checked="" onclick="battle();"><label for="atexp2">æœªæ’ƒç ´</label><input type="checkbox" id="atexp3" value="1" checked="" onclick="battle();"><label for="atexp3">æ’ƒç ´</label><input type="checkbox" id="atexp4" value="1" checked="" onclick="battle();"><label for="atexp4">ç¬æ®º</label></td>
+                  <td class="bt">çµŒé¨“å€¤<input type="checkbox" id="dfexp0" value="1" checked="" onclick="battle();"><label for="dfexp0">æ•—åŒ—</label><input type="checkbox" id="dfexp1" value="1" checked="" onclick="battle();"><label for="dfexp1">ãƒŸã‚¹</label><input type="checkbox" id="dfexp2" value="1" checked="" onclick="battle();"><label for="dfexp2">æœªæ’ƒç ´</label><input type="checkbox" id="dfexp3" value="1" checked="" onclick="battle();"><label for="dfexp3">æ’ƒç ´</label><input type="checkbox" id="dfexp4" value="1" checked="" onclick="battle();"><label for="dfexp4">ç¬æ®º</label></td>
                 </tr>
                 <tr>
                   <td>HP <select id="athpmin" onchange="battle();">
@@ -1660,7 +1660,7 @@ for(i=0;i<128;i++){
 }
 document.getElementById("athpmin").selectedIndex=1;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select>ˆÈã<select id="athpmax" onchange="battle();">
+              </select>ä»¥ä¸Š<select id="athpmax" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<128;i++){
@@ -1668,16 +1668,16 @@ for(i=0;i<128;i++){
 }
 document.getElementById("athpmax").selectedIndex=127;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select>ˆÈ‰º<br> <input type="button" value="€–S" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=0;
- battle();"><input type="button" value="€" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;
+              </select>ä»¥ä¸‹<br> <input type="button" value="æ­»äº¡" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=0;
+ battle();"><input type="button" value="æ­»å‚·" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;
  document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex;
- battle();"><input type="button" value="•‰" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=
+ battle();"><input type="button" value="è² å‚·" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=
  Math.min(1,document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex);
- battle();"><input type="button" value="¶‘¶" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=1;
+ battle();"><input type="button" value="ç”Ÿå­˜" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=1;
  document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;atmhp&#39;).selectedIndex+1;
- battle();"><input type="button" value="–³" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex+1;
+ battle();"><input type="button" value="ç„¡å‚·" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex+1;
  document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;atmhp&#39;).selectedIndex+1;
- battle();"><input type="button" value="–³ğŒ" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=127;
+ battle();"><input type="button" value="ç„¡æ¡ä»¶" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=127;
  battle();"></td>
                   <td>HP <select id="dfhpmin" onchange="battle();">
               <script type="text/javascript">
@@ -1687,7 +1687,7 @@ for(i=0;i<128;i++){
 }
 document.getElementById("dfhpmin").selectedIndex=0;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select>ˆÈã<select id="dfhpmax" onchange="battle();">
+              </select>ä»¥ä¸Š<select id="dfhpmax" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<128;i++){
@@ -1695,16 +1695,16 @@ for(i=0;i<128;i++){
 }
 document.getElementById("dfhpmax").selectedIndex=0;
   </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option><option>100</option><option>101</option><option>102</option><option>103</option><option>104</option><option>105</option><option>106</option><option>107</option><option>108</option><option>109</option><option>110</option><option>111</option><option>112</option><option>113</option><option>114</option><option>115</option><option>116</option><option>117</option><option>118</option><option>119</option><option>120</option><option>121</option><option>122</option><option>123</option><option>124</option><option>125</option><option>126</option><option>127</option>
-              </select>ˆÈ‰º<br> <input type="button" value="€–S" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=0;
- battle();"><input type="button" value="€" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;
+              </select>ä»¥ä¸‹<br> <input type="button" value="æ­»äº¡" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=0;
+ battle();"><input type="button" value="æ­»å‚·" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;
  document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex;
- battle();"><input type="button" value="•‰" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=
+ battle();"><input type="button" value="è² å‚·" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=
  Math.min(1,document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex);
- battle();"><input type="button" value="¶‘¶" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=1;
+ battle();"><input type="button" value="ç”Ÿå­˜" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=1;
  document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfmhp&#39;).selectedIndex+1;
- battle();"><input type="button" value="–³" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex+1;
+ battle();"><input type="button" value="ç„¡å‚·" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex+1;
  document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfmhp&#39;).selectedIndex+1;
- battle();"><input type="button" value="–³ğŒ" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=127;
+ battle();"><input type="button" value="ç„¡æ¡ä»¶" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=127;
  battle();"></td>
                 </tr>
               </tbody>
@@ -1712,7 +1712,7 @@ document.getElementById("dfhpmax").selectedIndex=0;
             <table border="1" cellpadding="2" cellspacing="0">
               <tbody>
                 <tr>
-                  <td rowspan="4"><input type="button" value="ŒŸõŠJn" onclick="battle();battle_search();"><br> Å‘åƒ^[ƒ“<select id="maxturn" onchange="battle();">
+                  <td rowspan="4"><input type="button" value="æ¤œç´¢é–‹å§‹" onclick="battle();battle_search();"><br> æœ€å¤§ã‚¿ãƒ¼ãƒ³<select id="maxturn" onchange="battle();">
               <script type="text/javascript">
 var i;
 for(i=0;i<99;i++){
@@ -1720,32 +1720,32 @@ for(i=0;i<99;i++){
 }
 document.getElementById("maxturn").selectedIndex=0;
   </script><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option><option>60</option><option>61</option><option>62</option><option>63</option><option>64</option><option>65</option><option>66</option><option>67</option><option>68</option><option>69</option><option>70</option><option>71</option><option>72</option><option>73</option><option>74</option><option>75</option><option>76</option><option>77</option><option>78</option><option>79</option><option>80</option><option>81</option><option>82</option><option>83</option><option>84</option><option>85</option><option>86</option><option>87</option><option>88</option><option>89</option><option>90</option><option>91</option><option>92</option><option>93</option><option>94</option><option>95</option><option>96</option><option>97</option><option>98</option><option>99</option>
-              </select> <br> <label for="now_turn">ƒ^[ƒ“</label>@<span id="now_turn" class="view">1</span><span id="total_turn">/1</span><br> <input type="button" value="‘O" onclick="battle_turn_updown(-1);"><input type="button" value="Ÿ" onclick="battle_turn_updown(1);"></td>
+              </select> <br> <label for="now_turn">ã‚¿ãƒ¼ãƒ³</label>ã€€<span id="now_turn" class="view">1</span><span id="total_turn">/1</span><br> <input type="button" value="å‰" onclick="battle_turn_updown(-1);"><input type="button" value="æ¬¡" onclick="battle_turn_updown(1);"></td>
                   <td rowspan="2"><br> </td>
-                  <td colspan="2">UŒ‚/”½Œ‚</td>
-                  <td colspan="2">’ÇŒ‚</td>
-                  <td colspan="2"><span id="search_info">g—p—”F8ŒÂ</span><input type="button" value="’â~" onclick="battle_stop=1;"></td>
+                  <td colspan="2">æ”»æ’ƒ/åæ’ƒ</td>
+                  <td colspan="2">è¿½æ’ƒ</td>
+                  <td colspan="2"><span id="search_info">ä½¿ç”¨ä¹±æ•°ï¼š8å€‹</span><input type="button" value="åœæ­¢" onclick="battle_stop=1;"></td>
                 </tr>
                 <tr>
-                  <td>ˆêŒ‚–Ú</td>
-                  <td>“ñŒ‚–Ú</td>
-                  <td>ˆêŒ‚–Ú</td>
-                  <td>“ñŒ‚–Ú</td>
-                  <td>c‚èHP</td>
-                  <td>ŒoŒ±’l</td>
+                  <td>ä¸€æ’ƒç›®</td>
+                  <td>äºŒæ’ƒç›®</td>
+                  <td>ä¸€æ’ƒç›®</td>
+                  <td>äºŒæ’ƒç›®</td>
+                  <td>æ®‹ã‚ŠHP</td>
+                  <td>çµŒé¨“å€¤</td>
                 </tr>
                 <tr>
-                  <td>UŒ‚‘¤</td>
-                  <td id="at1">–½’†</td>
+                  <td>æ”»æ’ƒå´</td>
+                  <td id="at1">å‘½ä¸­</td>
                   <td id="at2">-</td>
-                  <td id="at3">–½’†</td>
+                  <td id="at3">å‘½ä¸­</td>
                   <td id="at4">-</td>
                   <td id="atahp">40</td>
-                  <td id="atexp">Œ‚”j</td>
+                  <td id="atexp">æ’ƒç ´</td>
                 </tr>
                 <tr>
-                  <td>–hŒä‘¤</td>
-                  <td id="df1">ƒ~ƒX</td>
+                  <td>é˜²å¾¡å´</td>
+                  <td id="df1">ãƒŸã‚¹</td>
                   <td id="df2">-</td>
                   <td id="df3">-</td>
                   <td id="df4">-</td>
@@ -1757,19 +1757,19 @@ document.getElementById("maxturn").selectedIndex=0;
           </td>
         </tr>
       </tbody>
-    </table> Eã‹LğŒ‚ğ–‚½‚·êŠ<br> <input type="button" value="‘O" onclick="kouho_updown(-1);"><input type="button" value="Ÿ" onclick="kouho_updown(1);"> <input type="button" value="Œ»İˆÊ’uˆÈ~‚ÅÅ‚à‹ß‚¢Œó•â" onclick="kouho_next(1);" accesskey="j"> <input type="button" value="‘S‚Ä•\¦" onclick="all_show(1);"><br>
-    <div id="kouho">Œó•â”F494<br>6 14 15 43 75 76 87 122 146 163 178 255 260 283 323 393 413 422 427 428 446 447 458 512 530 587 630 678 704 707 755 757 759 760 763 814 834 953 958 959 1046 1047 1111 1112 1113 1116 1121 1149 1181 1208 1209 1212 1273 1274 1346 1347 1348 1362 1373 1378 1379 1394 1455 1464 1478 1558 1569 1576 1641 1643 1644 1710 1806 1808 1818 1819 1820 1866 1905 1954 1961 1962 1984 1989 2002 2007 2009 2027 2028 2031 2032 2033 2065 2066 2087 2090 2091 2092 2093 2094 2110 2111 2112 2150 2191 2195 2197 2198 2199 2200 2273 2274 2281 2290 2292 2352 2355 2439 2440 2441 2451 2454 2455 2503 2504 2505 2507 2508 2548 2613 2622 2670 2672 2711 2742 2743 2751 2779 2803 2842 2843 2880 2893 2894 2895 2913 2967 2969 2992 2993 3012 3014 3061 3091 3093 3102 3168 3169 3193 3194 3197 3203 3204 3215 3259 3319 3320 3330 3331 3408 3432 3433 3434 3435 3436 3437 3438 3439 3454 3455 3474 3518 3520 3660 3736 3792 3836 3838 3911 3931 3940 3964 3976 3983 4024 4025 4037 4052 4055 4091 ...</div>
+    </table> ãƒ»ä¸Šè¨˜æ¡ä»¶ã‚’æº€ãŸã™å ´æ‰€<br> <input type="button" value="å‰" onclick="kouho_updown(-1);"><input type="button" value="æ¬¡" onclick="kouho_updown(1);"> <input type="button" value="ç¾åœ¨ä½ç½®ä»¥é™ã§æœ€ã‚‚è¿‘ã„å€™è£œ" onclick="kouho_next(1);" accesskey="j"> <input type="button" value="å…¨ã¦è¡¨ç¤º" onclick="all_show(1);"><br>
+    <div id="kouho">å€™è£œæ•°ï¼š494<br>6 14 15 43 75 76 87 122 146 163 178 255 260 283 323 393 413 422 427 428 446 447 458 512 530 587 630 678 704 707 755 757 759 760 763 814 834 953 958 959 1046 1047 1111 1112 1113 1116 1121 1149 1181 1208 1209 1212 1273 1274 1346 1347 1348 1362 1373 1378 1379 1394 1455 1464 1478 1558 1569 1576 1641 1643 1644 1710 1806 1808 1818 1819 1820 1866 1905 1954 1961 1962 1984 1989 2002 2007 2009 2027 2028 2031 2032 2033 2065 2066 2087 2090 2091 2092 2093 2094 2110 2111 2112 2150 2191 2195 2197 2198 2199 2200 2273 2274 2281 2290 2292 2352 2355 2439 2440 2441 2451 2454 2455 2503 2504 2505 2507 2508 2548 2613 2622 2670 2672 2711 2742 2743 2751 2779 2803 2842 2843 2880 2893 2894 2895 2913 2967 2969 2992 2993 3012 3014 3061 3091 3093 3102 3168 3169 3193 3194 3197 3203 3204 3215 3259 3319 3320 3330 3331 3408 3432 3433 3434 3435 3436 3437 3438 3439 3454 3455 3474 3518 3520 3660 3736 3792 3836 3838 3911 3931 3940 3964 3976 3983 4024 4025 4037 4052 4055 4091 ...</div>
     <table border="0" cellpadding="0" cellspacing="0">
       <tbody>
         <tr>
-          <td>Šg’£ŒŸõ <input type="button" value="ŒŸõŠJn" onclick="search_thread();"> <input type="button" value="+LvUP" onclick="thread_lvup();"><br> <textarea id="search_mc" cols="30" rows="20"></textarea></td>
+          <td>æ‹¡å¼µæ¤œç´¢ <input type="button" value="æ¤œç´¢é–‹å§‹" onclick="search_thread();"> <input type="button" value="+LvUP" onclick="thread_lvup();"><br> <textarea id="search_mc" cols="30" rows="20"></textarea></td>
           <td><br> </td>
         </tr>
       </tbody>
     </table>
-    <hr><input type="button" onclick="createTable(1);" value="—”’l‚Ì•\¦"> | <input type="button" onclick="createTable(0);" value="”ñ•\¦"><br>
+    <hr><input type="button" onclick="createTable(1);" value="ä¹±æ•°å€¤ã®è¡¨ç¤º"> | <input type="button" onclick="createTable(0);" value="éè¡¨ç¤º"><br>
     <div id="randnum"></div>
   </form>
-  <div><a href="http://web.archive.org/web/20090216165656/http://hpcgi1.nifty.com/mickeyinu/fe/rand/">–ß‚é</a></div>
+  <div><a href="http://web.archive.org/web/20090216165656/http://hpcgi1.nifty.com/mickeyinu/fe/rand/">æˆ»ã‚‹</a></div>
 </body>
 </html>
