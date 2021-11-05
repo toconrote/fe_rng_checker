@@ -4,41 +4,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Script-Type" content="text/javascript">
   <meta http-equiv="Content-Style-Type" content="text/css">
+  <link rel="stylesheet" href="css/main.css">
   <script src="js/jquery-1.10.2.min.js"></script>
   <title>FE乱数 GBA 封印の剣 烈火の剣 聖魔の光石</title>
-  <style type="text/css">
-    #mainwindow{
-      visibility:hidden;
-    }
-    tr{
-      vertical-align: top;
-    }
-    td{
-      white-space: nowrap;
-    }
-    .ryo{
-      padding: 0px 4px;
-    }
-    .bt{
-      font-size:80%;
-    }
-    .ov{
-      color: #ff0000;
-    }
-    .view{
-      border:0px none #ffffff;
-      text-align:right;
-      font-size:100%;
-    }
-    .right{
-      text-align:right;
-    }
-    input[type="button"] {
-      margin-right: 5px;
-      height: 1.8em;
-      min-width: 2em;
-    }
-  </style>
   <script type="text/javascript">
     var randarr=[];          //乱数計算用配列
     var nextarr=[];          //次の乱数表生成用
@@ -1771,6 +1739,5 @@ document.getElementById("maxturn").selectedIndex=0;
     <hr><input type="button" onclick="createTable(1);" value="乱数値の表示"> | <input type="button" onclick="createTable(0);" value="非表示"><br>
     <div id="randnum"></div>
   </form>
-  <div><a href="http://web.archive.org/web/20090216165656/http://hpcgi1.nifty.com/mickeyinu/fe/rand/">戻る</a></div>
 </body>
 </html>
