@@ -10,28 +10,38 @@
   <script src="js/main.js"></script>
 </head>
 <body onload="init();" id="mainwindow" style="visibility: visible;">
-  <form><input type="button" value="次の乱数表" onclick="next();"> <input type="text" size="10" id="rand_start" accesskey="s">個目からの<input type="text" size="10" id="rand_max">個の乱数に<input type="button" value="変更" onclick="change_max();">
-    <hr> <label for="view_val">乱数の現在位置</label><input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
-    <input type="button" value="-10" onclick="view_val_updown(-10);"><input type="button" value="-3" onclick="view_val_updown(-3);"><input type="button" value="-" onclick="view_val_updown(-1);" accesskey="&lt;"><input type="button" value="+" onclick="view_val_updown(1);" accesskey="&gt;"><input type="button" value="+3" onclick="view_val_updown(3);"><input type="button" value="+10" onclick="view_val_updown(10);"> <input type="button" value="現在位置←目標位置" onclick="document.getElementById(&#39;view_val&#39;).value=document.getElementById(&#39;lv_val&#39;).value;view_val_f();"><br> <span id="view_val_v"></span>
-    <hr>↓↓実回数：<span id="sub_val">48</span>　Ｆ法(横)：<span id="sub_hfal">23(+2)</span>　Ｆ法(縦)：<span id="sub_vfal">25　 　</span>　移動力 <select id="mv" onchange="change_mv();">
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
-  <option>6</option>
-  <option>7</option>
-  <option selected="">8</option>
-  <option>9</option>
-  <option>10</option>
-  <option>11</option>
-  <option>12</option>
-  <option>13</option>
-  <option>14</option>
-  <option>15</option>
-  </select>
-    <hr> <label for="lv_val">乱数の目標位置</label><input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
-    <input type="button" value="-10" onclick="lv_val_updown(-10);"><input type="button" value="-3" onclick="lv_val_updown(-3);"><input type="button" value="-" onclick="lv_val_updown(-1);" accesskey=","><input type="button" value="+" onclick="lv_val_updown(1);" accesskey="."><input type="button" value="+3" onclick="lv_val_updown(3);"><input type="button" value="+10" onclick="lv_val_updown(10);"> <input type="button" value="目標位置←現在位置" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();"> +<input type="checkbox" id="glance_ck" onclick="lv_val_f();"><select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="right">
-  <script type="text/javascript">
+  <form>
+    <input type="button" value="次の乱数表" onclick="next();">
+    <input type="text" size="10" id="rand_start" accesskey="s">
+    個目からの
+    <input type="text" size="10" id="rand_max">
+    個の乱数に<input type="button" value="変更" onclick="change_max();">
+   
+    <hr>
+
+    <label for="view_val">乱数の現在位置</label>
+    <input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
+    <input type="button" value="-10" onclick="view_val_updown(-10);"><input type="button" value="-3" onclick="view_val_updown(-3);">
+    <input type="button" value="-" onclick="view_val_updown(-1);" accesskey="&lt;">
+    <input type="button" value="+" onclick="view_val_updown(1);" accesskey="&gt;">
+    <input type="button" value="+3" onclick="view_val_updown(3);">
+    <input type="button" value="+10" onclick="view_val_updown(10);">
+    <input type="button" value="現在位置←目標位置" onclick="document.getElementById(&#39;view_val&#39;).value=document.getElementById(&#39;lv_val&#39;).value;view_val_f();">
+    <br>
+    <span id="view_val_v"></span>
+
+    <hr>
+
+    ↓↓実回数：<span id="sub_val">48</span>　Ｆ法(横)：<span id="sub_hfal">23(+2)</span>　Ｆ法(縦)：<span id="sub_vfal">25　 　</span>
+    移動力 <select id="mv" onchange="change_mv();">
+      <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected="">8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+    </select>
+
+    <hr>
+
+  <label for="lv_val">乱数の目標位置</label><input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
+  <input type="button" value="-10" onclick="lv_val_updown(-10);"><input type="button" value="-3" onclick="lv_val_updown(-3);"><input type="button" value="-" onclick="lv_val_updown(-1);" accesskey=","><input type="button" value="+" onclick="lv_val_updown(1);" accesskey="."><input type="button" value="+3" onclick="lv_val_updown(3);"><input type="button" value="+10" onclick="lv_val_updown(10);"> <input type="button" value="目標位置←現在位置" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();"> +<input type="checkbox" id="glance_ck" onclick="lv_val_f();"><select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="right">
+<script type="text/javascript">
 var i;
 for(i=-50;i<51;i++){
   document.write("<option>"+i+"</option>");
@@ -39,9 +49,14 @@ for(i=-50;i<51;i++){
 document.getElementById("glance").selectedIndex=50;
   </script>
   </select>個先を見る<input type="button" value="反映" onclick="glance_a()"><br> <span id="lv_val_v"></span>
-    <hr>現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();"><input type="button" value="○" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c"><input type="button" value="×" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x"> <input type="button" value="消去" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();"><br> <input type="button" value="前" onclick="search_updown(-1);"><input type="button" value="次" onclick="search_updown(1);"> <input type="button" value="全て表示" onclick="all_show(0);">
-    ↑入力文字数：<span id="search_len">0</span> <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">入力分を加算</label><br> <span id="search_m_ret"></span>
+    
     <hr>
+    
+    現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();"><input type="button" value="○" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c"><input type="button" value="×" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x"> <input type="button" value="消去" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();"><br> <input type="button" value="前" onclick="search_updown(-1);"><input type="button" value="次" onclick="search_updown(1);"> <input type="button" value="全て表示" onclick="all_show(0);">
+    ↑入力文字数：<span id="search_len">0</span> <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">入力分を加算</label><br> <span id="search_m_ret"></span>
+    
+    <hr>
+    
     <table border="0" cellpadding="2" cellspacing="0">
       <tbody>
         <tr>
@@ -68,14 +83,16 @@ document.getElementById("unitname").selectedIndex=unitindex;
                 <tr>
                   <td><br> </td>
                   <td><br> </td>
-                  <td> <select id="chall" onchange="ch_all();">
-              <option>--一括変更--</option>
-              <option>上昇しないとダメ</option>
-              <option></option>
-              <option>どちらでもよい</option>
-              <option>上昇しちゃダメ</option>
-              <option>--MAX--</option>
-              </select> </td>
+                  <td>
+                    <select id="chall" onchange="ch_all();">
+                        <option>--一括変更--</option>
+                        <option>上昇しないとダメ</option>
+                        <option></option>
+                        <option>どちらでもよい</option>
+                        <option>上昇しちゃダメ</option>
+                        <option>--MAX--</option>
+                    </select>
+                  </td>
                   <td class="ryo">現在</td>
                   <td class="ryo">目標</td>
                 </tr>
@@ -101,7 +118,7 @@ for(i=0;i<prct+1;i++){
   document.write("<option>"+i+"</option>");
 }
 document.getElementById("growmin").selectedIndex=0;
-  </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
+  </script>
         </select>個以上 <select id="growmax" onchange="calc_lvlup();">
         <script type="text/javascript">
 var i;
@@ -109,7 +126,7 @@ for(i=0;i<prct+1;i++){
   document.write("<option>"+i+"</option>");
 }
 document.getElementById("growmax").selectedIndex=prct;
-  </script><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
+  </script>
         </select>個以下の能力が上昇<br> <input type="checkbox" id="silent" onclick="calc_lvlup();" value="1" checked=""><label for="silent">沈黙救済処置判定を行う(通常はオンのまま)</label> </td>
           <td class="bt" id="bttbl" style="display: none;">
             <table border="1" cellpadding="2" cellspacing="0">
@@ -413,7 +430,10 @@ document.getElementById("maxturn").selectedIndex=0;
         </tr>
       </tbody>
     </table>
-    <hr><input type="button" onclick="createTable(1);" value="乱数値の表示"> | <input type="button" onclick="createTable(0);" value="非表示"><br>
+    
+    <hr>
+    
+    <input type="button" onclick="createTable(1);" value="乱数値の表示"> | <input type="button" onclick="createTable(0);" value="非表示"><br>
     <div id="randnum"></div>
   </form>
 </body>
