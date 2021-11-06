@@ -24,12 +24,8 @@ td{
 .right{
   text-align:right;
 }
-input[type="button"] {
-  margin-right: 5px;
-  height: 1.8em;
-  min-width: 2em;
-}
-@media screen and (max-width:768px) {
+
+@media screen and (min-width:480px) and ( max-width:1024px) {
   input[type="button"] {
     margin-right: 5px;
     height: 48px;
@@ -39,5 +35,12 @@ input[type="button"] {
   input[type="text"] {
     height: 27px;
     font-size: 100%;
+  }
+}
+@media screen and (min-width:1024px) {
+  input[type="button"] {
+    margin-right: 5px;
+    height: 1.8em;
+    min-width: 2em;
   }
 }
