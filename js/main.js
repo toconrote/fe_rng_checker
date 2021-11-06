@@ -725,6 +725,7 @@ function search_m_OnChange(){ //現在位置検索
     else if(lox.charAt(i) == 'c'){ lox2.push(0);}
     else if(lox.charAt(i) == 'a'){ lox2.push(0);}
     else if(lox.charAt(i) == '○'){ lox2.push(0);}
+    else if(lox.charAt(i) == '1'){ lox2.push(0);}
     else if(lox.charAt(i) == '4'){ lox2.push(0);}
     else if(lox.charAt(i) == '6'){ lox2.push(0);}
     else if(lox.charAt(i) == 'x'){ lox2.push(1);}
