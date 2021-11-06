@@ -26,6 +26,9 @@ td{
 }
 
 @media screen and (min-width:480px) and ( max-width:1024px) {
+  div.max-width-100% {
+    max-width: 100%;
+  }
   input[type="button"] {
     margin-right: 5px;
     height: 48px;
