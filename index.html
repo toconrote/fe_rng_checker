@@ -34,6 +34,8 @@
       ↓↓実回数：<span id="sub_val"></span>
       Ｆ法(横)：<span id="sub_hfal"></span>
       Ｆ法(縦)：<span id="sub_vfal"></span>
+    </div>
+    <div class="max-width-100%">
       移動力
       <select id="mv" onchange="change_mv();">
         <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected="">8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
@@ -44,8 +46,8 @@
       <label for="lv_val">乱数の目標位置</label>
     </div>
     <div class="max-width-100%">
+      <input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
       <div>
-        <input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
         <input type="button" value="-10" onclick="lv_val_updown(-10);">
         <input type="button" value="-3" onclick="lv_val_updown(-3);">
         <input type="button" value="-" onclick="lv_val_updown(-1);" accesskey=",">
@@ -53,10 +55,10 @@
         <input type="button" value="+3" onclick="lv_val_updown(3);">
         <input type="button" value="+10" onclick="lv_val_updown(10);">
         <input type="button" value="目標位置←現在位置" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();"> +
-        <input type="checkbox" id="glance_ck" onclick="lv_val_f();">
       </div>
     </div>
     <div class="max-width-100%">
+      <input type="checkbox" id="glance_ck" onclick="lv_val_f();">
       <select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="right">
         <script type="text/javascript">
           var i;
