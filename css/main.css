@@ -31,9 +31,6 @@ td{
     display: flex;
     margin-bottom: 5px;
   }
-  div.max-width-100\% > div {
-    flex: auto;
-  }
   input[type="button"] {
     margin-right: 5px;
     height: 48px;
