@@ -108,7 +108,6 @@
         <option>戦闘＋レベルアップ</option>
         <option>拡張</option>
       </select>
-      戦闘ウインドウ<input type="button" onclick="displaystyle(&#39;bttbl&#39;,&#39;btw&#39;);" value="表示" id="btw"></td>
     </div>
     <div class="max-width-100%">
       <select id="unitname" onchange="ch_OnChange(1);" onkeyup="ch_OnChange(1);">
@@ -184,6 +183,9 @@
         <input type="checkbox" id="silent" onclick="calc_lvlup();" value="1" checked="">
         <label for="silent">沈黙救済処置判定を行う(通常はオンのまま)</label>
       </span>
+    </div>
+    <div class="max-width-100%">
+      戦闘ウインドウ<input type="button" onclick="displaystyle(&#39;bttbl&#39;,&#39;btw&#39;);" value="表示" id="btw"></td>
     </div>
     <div class="max-width-100% bt" id="bttbl" style="display: none;">
       <table border="1" cellpadding="2" cellspacing="0">
