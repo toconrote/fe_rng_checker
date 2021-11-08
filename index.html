@@ -61,7 +61,7 @@
       <input type="button" value="+10" onclick="lv_val_updown(10);">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="目標位置←現在位置" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();"> +
+      <input type="button" value="目標位置←現在位置" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();">
     </div>
     <div class="max-width-100%">
       <input type="checkbox" id="glance_ck" onclick="lv_val_f();">
@@ -75,13 +75,24 @@
         </script>
       </select>個先を見る
       <input type="button" value="反映" onclick="glance_a()">
-      <br>
+    </div>
+    <div class="max-width-100%">
       <span id="lv_val_v"></span>
     </div>
       
     <div class="max-width-100%">
-      現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();"><input type="button" value="○" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c"><input type="button" value="×" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x"> <input type="button" value="消去" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();"><br> <input type="button" value="前" onclick="search_updown(-1);"><input type="button" value="次" onclick="search_updown(1);"> <input type="button" value="全て表示" onclick="all_show(0);">
-      ↑入力文字数：<span id="search_len">0</span> <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">入力分を加算</label><br> <span id="search_m_ret"></span>
+      現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();">
+    </div>
+    <div class="max-width-100%">
+      <input type="button" value="○" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c">
+      <input type="button" value="×" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x">
+      <input type="button" value="消去" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();">
+    </div>
+    <div class="max-width-100%">
+      <input type="button" value="前" onclick="search_updown(-1);">
+      <input type="button" value="次" onclick="search_updown(1);">
+      ↑入力文字数：<span id="search_len">0</span>
+      <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">入力分を加算</label><br> <span id="search_m_ret"></span>
     </div>
       
     <div class="max-width-100%">
