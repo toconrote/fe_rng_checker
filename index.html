@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Script-Type" content="text/javascript">
   <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <link rel="stylesheet" href="css/main.css">
   <script src="js/jquery-1.10.2.min.js"></script>
   <title>FE乱数 GBA 封印の剣 烈火の剣 聖魔の光石</title>
@@ -11,14 +12,6 @@
 </head>
 <body onload="init();" id="mainwindow" style="visibility: visible;">
   <form>
-    <div class="max-width-100%">
-      <input type="button" value="次の乱数表" onclick="next();">
-      <input type="text" size="10" id="rand_start" accesskey="s">
-      個目からの
-      <input type="text" size="10" id="rand_max">
-      個の乱数に<input type="button" value="変更" onclick="change_max();">
-    </div>
-    
     <div class="max-width-100%">
       <label for="view_val">乱数の現在位置</label>
       <input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
@@ -556,7 +549,15 @@
       </tbody>
     </table>
   </div>
-    
+
+  <div class="max-width-100%">
+    <input type="button" value="次の乱数表" onclick="next();">
+    <input type="text" size="10" id="rand_start" accesskey="s">
+    個目からの
+    <input type="text" size="10" id="rand_max">
+    個の乱数に<input type="button" value="変更" onclick="change_max();">
+  </div>
+  
   <div class="max-width-100%" style="display: none;">
     <input type="button" onclick="createTable(1);" value="乱数値の表示"> | <input type="button" onclick="createTable(0);" value="非表示"><br>
     <div id="randnum"></div>
