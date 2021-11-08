@@ -41,6 +41,11 @@ td{
     height: 27px;
     font-size: 100%;
   }
+  input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+  }
 }
 @media screen and (min-width:1024px) {
   div.max-width-100\% {

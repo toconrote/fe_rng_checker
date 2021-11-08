@@ -91,8 +91,13 @@
     <div class="max-width-100%">
       <input type="button" value="前" onclick="search_updown(-1);">
       <input type="button" value="次" onclick="search_updown(1);">
-      ↑入力文字数：<span id="search_len">0</span>
-      <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">入力分を加算</label><br> <span id="search_m_ret"></span>
+    </div>
+    <div class="max-width-100%">
+      入力文字数：<span id="search_len">0</span>
+      <input type="checkbox" id="inpl" onclick="search_m_OnChange();" value="1"><label for="inpl">入力分を加算</label>
+    </div>
+    <div class="max-width-100%">
+      <span id="search_m_ret"></span>
     </div>
       
     <div class="max-width-100%">
@@ -489,105 +494,105 @@
                   </tr>
                 </tbody>
               </table>
-            <table border="1" cellpadding="2" cellspacing="0">
-              <tbody>
-                <tr>
-                  <td rowspan="4">
-                    <input type="button" value="検索開始" onclick="battle();battle_search();">
-                    <br>
-                    最大ターン
-                    <select id="maxturn" onchange="battle();">
-                      <script type="text/javascript">
-                        var i;
-                        for(i=0;i<99;i++){
-                          document.write("<option>"+(i+1)+"</option>");
-                        }
-                        document.getElementById("maxturn").selectedIndex=0;
-                      </script>
-                    </select>
-                    <br>
-                    <label for="now_turn">ターン</label>
-                    <span id="now_turn" class="view">1</span><span id="total_turn">/1</span>
-                    <br>
-                    <input type="button" value="前" onclick="battle_turn_updown(-1);"><input type="button" value="次" onclick="battle_turn_updown(1);">
-                  </td>
-                  <td rowspan="2"><br></td>
-                  <td colspan="2">攻撃/反撃</td>
-                  <td colspan="2">追撃</td>
-                  <td colspan="2"><span id="search_info">使用乱数：8個</span><input type="button" value="停止" onclick="battle_stop=1;"></td>
-                </tr>
-                <tr>
-                  <td>一撃目</td>
-                  <td>二撃目</td>
-                  <td>一撃目</td>
-                  <td>二撃目</td>
-                  <td>残りHP</td>
-                  <td>経験値</td>
-                </tr>
-                <tr>
-                  <td>攻撃側</td>
-                  <td id="at1">命中</td>
-                  <td id="at2">-</td>
-                  <td id="at3">命中</td>
-                  <td id="at4">-</td>
-                  <td id="atahp">40</td>
-                  <td id="atexp">撃破</td>
-                </tr>
-                <tr>
-                  <td>防御側</td>
-                  <td id="df1">ミス</td>
-                  <td id="df2">-</td>
-                  <td id="df3">-</td>
-                  <td id="df4">-</td>
-                  <td id="dfahp">0</td>
-                  <td id="dfexp">0</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    ・上記条件を満たす場所
-    <br>
-    <input type="button" value="前" onclick="kouho_updown(-1);">
-    <input type="button" value="次" onclick="kouho_updown(1);">
-    <input type="button" value="現在位置以降で最も近い候補" onclick="kouho_next(1);" accesskey="j">
-    <input type="button" value="全て表示" onclick="all_show(1);">
-    <br>
-    <input type="button" value="候補表示/非表示" onclick="$('#kouho').toggle()">
-    <br>
-    <div id="kouho" style="display:none;"></div>
-    <table border="0" cellpadding="0" cellspacing="0">
-      <tbody>
-        <tr>
-          <td>
-            拡張検索
-            <input type="button" value="検索開始" onclick="search_thread();">
-            <input type="button" value="+LvUP" onclick="thread_lvup();">
-            <br>
-            <textarea id="search_mc" cols="30" rows="20"></textarea>
-          </td>
-          <td>
-            <br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+              <table border="1" cellpadding="2" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td rowspan="4">
+                      <input type="button" value="検索開始" onclick="battle();battle_search();">
+                      <br>
+                      最大ターン
+                      <select id="maxturn" onchange="battle();">
+                        <script type="text/javascript">
+                          var i;
+                          for(i=0;i<99;i++){
+                            document.write("<option>"+(i+1)+"</option>");
+                          }
+                          document.getElementById("maxturn").selectedIndex=0;
+                        </script>
+                      </select>
+                      <br>
+                      <label for="now_turn">ターン</label>
+                      <span id="now_turn" class="view">1</span><span id="total_turn">/1</span>
+                      <br>
+                      <input type="button" value="前" onclick="battle_turn_updown(-1);"><input type="button" value="次" onclick="battle_turn_updown(1);">
+                    </td>
+                    <td rowspan="2"><br></td>
+                    <td colspan="2">攻撃/反撃</td>
+                    <td colspan="2">追撃</td>
+                    <td colspan="2"><span id="search_info">使用乱数：8個</span><input type="button" value="停止" onclick="battle_stop=1;"></td>
+                  </tr>
+                  <tr>
+                    <td>一撃目</td>
+                    <td>二撃目</td>
+                    <td>一撃目</td>
+                    <td>二撃目</td>
+                    <td>残りHP</td>
+                    <td>経験値</td>
+                  </tr>
+                  <tr>
+                    <td>攻撃側</td>
+                    <td id="at1">命中</td>
+                    <td id="at2">-</td>
+                    <td id="at3">命中</td>
+                    <td id="at4">-</td>
+                    <td id="atahp">40</td>
+                    <td id="atexp">撃破</td>
+                  </tr>
+                  <tr>
+                    <td>防御側</td>
+                    <td id="df1">ミス</td>
+                    <td id="df2">-</td>
+                    <td id="df3">-</td>
+                    <td id="df4">-</td>
+                    <td id="dfahp">0</td>
+                    <td id="dfexp">0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      ・上記条件を満たす場所
+      <br>
+      <input type="button" value="前" onclick="kouho_updown(-1);">
+      <input type="button" value="次" onclick="kouho_updown(1);">
+      <input type="button" value="現在位置以降で最も近い候補" onclick="kouho_next(1);" accesskey="j">
+      <input type="button" value="全て表示" onclick="all_show(1);">
+      <br>
+      <input type="button" value="候補表示/非表示" onclick="$('#kouho').toggle()">
+      <br>
+      <div id="kouho" style="display:none;"></div>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td>
+              拡張検索
+              <input type="button" value="検索開始" onclick="search_thread();">
+              <input type="button" value="+LvUP" onclick="thread_lvup();">
+              <br>
+              <textarea id="search_mc" cols="30" rows="20"></textarea>
+            </td>
+            <td>
+              <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="max-width-100%">
-    <input type="button" value="次の乱数表" onclick="next();">
-    <input type="text" size="10" id="rand_start" accesskey="s">
-    個目からの
-    <input type="text" size="10" id="rand_max">
-    個の乱数に<input type="button" value="変更" onclick="change_max();">
-  </div>
-  
-  <div class="max-width-100%" style="display: none;">
-    <input type="button" onclick="createTable(1);" value="乱数値の表示"> | <input type="button" onclick="createTable(0);" value="非表示"><br>
-    <div id="randnum"></div>
-  </div>
+    <div class="max-width-100%">
+      <input type="button" value="次の乱数表" onclick="next();">
+      <input type="text" size="10" id="rand_start" accesskey="s">
+      個目からの
+      <input type="text" size="10" id="rand_max">
+      個の乱数に<input type="button" value="変更" onclick="change_max();">
+    </div>
+    
+    <div class="max-width-100%" style="display: none;">
+      <input type="button" onclick="createTable(1);" value="乱数値の表示"> | <input type="button" onclick="createTable(0);" value="非表示"><br>
+      <div id="randnum"></div>
+    </div>
   </form>
 </body>
 </html>
