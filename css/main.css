@@ -27,7 +27,11 @@ td{
 
 @media screen and (min-width:0px) and ( max-width:1024px) {
   div.max-width-100\% {
-    max-width: 100%;
+    width: 100%;
+    display: flex;
+  }
+  div.max-width-100\% > * {
+    flex: auto;
   }
   input[type="button"] {
     margin-right: 5px;

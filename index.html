@@ -15,13 +15,15 @@
     <div class="max-width-100%">
       <label for="view_val">乱数の現在位置</label>
       <input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
+    </div>
+
+    <div class="max-width-100%">
       <input type="button" value="-10" onclick="view_val_updown(-10);"><input type="button" value="-3" onclick="view_val_updown(-3);">
       <input type="button" value="-" onclick="view_val_updown(-1);" accesskey="&lt;">
       <input type="button" value="+" onclick="view_val_updown(1);" accesskey="&gt;">
       <input type="button" value="+3" onclick="view_val_updown(3);">
       <input type="button" value="+10" onclick="view_val_updown(10);">
       <input type="button" value="現在位置←目標位置" onclick="document.getElementById(&#39;view_val&#39;).value=document.getElementById(&#39;lv_val&#39;).value;view_val_f();">
-      <br>
       <span id="view_val_v"></span>
     </div>
 
