@@ -25,7 +25,7 @@ td{
   text-align:right;
 }
 
-@media screen and (min-width:480px) and ( max-width:1024px) {
+@media screen and (min-width:300px) and ( max-width:1024px) {
   div.max-width-100\% {
     max-width: 100%;
   }
