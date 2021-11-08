@@ -30,7 +30,7 @@ td{
     width: 100%;
     display: flex;
   }
-  div.max-width-100\% > * {
+  div.max-width-100\% > div {
     flex: auto;
   }
   input[type="button"] {
