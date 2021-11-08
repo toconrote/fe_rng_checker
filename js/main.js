@@ -1299,3 +1299,9 @@ function thread_lvup(){
   if(str.length&&str.slice(str.length-1)!="\n"){ document.getElementById("search_mc").value+="\n" }
   document.getElementById("search_mc").value+="lvup()";
 }
+function create_options(id, start, n, selected){
+  for(var i=start;i<n+start;i++){
+    document.write("<option>"+i+"</option>");
+  }
+  document.getElementById("glance").selectedIndex=selected;
+}

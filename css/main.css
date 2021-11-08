@@ -29,6 +29,7 @@ td{
   div.max-width-100\% {
     width: 100%;
     display: flex;
+    margin-bottom: 5px;
   }
   div.max-width-100\% > div {
     flex: auto;
