@@ -26,6 +26,11 @@ td{
 }
 
 @media screen and (min-width:0px) and ( max-width:1024px) {
+  div.sticky-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
   div.max-width-100\% {
     width: 100%;
     display: flex;
