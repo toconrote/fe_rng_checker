@@ -31,6 +31,10 @@ td{
     top: 0;
     left: 0;
     background: aliceblue;
+    padding: 5px;
+    border-bottom: 1px solid darkgray;
+}
+
   }
   div.max-width-100\% {
     width: 100%;
@@ -42,6 +46,7 @@ td{
     height: 48px;
     min-width: 48px;
     font-size: 100%;
+    flex: auto;
   }
   input[type="button"].marubatu {
     width: 50%;
