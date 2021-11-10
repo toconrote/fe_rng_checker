@@ -37,6 +37,10 @@ td{
     min-width: 48px;
     font-size: 100%;
   }
+  input[type="button"].marubatu {
+    width: 50%;
+    height: 72px;
+  }
   input[type="text"] {
     height: 27px;
     font-size: 100%;
