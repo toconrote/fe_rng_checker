@@ -12,7 +12,7 @@
 </head>
 <body onload="init();" id="mainwindow" style="visibility: visible;">
   <form>
-    <div class="max-width-100%">
+    <div class="max-width-100% sticky-header">
       <label for="view_val">乱数の現在位置</label>
       <input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
     </div>
@@ -88,7 +88,7 @@
       <input type="button" value="×" class="marubatu" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="消去" style="width: 100%" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();">
+      <input type="button" value="消去" style="width: 100%;height: 60px;" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();">
     </div>
     <div class="max-width-100%">
       <input type="button" value="前" class="marubatu" onclick="search_updown(-1);">
