@@ -84,13 +84,15 @@
       現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="○" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c">
-      <input type="button" value="×" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x">
-      <input type="button" value="消去" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();">
+      <input type="button" value="○" class="marubatu" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c">
+      <input type="button" value="×" class="marubatu" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="前" onclick="search_updown(-1);">
-      <input type="button" value="次" onclick="search_updown(1);">
+      <input type="button" value="消去" style="width: 100%" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();">
+    </div>
+    <div class="max-width-100%">
+      <input type="button" value="前" class="marubatu" onclick="search_updown(-1);">
+      <input type="button" value="次" class="marubatu" onclick="search_updown(1);">
     </div>
     <div class="max-width-100%">
       入力文字数：<span id="search_len">0</span>
