@@ -1,3 +1,4 @@
+$(funtion(){
 var randarr=[];          //乱数計算用配列
 var nextarr=[];          //次の乱数表生成用
 var mv=8;                //ファルコン法移動力
@@ -173,6 +174,7 @@ var ud=[
 ["カレル",210,130,140,140,110,100,120]
 */
 ];
+ud.sort();
 if (!localStorage.ch) {
   var ud_obj = {};
   var ud_len = ud.length;
@@ -1305,3 +1307,4 @@ function create_options(id, start, n, selected){
   }
   document.getElementById("glance").selectedIndex=selected;
 }
+});
