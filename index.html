@@ -25,7 +25,7 @@
       <input type="button" value="+10" onclick="view_val_updown(10);">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="現在位置←目標位置" onclick="document.getElementById(&#39;view_val&#39;).value=document.getElementById(&#39;lv_val&#39;).value;view_val_f();">
+      <input type="button" value="現在位置←目標位置" onclick="document.getElementById('view_val').value=document.getElementById('lv_val').value;view_val_f();">
     </div>
 
     <div class="max-width-100%">
@@ -43,8 +43,7 @@
     </div>
     <div class="max-width-100%">
       移動力
-      <select id="mv" onchange="change_mv();">
-        <option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option selected="">8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+      <select id="mv" onchange="change_mv();" class="autoOptions" data-options="2,14,7">
       </select>
     </div>
 
@@ -61,18 +60,11 @@
       <input type="button" value="+10" onclick="lv_val_updown(10);">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="目標位置←現在位置" onclick="document.getElementById(&#39;lv_val&#39;).value=document.getElementById(&#39;view_val&#39;).value;lv_val_f();">
+      <input type="button" value="目標位置←現在位置" onclick="document.getElementById('lv_val').value=document.getElementById('view_val').value;lv_val_f();">
     </div>
     <div class="max-width-100%">
       <input type="checkbox" id="glance_ck" onclick="lv_val_f();">
-      <select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="right">
-        <script type="text/javascript">
-          var i;
-          for(i=-999;i<1001;i++){
-            document.write("<option>"+i+"</option>");
-          }
-          document.getElementById("glance").selectedIndex=999;
-        </script>
+      <select id="glance" onchange="lv_val_f();" onkeyup="lv_val_f();" class="autoOptions" data-options="-49,100,0">
       </select>個先を見る
       <input type="button" value="反映" onclick="glance_a()">
     </div>
@@ -84,11 +76,11 @@
       現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="○" class="marubatu" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;o&#39;;search_mx_OnChange();" accesskey="c">
-      <input type="button" value="×" class="marubatu" onclick="document.getElementById(&#39;search_ma&#39;).value+=&#39;x&#39;;search_mx_OnChange();" accesskey="x">
+      <input type="button" value="○" class="marubatu" onclick="document.getElementById('search_ma').value+='o';search_mx_OnChange();" accesskey="c">
+      <input type="button" value="×" class="marubatu" onclick="document.getElementById('search_ma').value+='x';search_mx_OnChange();" accesskey="x">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="消去" style="width: 100%;height: 60px;" onclick="document.getElementById(&#39;search_ma&#39;).value=&#39;&#39;;search_m_OnChange();">
+      <input type="button" value="消去" style="width: 100%;height: 60px;" onclick="document.getElementById('search_ma').value='';search_m_OnChange();">
     </div>
     <div class="max-width-100%">
       <input type="button" value="前" class="marubatu" onclick="search_updown(-1);">
@@ -113,20 +105,13 @@
     </div>
     <div class="max-width-100%">
       <select id="unitname" onchange="ch_OnChange(1);" onkeyup="ch_OnChange(1);">
-        <script type="text/javascript">
-          var i;
-          for(i=0;i<ud.length;i++){
-            document.write("<option>"+ud[i][0]+"</option>");
-          }
-          document.getElementById("unitname").selectedIndex=unitindex;
-        </script>
       </select>
       <input type="button" value="セット" onclick="ch_OnChange(1);">
       <input type="checkbox" id="afua" onclick="afua_change();" value="1">
       <label for="afua">アフア/メティス</label>
     </div>
     <div class="max-width-100%">
-      <table border="0" cellpadding="0" cellspacing="0">
+      <table id="prtable" border="0" cellpadding="0" cellspacing="0">
         <tbody>
           <tr>
             <td><br> </td>
@@ -144,20 +129,6 @@
             <td class="ryo">現在</td>
             <td class="ryo">目標</td>
           </tr>
-          <script type="text/javascript">
-            var i;
-            for(i=0;i<prct;i++){
-              document.write('<tr>');
-              document.write('<td class="view">'+para[i]+'：</td>');
-              document.write('<td><input type="text" id="'+prvn[i]+'" size="4" onchange="calc_lvlup();" class="view"></td>');
-              document.write('<td><select id="ch'+prvn[i]+'" onchange="calc_lvlup();">');
-              document.write('<option selected>上昇しないとダメ</option><option></option>');
-              document.write('<option>どちらでもよい</option><option>上昇しちゃダメ</option>');
-              document.write('<option>--MAX--</option></select></td>');
-              document.write('<td id="'+prvn[i]+'pl" class="view"></td>');
-              document.write('<td id="'+prvn[i]+'pm" class="view"></td></tr>');
-            }
-          </script>
         </tbody>
       </table>
     </div>
@@ -171,9 +142,10 @@
               document.write("<option>"+i+"</option>");
             }
             document.getElementById("growmin").selectedIndex=0;
-              </script>
-                    </select>個以上 <select id="growmax" onchange="calc_lvlup();">
-                    <script type="text/javascript">
+          </script>
+        </select>個以上
+        <select id="growmax" onchange="calc_lvlup();">
+          <script type="text/javascript">
             var i;
             for(i=0;i<prct+1;i++){
               document.write("<option>"+i+"</option>");
@@ -187,7 +159,7 @@
       </span>
     </div>
     <div class="max-width-100%">
-      戦闘ウインドウ<input type="button" onclick="displaystyle(&#39;bttbl&#39;,&#39;btw&#39;);" value="表示" id="btw"></td>
+      戦闘ウインドウ<input type="button" onclick="displaystyle('bttbl','btw');" value="表示" id="btw"></td>
     </div>
     <div class="max-width-100% bt" id="bttbl" style="display: none;">
       <table border="1" cellpadding="2" cellspacing="0">
@@ -199,80 +171,22 @@
           <tr>
             <td class="bt">
               HP
-              <select id="athp" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<127;i++){
-                    document.write("<option>"+(i+1)+"</option>");
-                  }
-                  document.getElementById("athp").selectedIndex=39;
-                    </script>
-                                </select> 最大HP<select id="atmhp" onchange="battle();">
-                                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<127;i++){
-                    document.write("<option>"+(i+1)+"</option>");
-                  }
-                  document.getElementById("atmhp").selectedIndex=59;
-                </script>
-              </select>
+              <select id="athp" onchange="battle();" class="autoOptions" data-options="1,128,40"></select>
+              最大HP
+              <select id="atmhp" onchange="battle();" class="autoOptions" data-options="1,128,40"></select>
               威力
-              <select id="atdmg" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<100;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("atdmg").selectedIndex=20;
-                    </script>
-                                </select> 防御<select id="atdef" onchange="battle();">
-                                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<51;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("atdef").selectedIndex=20;
-                </script>
-              </select>
+              <select id="atdmg" onchange="battle();" class="autoOptions" data-options="0,100,20"></select>
+              防御
+              <select id="atdef" onchange="battle();" class="autoOptions" data-options="0,51,20"></select>
               <br>
               命中
-              <select id="athit" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<101;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("athit").selectedIndex=90;
-                    </script>
-                                </select> 必殺<select id="atcrt" onchange="battle();">
-                                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<101;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("atcrt").selectedIndex=5;
-                </script>
-              </select>
+              <select id="athit" onchange="battle();" class="autoOptions" data-options="0,101,90"></select>
+              必殺
+              <select id="atcrt" onchange="battle();" class="autoOptions" data-options="0,101,5"></select>
               レベル
-              <select id="atlvl" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<20;i++){
-                    document.write("<option>"+(i+1)+"</option>");
-                  }
-                  document.getElementById("atlvl").selectedIndex=19;
-                </script>
-              </select>
+              <select id="atlvl" onchange="battle();" class="autoOptions" data-options="1,20,20"></select>
               運
-              <select id="atluck" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<31;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("atluck").selectedIndex=0;
-                </script>
-              </select>
+              <select id="atluck" onchange="battle();" class="autoOptions" data-options="0,31,0"></select>
               <br>
               スキル
               <select id="atskill" onchange="battle();">
@@ -307,86 +221,25 @@
             </td>
             <td class="bt">
               HP
-              <select id="dfhp" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<127;i++){
-                    document.write("<option>"+(i+1)+"</option>");
-                  }
-                  document.getElementById("dfhp").selectedIndex=39;
-                </script>
-              </select>
+              <select id="dfhp" onchange="battle();" class="autoOptions" data-options="1,128,40"></select>
               最大HP
-              <select id="dfmhp" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<127;i++){
-                    document.write("<option>"+(i+1)+"</option>");
-                  }
-                  document.getElementById("dfmhp").selectedIndex=59;
-                </script>
-              </select>
+              <select id="dfmhp" onchange="battle();" class="autoOptions" data-options="1,128,40"></select>
               威力
-              <select id="dfdmg" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<100;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("dfdmg").selectedIndex=20;
-                </script>
-              </select>
+              <select id="dfdmg" onchange="battle();" class="autoOptions" data-options="0,100,20"></select>
               防御
-              <select id="dfdef" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<51;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("dfdef").selectedIndex=20;
-                </script>
-              </select>
+              <select id="dfdef" onchange="battle();" class="autoOptions" data-options="0,51,20"></select>
               <br>
               命中
-              <select id="dfhit" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<101;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("dfhit").selectedIndex=20;
-                </script>
-              </select>
+              <select id="dfhit" onchange="battle();" class="autoOptions" data-options="0,101,90"></select>
               必殺
-              <select id="dfcrt" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<101;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("dfcrt").selectedIndex=0;
-                </script>
-              </select>
+              <select id="dfcrt" onchange="battle();" class="autoOptions" data-options="0,101,5"></select>
               レベル
-              <select id="dflvl" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<20;i++){
-                    document.write("<option>"+(i+1)+"</option>");
-                  }
-                  document.getElementById("dflvl").selectedIndex=19;
-                </script>
-              </select>
+              <select id="dflvl" onchange="battle();" class="autoOptions" data-options="1,20,20"></select>
               運
-              <select id="dfluck" onchange="battle();">
-                <script type="text/javascript">
-                  var i;
-                  for(i=0;i<31;i++){
-                    document.write("<option>"+i+"</option>");
-                  }
-                  document.getElementById("dfluck").selectedIndex=0;
-                </script>
-              </select> <br>スキル<select id="dfskill" onchange="battle();">
+              <select id="dfluck" onchange="battle();" class="autoOptions" data-options="0,31,0"></select>
+              <br>
+              スキル
+              <select id="dfskill" onchange="battle();">
                 <script type="text/javascript">
                   var i;
                   for(i=0;i<skilllist.length;i++){
@@ -459,12 +312,12 @@
               </select>
               以下
               <br>
-              <input type="button" value="死亡" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=0 battle();">
-              <input type="button" value="死傷" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex;battle();">
-              <input type="button" value="負傷" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=Math.min(1,document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex);battle();">
-              <input type="button" value="生存" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=1;document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;atmhp&#39;).selectedIndex+1;battle();">
-              <input type="button" value="無傷" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=document.getElementById(&#39;athp&#39;).selectedIndex+1;document.getElementById(&#39;athpmax&#39;).selectedIndex=document.getElementById(&#39;atmhp&#39;).selectedIndex+1;battle();">
-              <input type="button" value="無条件" onclick="document.getElementById(&#39;athpmin&#39;).selectedIndex=0;document.getElementById(&#39;athpmax&#39;).selectedIndex=127;battle();">
+              <input type="button" value="死亡" onclick="document.getElementById('athpmin').selectedIndex=0;document.getElementById('athpmax').selectedIndex=0 battle();">
+              <input type="button" value="死傷" onclick="document.getElementById('athpmin').selectedIndex=0;document.getElementById('athpmax').selectedIndex=document.getElementById('athp').selectedIndex;battle();">
+              <input type="button" value="負傷" onclick="document.getElementById('athpmin').selectedIndex=Math.min(1,document.getElementById('athpmax').selectedIndex=document.getElementById('athp').selectedIndex);battle();">
+              <input type="button" value="生存" onclick="document.getElementById('athpmin').selectedIndex=1;document.getElementById('athpmax').selectedIndex=document.getElementById('atmhp').selectedIndex+1;battle();">
+              <input type="button" value="無傷" onclick="document.getElementById('athpmin').selectedIndex=document.getElementById('athp').selectedIndex+1;document.getElementById('athpmax').selectedIndex=document.getElementById('atmhp').selectedIndex+1;battle();">
+              <input type="button" value="無条件" onclick="document.getElementById('athpmin').selectedIndex=0;document.getElementById('athpmax').selectedIndex=127;battle();">
             </td>
             <td>
               HP
@@ -489,12 +342,12 @@
               </select>
               以下
               <br>
-              <input type="button" value="死亡" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=0;battle();">
-              <input type="button" value="死傷" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex;battle();">
-              <input type="button" value="負傷" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=Math.min(1,document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex);battle();">
-              <input type="button" value="生存" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=1;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfmhp&#39;).selectedIndex+1;battle();">
-              <input type="button" value="無傷" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=document.getElementById(&#39;dfhp&#39;).selectedIndex+1;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=document.getElementById(&#39;dfmhp&#39;).selectedIndex+1;battle();">
-              <input type="button" value="無条件" onclick="document.getElementById(&#39;dfhpmin&#39;).selectedIndex=0;document.getElementById(&#39;dfhpmax&#39;).selectedIndex=127;battle();">
+              <input type="button" value="死亡" onclick="document.getElementById('dfhpmin').selectedIndex=0;document.getElementById('dfhpmax').selectedIndex=0;battle();">
+              <input type="button" value="死傷" onclick="document.getElementById('dfhpmin').selectedIndex=0;document.getElementById('dfhpmax').selectedIndex=document.getElementById('dfhp').selectedIndex;battle();">
+              <input type="button" value="負傷" onclick="document.getElementById('dfhpmin').selectedIndex=Math.min(1,document.getElementById('dfhpmax').selectedIndex=document.getElementById('dfhp').selectedIndex);battle();">
+              <input type="button" value="生存" onclick="document.getElementById('dfhpmin').selectedIndex=1;document.getElementById('dfhpmax').selectedIndex=document.getElementById('dfmhp').selectedIndex+1;battle();">
+              <input type="button" value="無傷" onclick="document.getElementById('dfhpmin').selectedIndex=document.getElementById('dfhp').selectedIndex+1;document.getElementById('dfhpmax').selectedIndex=document.getElementById('dfmhp').selectedIndex+1;battle();">
+              <input type="button" value="無条件" onclick="document.getElementById('dfhpmin').selectedIndex=0;document.getElementById('dfhpmax').selectedIndex=127;battle();">
             </td>
           </tr>
         </tbody>

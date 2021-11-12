@@ -1,4 +1,5 @@
-$(funtion(){
+const GLANCE_OFFSET = 49
+
 var randarr=[];          //乱数計算用配列
 var nextarr=[];          //次の乱数表生成用
 var mv=8;                //ファルコン法移動力
@@ -331,14 +332,14 @@ function lv_val_glance(){ //目標位置先読み
   var index;
   index=parseInt(document.getElementById("lv_val").value)-prim;
   if(document.getElementById("glance_ck").checked){
-    index+=document.getElementById("glance").selectedIndex-999;
+    index+=document.getElementById("glance").selectedIndex-GLANCE_OFFSET;
   }
   return index;
 }
 function glance_a(){ //先読み反映
   var index;
   index=parseInt(document.getElementById("lv_val").value);
-  index+=document.getElementById("glance").selectedIndex-999;
+  index+=document.getElementById("glance").selectedIndex-GLANCE_OFFSET;
   document.getElementById("lv_val").value=index;
   document.getElementById("glance_ck").checked=0;
   lv_val_f();
@@ -1303,8 +1304,29 @@ function thread_lvup(){
 }
 function create_options(id, start, n, selected){
   for(var i=start;i<n+start;i++){
-    document.write("<option>"+i+"</option>");
+    $("#"+id).append("<option>"+i+"</option>");
   }
-  document.getElementById("glance").selectedIndex=selected;
+  document.getElementById(id).selectedIndex=selected-start;
 }
+$(function(){
+  $("select.autoOptions").each(function(){
+    var data = $(this).attr("data-options").split(',')
+    create_options($(this).attr("id"), Number(data[0]), Number(data[1]), Number(data[2]))
+  });
+
+  var unitSelect = $("#unitname")
+  for(var i=0;i<ud.length;i++){
+    unitSelect.append("<option>"+ud[i][0]+"</option>");
+  }
+  unitSelect[0].selectedIndex=unitindex;
+
+  var prtbody = $("#prtable").children("tbody")
+  for(var i=0;i<prct;i++){
+    $("<tr>").appendTo(prtbody) 
+      .append('<td class="view">'+para[i]+'：</td>')
+      .append('<td><input type="text" id="'+prvn[i]+'" size="4" onchange="calc_lvlup();" class="view"></td>')
+      .append('<td><select id="ch'+prvn[i]+'" onchange="calc_lvlup();"><option selected>上昇しないとダメ</option><option></option><option>どちらでもよい</option><option>上昇しちゃダメ</option><option>--MAX--</option></select></td>')
+      .append('<td id="'+prvn[i]+'pl" class="view"></td>')
+      .append('<td id="'+prvn[i]+'pm" class="view"></td>')
+  }
 });

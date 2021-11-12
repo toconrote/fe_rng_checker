@@ -21,9 +21,6 @@ td{
   text-align:right;
   font-size:100%;
 }
-.right{
-  text-align:right;
-}
 
 @media screen and (min-width:0px) and ( max-width:1024px) {
   div.sticky-header {
