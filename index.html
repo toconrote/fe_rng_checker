@@ -14,13 +14,13 @@
   <form>
     <div class="max-width-100% sticky-header">
       <label for="view_val">乱数の現在位置</label>
-      <input type="text" size="10" id="view_val" onchange="view_val_f();" accesskey="n"> 
+      <input type="text" size="10" id="view_val" onchange="view_val_f();"> 
     </div>
 
     <div class="max-width-100%" style="margin-top:44px">
       <input type="button" value="-10" onclick="view_val_updown(-10);"><input type="button" value="-3" onclick="view_val_updown(-3);">
-      <input type="button" value="-" onclick="view_val_updown(-1);" accesskey="&lt;">
-      <input type="button" value="+" onclick="view_val_updown(1);" accesskey="&gt;">
+      <input type="button" value="-" onclick="view_val_updown(-1);">
+      <input type="button" value="+" onclick="view_val_updown(1);">
       <input type="button" value="+3" onclick="view_val_updown(3);">
       <input type="button" value="+10" onclick="view_val_updown(10);">
     </div>
@@ -33,13 +33,9 @@
     </div>
 
     <div class="max-width-100%">
-      <table>
-        <tr>
-          <td>実回数：<span id="sub_val"></span></td>
-          <td>Ｆ法(横)：<span id="sub_hfal"></span></td>
-          <td>Ｆ法(縦)：<span id="sub_vfal"></span></td>
-        </tr>
-      </table>
+      <div>実回数：<span id="sub_val"></span></div>
+      <div>Ｆ法(横)：<span id="sub_hfal"></span></div>
+      <div>Ｆ法(縦)：<span id="sub_vfal"></span></div>
     </div>
     <div class="max-width-100%">
       移動力
@@ -47,15 +43,17 @@
       </select>
     </div>
 
-    <div class="max-width-100%">
-      <label for="lv_val">乱数の目標位置</label>
-      <input type="text" size="10" id="lv_val" onchange="lv_val_f();" accesskey="m"> 
-    </div>
+    <section class="target">
+      <div class="max-width-100%">
+        <label for="lv_val">乱数の目標位置</label>
+        <input type="text" size="10" id="lv_val" onchange="lv_val_f();"> 
+      </div>
+    </section>
     <div class="max-width-100%">
       <input type="button" value="-10" onclick="lv_val_updown(-10);">
       <input type="button" value="-3" onclick="lv_val_updown(-3);">
-      <input type="button" value="-" onclick="lv_val_updown(-1);" accesskey=",">
-      <input type="button" value="+" onclick="lv_val_updown(1);" accesskey=".">
+      <input type="button" value="-" onclick="lv_val_updown(-1);">
+      <input type="button" value="+" onclick="lv_val_updown(1);">
       <input type="button" value="+3" onclick="lv_val_updown(3);">
       <input type="button" value="+10" onclick="lv_val_updown(10);">
     </div>
@@ -76,8 +74,8 @@
       現在位置検索<input type="text" id="search_ma" size="20" onkeyup="search_m_OnChange();">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="○" class="marubatu" onclick="document.getElementById('search_ma').value+='o';search_mx_OnChange();" accesskey="c">
-      <input type="button" value="×" class="marubatu" onclick="document.getElementById('search_ma').value+='x';search_mx_OnChange();" accesskey="x">
+      <input type="button" value="○" class="marubatu" onclick="document.getElementById('search_ma').value+='o';search_mx_OnChange();">
+      <input type="button" value="×" class="marubatu" onclick="document.getElementById('search_ma').value+='x';search_mx_OnChange();">
     </div>
     <div class="max-width-100%">
       <input type="button" value="消去" style="width: 100%;height: 60px;" onclick="document.getElementById('search_ma').value='';search_m_OnChange();">
@@ -416,7 +414,7 @@
     <div class="max-width-100%">
       <input type="button" value="前" onclick="kouho_updown(-1);">
       <input type="button" value="次" onclick="kouho_updown(1);">
-      <input type="button" value="現在位置以降で最も近い候補" onclick="kouho_next(1);" accesskey="j">
+      <input type="button" value="現在位置以降で最も近い候補" onclick="kouho_next(1);">
       <input type="button" value="全て表示" onclick="all_show(1);">
     </div>
     <div class="max-width-100%">
@@ -448,7 +446,7 @@
       <input type="button" value="次の乱数表" onclick="next();">
     </div>
     <div class="max-width-100%">
-      <input type="text" size="10" id="rand_start" accesskey="s">
+      <input type="text" size="10" id="rand_start">
       個目からの
       <input type="text" size="10" id="rand_max">
       個の乱数に<input type="button" value="変更" onclick="change_max();">

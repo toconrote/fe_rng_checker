@@ -1329,4 +1329,17 @@ $(function(){
       .append('<td id="'+prvn[i]+'pl" class="view"></td>')
       .append('<td id="'+prvn[i]+'pm" class="view"></td>')
   }
+
+  var scrollStart = $('section.target').offset().top;
+  var distance = 0;
+  
+  $(document).scroll(function(){
+    distance = $(this).scrollTop();
+     
+    if (scrollStart <= distance) {
+      $('section.target').addClass('scroll-header');
+    } else if (scrollStart >= distance) {
+      $('section.target').removeClass('scroll-header');
+    }
+  });     
 });

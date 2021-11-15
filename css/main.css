@@ -13,13 +13,14 @@ td{
 .bt{
   font-size:80%;
 }
-.ov{
-  color: #ff0000;
-}
 .view{
   border:0px none #ffffff;
   text-align:right;
   font-size:100%;
+}
+section.target {
+  background: rgb(255,236,210);
+  padding: 2px;
 }
 
 @media screen and (min-width:0px) and ( max-width:1024px) {
@@ -30,13 +31,25 @@ td{
     background: aliceblue;
     padding: 5px;
     border-bottom: 1px solid darkgray;
-}
-
+  }
+  section.scroll-header {
+    position: fixed;
+    top: 38px;
+    width: 100%;
+    left: 0px;
+    padding: 5px;
+    border-bottom: 1px solid darkgray;
+  }
+  section.scroll-header > div {
+    margin-bottom: 0px;
   }
   div.max-width-100\% {
     width: 100%;
     display: flex;
     margin-bottom: 5px;
+  }
+  div.max-width-100\% > div {
+    flex: auto;
   }
   input[type="button"] {
     margin-right: 5px;
