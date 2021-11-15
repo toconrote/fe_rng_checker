@@ -1330,7 +1330,7 @@ $(function(){
       .append('<td id="'+prvn[i]+'pm" class="view"></td>')
   }
 
-  var scrollStart = $('section.target').offset().top;
+  var scrollStart = $('section.target').offset().top-40;
   var distance = 0;
   
   $(document).scroll(function(){
