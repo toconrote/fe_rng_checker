@@ -23,7 +23,7 @@ section.target {
   padding: 2px;
 }
 
-@media screen and (min-width:0px) and ( max-width:1024px) {
+@media screen and (min-width:0px) and ( max-width:700px) {
   div.sticky-header {
     position: fixed;
     top: 0;
@@ -62,6 +62,9 @@ section.target {
     width: 50%;
     height: 72px;
   }
+  input[type="button"].delete {
+    height: 60px;
+  }
   input[type="text"] {
     height: 27px;
     font-size: 100%;
@@ -74,9 +77,6 @@ section.target {
 }
 @media screen and (min-width:1024px) {
   div.max-width-100\% {
-    margin: 2px;
-    margin-bottom: 15px;
-    background: aliceblue;
     padding: 5px;
   }
   input[type="button"] {
