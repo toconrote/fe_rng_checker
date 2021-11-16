@@ -102,9 +102,8 @@
       </select>
     </div>
     <div class="max-width-100%">
-      <select id="unitname" onchange="ch_OnChange(1);" onkeyup="ch_OnChange(1);">
-      </select>
-      <input type="button" value="セット" onclick="ch_OnChange(1);">
+      <select id="version" onchange="ver_OnChange();"><option value="0">封印</option><option value="1">烈火</option><option value="2">聖魔</option></select>
+      <select id="unitname" onchange="ch_OnChange(1);" onkeyup="ch_OnChange(1);"></select>
       <input type="checkbox" id="afua" onclick="afua_change();" value="1">
       <label for="afua">アフア/メティス</label>
     </div>
