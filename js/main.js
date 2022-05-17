@@ -512,9 +512,19 @@ function createTable(f){ //乱数表表示
   }else{ document.getElementById("randnum").innerHTML=""; }
 }
 function ch_all(){ //一括変更
+  let PAT = [
+    [],
+    [0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1],
+    [2,2,2,2,2,2,2],
+    [3,3,3,3,3,3,3],
+    [4,4,4,4,4,4,4],
+    [2,0,0,0,2,2,2],
+  ]
   if(document.getElementById("chall").selectedIndex){
+    let sel = document.getElementById("chall").selectedIndex;
     for(var i=0;i<prct;i++){
-      document.getElementById("ch"+prvn[i]).selectedIndex=document.getElementById("chall").selectedIndex-1;
+      document.getElementById("ch"+prvn[i]).selectedIndex = PAT[sel][i]
     }
     document.getElementById("chall").selectedIndex=0;
     calc_lvlup();
@@ -728,6 +738,7 @@ function search_m_OnChange(){ //現在位置検索
     else if(lox.charAt(i) == 'a'){ lox2.push(0);}
     else if(lox.charAt(i) == '○'){ lox2.push(0);}
     else if(lox.charAt(i) == '1'){ lox2.push(0);}
+    else if(lox.charAt(i) == '3'){ lox2.push(0);}
     else if(lox.charAt(i) == '4'){ lox2.push(0);}
     else if(lox.charAt(i) == '6'){ lox2.push(0);}
     else if(lox.charAt(i) == 'x'){ lox2.push(1);}
@@ -1317,6 +1328,22 @@ function ver_OnChange(){
   }
   unitSelect.val(lastSelect["unit"][ver])
   ch_OnChange(0)
+}
+function lvl_search(){
+  var txt = ''
+  for(var i=0;i<7;i++){
+    var val = Number(document.getElementById(prvn[i]).value);
+    var sel = document.getElementById('ch' + prvn[i]).selectedIndex
+    if (sel == 0) { 
+      txt += '0-' + String(val - 1);
+    } else if (sel == 3) {
+      txt += String(val) + '-99';
+    } else {
+      txt += '0-99';
+    }
+    if (i!=6) txt += '\n';
+  }
+  document.getElementById('search_mc').value = txt;
 }
 $(function(){
   $("select.autoOptions").each(function(){

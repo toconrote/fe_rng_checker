@@ -78,7 +78,7 @@
       <input type="button" value="×" class="marubatu" onclick="document.getElementById('search_ma').value+='x';search_mx_OnChange();">
     </div>
     <div class="max-width-100%">
-      <input type="button" value="消去" class="delete" onclick="document.getElementById('search_ma').value='';search_m_OnChange();">
+      <input type="button" value="消去" class="delete" onclick="document.getElementById('search_ma').value='';search_m_OnChange();document.getElementById('search_ma').focus()">
     </div>
     <div class="max-width-100%">
       <input type="button" value="前" class="marubatu" onclick="search_updown(-1);">
@@ -121,6 +121,7 @@
                   <option>どちらでもよい</option>
                   <option>上昇しちゃダメ</option>
                   <option>--MAX--</option>
+                  <option>力技速</option>
               </select>
             </td>
             <td class="ryo">現在</td>
@@ -128,6 +129,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="max-width-100%">
+      <input type="button" onclick="lvl_search();" value="拡張検索に条件を追加">
     </div>
     <div class="max-width-100%">
       <span>
