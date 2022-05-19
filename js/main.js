@@ -1343,7 +1343,7 @@ function lvl_search(){
     }
     if (i!=6) txt += '\n';
   }
-  document.getElementById('search_mc').value = txt;
+  document.getElementById('search_mc').value = document.getElementById('search_mc').value + '\n' + txt;
 }
 $(function(){
   $("select.autoOptions").each(function(){
