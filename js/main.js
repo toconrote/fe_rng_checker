@@ -171,8 +171,9 @@ var ud=[
 ["カレル",210,130,140,140,110,100,120,0]
 ];
 ud.sort();
-if (!localStorage[KEY_FEGBA_CH]) {
-  var ud_obj = {};
+var ud_obj = {};
+var lastSelect = {};
+function init_ud_obj() {
   var ud_len = ud.length;
   for (var i=0;i<ud_len;i++){
     ud_obj[ud[i][0]] = {
@@ -187,16 +188,30 @@ if (!localStorage[KEY_FEGBA_CH]) {
       }
     };
   }
-} else {
-  var ud_obj = JSON.parse(localStorage[KEY_FEGBA_CH]);
 }
-if (!localStorage[KEY_FEGBA_LAST]) {
-  var lastSelect = {
+function init_lastSelect() {
+  lastSelect = {
     "version" : 0,
     "unit" : ["ロイ","エリウッド","エフラム"]
   }
-} else {
-  var lastSelect = JSON.parse(localStorage[KEY_FEGBA_LAST])
+}
+try {
+  if (!localStorage[KEY_FEGBA_CH]) {
+    init_ud_obj();
+  } else {
+    var ud_obj = JSON.parse(localStorage[KEY_FEGBA_CH]);
+  }
+} catch(e) {
+  init_ud_obj();
+}
+try {
+  if (!localStorage[KEY_FEGBA_LAST]) {
+    init_lastSelect()
+  } else {
+    var lastSelect = JSON.parse(localStorage[KEY_FEGBA_LAST])
+  }
+} catch(e) {
+  init_lastSelect()
 }
 var chlist = ["上昇しないとダメ", "", "どちらでもよい", "上昇しちゃダメ", "--MAX--"]
 var killlist=[]; //瞬殺タイプ
@@ -484,22 +499,37 @@ function lvup(flag,v){ //上昇量表示
 }
 function ch_OnChange(f){ //ユニット選択変更
   if (!$("#unitname").val()) return
-  var j=document.getElementById("unitname").selectedIndex;
+  var name=$("#unitname").val()
+  var tar;
+  var len_ud = ud.length;
+  for (var i=0;i<len_ud;i++) {
+    if (ud[i][0] == name) {
+      tar = ud[i];
+      break;
+    }
+  }
+  if(!tar) return;
   document.getElementById("afua").checked=0;
   for(var i=0;i<prct;i++){
-    document.getElementById(prvn[i]).value=ud[j][i+1];
+    document.getElementById(prvn[i]).value = tar[i+1]
   }
-  obj = ud_obj[$("#unitname").val()]["ch"]
+  obj = ud_obj[name]["ch"]
   for (const prop in obj){
     $("#"+prop).val(chlist[obj[prop]]);
   }
   if(f){ calc_lvlup(); }
 
-  localStorage.setItem(KEY_FEGBA_CH, JSON.stringify(ud_obj))
-  var version = $("#version").val()
-  lastSelect["version"] = version
-  lastSelect["unit"][version] = $("#unitname").val()
-  localStorage.setItem(KEY_FEGBA_LAST, JSON.stringify(lastSelect))
+  try {
+    localStorage.setItem(KEY_FEGBA_CH, JSON.stringify(ud_obj))
+    var version = $("#version").val()
+    lastSelect["version"] = version
+    lastSelect["unit"][version] = $("#unitname").val()
+    localStorage.setItem(KEY_FEGBA_LAST, JSON.stringify(lastSelect))
+  } catch(ex) {
+    var version = $("#version").val()
+    lastSelect["version"] = version
+    lastSelect["unit"][version] = $("#unitname").val()
+  }
 }
 function createTable(f){ //乱数表表示
   if(f){
